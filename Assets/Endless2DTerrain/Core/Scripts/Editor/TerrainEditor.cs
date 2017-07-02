@@ -40,7 +40,7 @@ public class TerrainEditor : Editor
 
     //Cloned Terrain settings
     public SerializedProperty ClonedTerrainOffset;
-    public SerializedProperty ClonedTerrainScale;
+    public SerializedProperty ClonedTerrainRotation;
 
     //Terrain rules
     private SerializedProperty Rules;
@@ -106,7 +106,7 @@ public class TerrainEditor : Editor
         PrefabRulesExpanded = new List<bool>();
 
         ClonedTerrainOffset = terrainDisplayer.FindProperty("ClonedTerrainOffset");
-        ClonedTerrainScale = terrainDisplayer.FindProperty("ClonedTerrainScale");
+        ClonedTerrainRotation = terrainDisplayer.FindProperty("ClonedTerrainRotation");
 
     }
 
@@ -222,9 +222,7 @@ public class TerrainEditor : Editor
 
 
             EditorGUILayout.PropertyField(ClonedTerrainOffset, new GUIContent("Offset", "The offset it will have."));
-            EditorGUILayout.PropertyField(ClonedTerrainScale, new GUIContent("Scale", "The scale it will have"));
-
-            if (ClonedTerrainScale.vector3Value.x == 0 || ClonedTerrainScale.vector3Value.y == 0 || ClonedTerrainScale.vector3Value.z == 0) ClonedTerrainScale.vector3Value = new Vector3(1, 1, 1);
+            EditorGUILayout.PropertyField(ClonedTerrainRotation, new GUIContent("Rotation", "The rotation"));
 
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();

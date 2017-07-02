@@ -40,7 +40,7 @@ namespace Endless2DTerrain
         public string ParentGameObjectName { get; set; }
 
         public Vector3 ClonedTerrainOffset { get; set; }
-        public Vector3 ClonedTerrainScale { get; set; }
+        public Vector3 ClonedTerrainRotation { get; set; }
 
         public TerrainDisplayer terrainDisplayer { get; set; }
     }

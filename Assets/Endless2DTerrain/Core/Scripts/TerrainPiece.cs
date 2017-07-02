@@ -11,7 +11,7 @@ namespace Endless2DTerrain
         private Settings settings { get; set; }
 
         public Vector3 ClonedTerrainOffset { get; set; }
-        public Vector3 ClonedTerrainScale { get; set; }
+        public Vector3 ClonedTerrainRotation { get; set; }
 
         public TerrainPiece(Settings s)
         {
@@ -116,6 +116,10 @@ namespace Endless2DTerrain
                     MeshPiece mpTop = new MeshPiece(vg, MeshPiece.Plane.Top, settings);
                     mpTop.Create(mp.StartTopMesh, TerrainAngle, mp.KeyTopVerticies);
                     MeshPieces.Add(mpTop);
+
+                    MeshPiece mpBottom = new MeshPiece(vg, MeshPiece.Plane.Bottom, settings);
+                    mpBottom.Create(mp.StartBotMesh, TerrainAngle, mp.KeyBottomVerticies);
+                    MeshPieces.Add(mpBottom);
                 }
 
 
@@ -181,6 +185,8 @@ namespace Endless2DTerrain
                 //Just to tidy up the heirarchy
                 ParentMeshesToTerrainObject();
 
+                if (Application.isPlaying) CloneTerrainObject();
+
             }
         }
 
@@ -234,7 +240,6 @@ namespace Endless2DTerrain
             }
         }
 
-        //TODO: create corner cloned
         private void CloneTerrainObject()
         {
             ClonedTerrainObject = GameObject.Instantiate(TerrainObject);
@@ -256,10 +261,15 @@ namespace Endless2DTerrain
         private void RepositionTerrainPiece(GameObject clonedTerrainObject)
         {
             var offset = settings.ClonedTerrainOffset;
-            var scale = settings.ClonedTerrainScale;
+            var rotation = settings.ClonedTerrainRotation;
 
             clonedTerrainObject.transform.position += offset;
-            clonedTerrainObject.transform.localScale = scale;
+            clonedTerrainObject.transform.localScale = rotation;
+
+            if (TerrainAngle != 0)
+            {
+                clonedTerrainObject.transform.localScale = new Vector3(1, 1, 1);
+            }
         }
     }
 

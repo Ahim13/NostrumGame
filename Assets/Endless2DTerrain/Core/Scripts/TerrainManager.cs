@@ -184,9 +184,9 @@ namespace Endless2DTerrain
                     if (currentTerrain.TerrainAngle != nextTerrain.TerrainAngle)
                     {
                         //Move our next terrain mesh pieces out some so we can fit in the corner terrain piece
-                        MoveMeshesForCornerPiece(currentTerrain, nextTerrain, origin);
+                        // MoveMeshesForCornerPiece(currentTerrain, nextTerrain, origin);
 
-                        //Create corner terrain piece between the previous piece and this one
+                        // //Create corner terrain piece between the previous piece and this one
                         TerrainPiece tpCorner = new TerrainPiece(settings);
                         tpCorner.CreateCorner(VertexGen, currentTerrain, nextTerrain);
                         Pool.Add(tpCorner);

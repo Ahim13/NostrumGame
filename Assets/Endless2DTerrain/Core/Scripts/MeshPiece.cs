@@ -21,7 +21,8 @@ namespace Endless2DTerrain
         {
             Front,
             Top,
-            Detail
+            Detail,
+            Bottom
         }
 
         public VertexGenerator vg { get; set; }
@@ -50,6 +51,7 @@ namespace Endless2DTerrain
         private MeshRenderer meshRenderer { get; set; }
         private MeshCollider meshCollider { get; set; }
         public EdgeCollider2D polyCollider { get; set; }
+        public EdgeCollider2D polyCollider2 { get; set; }
         public Mesh mesh { get; set; }
 
         //For easy access when positioning the mesh
@@ -95,6 +97,13 @@ namespace Endless2DTerrain
             get
             {
                 return PlaneVerticies[1];
+            }
+        }
+        public Vector3 StartBotMesh
+        {
+            get
+            {
+                return PlaneVerticies[0];
             }
         }
 
@@ -201,6 +210,26 @@ namespace Endless2DTerrain
                 }
                 polyCollider.points = points.ToArray();
             }
+            if (PlaneType == Plane.Bottom)
+            {
+                var colliderMesh = new Mesh();
+                colliderMesh.vertices = mesh.vertices;
+                colliderMesh.triangles = mesh.triangles;
+                colliderMesh.RecalculateBounds();
+
+                //meshCollider.sharedMesh = colliderMesh;
+                //meshCollider.smoothSphereCollisions = true;
+                List<Vector2> points = new List<Vector2>(mesh.vertices.Length);
+                float posZ = mesh.vertices[0].z;
+                foreach (Vector3 vec in mesh.vertices)
+                {
+                    if (vec.z < posZ + 0.1 && vec.z > posZ - 0.1)
+                    {
+                        points.Add(new Vector2(vec.x, vec.y));
+                    }
+                }
+                polyCollider2.points = points.ToArray();
+            }
         }
 
         public void CreateCorner(List<Vector3> keyTopVerticies, List<Vector3> keyBottomVerticies)
@@ -291,6 +320,18 @@ namespace Endless2DTerrain
                 //Then shift the top verts into the z plane
                 AllTopVerticies = th.MoveStartVertex(AllTopVerticies, AllTopVerticies[0], new Vector3(firstBottomVertex.x, firstBottomVertex.y, firstBottomVertex.z + settings.TopPlaneHeight), false);
             }
+            if (PlaneType == Plane.Bottom)
+            {
+
+                //The bottom verts are a copy of the top
+                AllBottomVerticies = th.CopyList(AllTopVerticies);
+                KeyBottomVerticies = th.CopyList(KeyTopVerticies);
+
+                Vector3 firstBottomVertex = AllTopVerticies[0];
+
+                //Then shift the top verts into the z plane
+                AllTopVerticies = th.MoveStartVertex(AllTopVerticies, AllTopVerticies[0], new Vector3(firstBottomVertex.x, firstBottomVertex.y, firstBottomVertex.z + settings.TopPlaneHeight), false);
+            }
 
 
             //Now stich top and bottom verticies together into a plane
@@ -299,6 +340,10 @@ namespace Endless2DTerrain
 
             //For the top plane we have to move our point of origin based on the plane height
             if (PlaneType == Plane.Top)
+            {
+                origin = new Vector3(origin.x, origin.y, origin.z + settings.TopPlaneHeight);
+            }
+            if (PlaneType == Plane.Bottom)
             {
                 origin = new Vector3(origin.x, origin.y, origin.z + settings.TopPlaneHeight);
             }
@@ -334,6 +379,8 @@ namespace Endless2DTerrain
 
             if (meshFilter == null) { meshFilter = MeshObject.AddComponent<MeshFilter>(); }
 
+            if (PlaneType == Plane.Bottom) polyCollider2 = MeshObject.AddComponent<EdgeCollider2D>();
+
             if (PlaneType == Plane.Top)
             {
                 if (settings.DrawTopMeshRenderer)
@@ -346,6 +393,7 @@ namespace Endless2DTerrain
                     {
                         //meshCollider = MeshObject.AddComponent<MeshCollider>();
                         polyCollider = MeshObject.AddComponent<EdgeCollider2D>();
+
                     }
                 }
             }
