@@ -371,6 +371,7 @@ namespace Endless2DTerrain
         private void InstantiateMeshObject()
         {
             MeshObject = new GameObject("MeshPiece");
+            MeshObject.tag = "Map";
             AddMeshComponents();
         }
 
