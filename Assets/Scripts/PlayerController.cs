@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using DG.Tweening;
 
 namespace NostrumGames
 {
@@ -44,6 +45,11 @@ namespace NostrumGames
             })
             .AddTo(this);
 
+            InitBasicMovement();
+
+        }
+        private void InitBasicMovement()
+        {
             moveUp = MyInputs.Instance.MoveUp
             .Subscribe(pressingSpace =>
             {
@@ -64,7 +70,6 @@ namespace NostrumGames
             .AddTo(this);
 
             MovingOnAxisX();
-
         }
 
         private void MovingOnAxisX()
@@ -74,8 +79,15 @@ namespace NostrumGames
                 .AddTo(this);
         }
 
+        public void StartNewLife()
+        {
+            rigidbody2D.gravityScale = GravityScaleDefualt;
+            rigidbody2D.velocity = new Vector2(0, 0);
+            InitBasicMovement();
+        }
+
         //TODO: make better "death gravity", now you have to set the gravityScale back to default
-        public void Death()
+        public void KillController()
         {
             moveUp.Dispose();
             rigidbody2D.gravityScale = gravityScale;
