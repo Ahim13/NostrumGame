@@ -26,6 +26,7 @@ public class Follow : MonoBehaviour
         if (targetLastPos == target.position) return;
         // Add a Restart in the end, so that if the tween was completed it will play again
         tween.ChangeEndValue(target.position, true).Restart();
+        // if (Input.GetKeyDown(KeyCode.A)) tween.ChangeEndValue(new Vector3(2, 8, 0), true).Restart();
         targetLastPos = target.position;
     }
 }

@@ -8,7 +8,7 @@ namespace NostrumGames
 {
     public class MyInputs : Singleton<MyInputs>
     {
-
+        protected MyInputs() { }
         public IObservable<Vector2> Movement { get; private set; }
         public IObservable<bool> MoveUp { get; private set; }
 

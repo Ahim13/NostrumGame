@@ -12,6 +12,7 @@ namespace NostrumGames
     {
         public IObservable<Unit> MovingVelocity { get; private set; }
         public static float GravityScaleDefualt { get; private set; }
+        public float VelocityX { get { return velocityX; } private set { } }
         private Rigidbody2D rigidbody2D;
         [SerializeField]
         private float upForce;
@@ -82,6 +83,7 @@ namespace NostrumGames
         public void StartNewLife()
         {
             rigidbody2D.gravityScale = GravityScaleDefualt;
+            rigidbody2D.isKinematic = false;
             rigidbody2D.velocity = new Vector2(0, 0);
             InitBasicMovement();
         }
@@ -91,6 +93,7 @@ namespace NostrumGames
         {
             moveUp.Dispose();
             rigidbody2D.gravityScale = gravityScale;
+            rigidbody2D.isKinematic = true;
         }
 
     }
