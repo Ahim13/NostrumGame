@@ -25,6 +25,7 @@ namespace NostrumGames
         private float upwardDrag;
 
         private IDisposable moveUp;
+        private IDisposable movingOnX;
 
         void Awake()
         {
@@ -75,7 +76,7 @@ namespace NostrumGames
 
         private void MovingOnAxisX()
         {
-            this.FixedUpdateAsObservable()
+            movingOnX = this.FixedUpdateAsObservable()
                 .Subscribe(_ => rigidbody2D.velocity = new Vector2(velocityX, rigidbody2D.velocity.y))
                 .AddTo(this);
         }
@@ -92,8 +93,15 @@ namespace NostrumGames
         public void KillController()
         {
             moveUp.Dispose();
+            movingOnX.Dispose();
+            rigidbody2D.velocity = Vector3.zero;
             rigidbody2D.gravityScale = gravityScale;
-            rigidbody2D.isKinematic = true;
+            // rigidbody2D.isKinematic = true;
+        }
+
+        public void IsKinematic(bool kinematic)
+        {
+            rigidbody2D.isKinematic = kinematic;
         }
 
     }

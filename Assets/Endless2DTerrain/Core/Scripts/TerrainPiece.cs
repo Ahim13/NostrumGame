@@ -117,7 +117,7 @@ namespace Endless2DTerrain
                     mpTop.Create(mp.StartTopMesh, TerrainAngle, mp.KeyTopVerticies);
                     MeshPieces.Add(mpTop);
 
-                    MeshPiece mpBottom = new MeshPiece(vg, MeshPiece.Plane.Bottom, settings);
+                    MeshPiece mpBottom = new MeshPiece(vg, MeshPiece.Plane.Bottom, settings, mpTop);
                     mpBottom.Create(mp.StartBotMesh, TerrainAngle, mp.KeyBottomVerticies);
                     MeshPieces.Add(mpBottom);
                 }
@@ -175,8 +175,11 @@ namespace Endless2DTerrain
                     Vector3 firstBottomVertex = topVerticies[0];
 
                     //Then shift the top verts into the z plane
+                    // topVerticies = th.MoveStartVertex(topVerticies, firstBottomVertex, new Vector3(firstBottomVertex.x, firstBottomVertex.y, firstBottomVertex.z + settings.TopPlaneHeight), false);
+                    // meshPieceTop.CreateCorner(topVerticies, bottomVerticies);
+                    // MeshPieces.Add(meshPieceTop);
                     topVerticies = th.MoveStartVertex(topVerticies, firstBottomVertex, new Vector3(firstBottomVertex.x, firstBottomVertex.y, firstBottomVertex.z + settings.TopPlaneHeight), false);
-                    meshPieceTop.CreateCorner(topVerticies, bottomVerticies);
+                    meshPieceTop.CreateCorner(topVerticies, meshPiece.AllBottomVerticies);
                     MeshPieces.Add(meshPieceTop);
                 }
 

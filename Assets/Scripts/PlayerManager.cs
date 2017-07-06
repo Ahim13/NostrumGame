@@ -22,9 +22,14 @@ namespace NostrumGames
 
         private Sequence deathSequence;
         private Tweener followTween;
+        private Tweener setLocalPosTween;
 
         [SerializeField]
         private float playerStartPointAtX;
+        [SerializeField]
+        private float delayAfterDeath;
+        [SerializeField]
+        private float timeToReachSpawnpoint;
 
         /// <summary>
         /// Awake is called when the script instance is being loaded.
@@ -49,60 +54,67 @@ namespace NostrumGames
 
             TweenInit();
 
-            cameraMiddlePosition = MainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 15));
-            cameraMiddlePositionLatPos = cameraMiddlePosition;
-            followTween = transform.DOMove(new Vector2(cameraMiddlePosition.x + playerStartPointAtX, cameraMiddlePosition.y), deathSequence.Duration(true)).SetAutoKill(false).Pause();
-
+            // cameraMiddlePosition = MainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 15));
+            // cameraMiddlePositionLatPos = cameraMiddlePosition;
+            // followTween = transform.DOMove(new Vector2(cameraMiddlePosition.x + playerStartPointAtX, cameraMiddlePosition.y), deathSequence.Duration(true) - delayAfterDeath).SetAutoKill(false).Pause();
         }
 
 
         private void TweenInit()
         {
             var renderer = this.GetComponent<Renderer>();
-            //cameraMiddlePosition = MainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, MainCamera.nearClipPlane));
             deathSequence = DOTween.Sequence().Pause();
-            // deathSequence.AppendInterval(1);
-            // deathSequence.Append(transform.DOMove(new Vector2(cameraMiddlePosition.x + playerStartPointAtX, cameraMiddlePosition.y), 2, false));
-            // deathSequence.Join(DOTween.ToAlpha(() => renderer.material.color, x => renderer.material.color = x, 0, 1).SetLoops(2, LoopType.Yoyo));
-            deathSequence.Append(DOTween.ToAlpha(() => renderer.material.color, x => renderer.material.color = x, 0, 0.35f).SetLoops(6, LoopType.Yoyo));
-            deathSequence.OnComplete(deathSequenceEnded());
-        }
+            // deathSequence.AppendInterval(delayAfterDeath);
+            deathSequence.Append(DOTween.ToAlpha(() => renderer.material.color, x => renderer.material.color = x, 0, 0.25f).SetLoops(4, LoopType.Yoyo));
 
-        private TweenCallback deathSequenceEnded()
-        {
-            return new TweenCallback(OnSpawnPointSet);
+            setLocalPosTween = transform.DOLocalMove(new Vector3(playerStartPointAtX, 0, 10), timeToReachSpawnpoint).SetAutoKill(false).Pause().OnComplete(() => OnSpawnPointSet());
         }
 
         private void OnSpawnPointSet()
         {
             deathSequence.Rewind();
+            // followTween.Rewind();
+            // followTween.Pause();
             playerController.StartNewLife();
-            followTween.Rewind();
+            transform.SetParent(null);
         }
 
         private void OnDeath()
         {
             playerController.KillController();
-            deathSequence.Play();
-            followTween.Play();
+            DOVirtual.DelayedCall(1, () => SetParenting());
+            // deathSequence.Play();
+            // followTween.SetDelay(delayAfterDeath).Play();
         }
 
-        /// <summary>
-        /// Update is called every frame, if the MonoBehaviour is enabled.
-        /// </summary>
+
+        private void SetParenting()
+        {
+            transform.SetParent(MainCamera.transform);
+            playerController.IsKinematic(true);
+            setLocalPosTween.ChangeStartValue(transform.localPosition, timeToReachSpawnpoint);
+            setLocalPosTween.Play();
+            deathSequence.Play();
+            //DOVirtual.DelayedCall(2, () => OnSpawnPointSet());
+        }
+
         void Update()
         {
-            // cameraMiddlePosition = MainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 10));
 
+            // cameraMiddlePosition = MainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 15));
 
-            cameraMiddlePosition = MainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 15));
+            // if (cameraMiddlePosition != cameraMiddlePositionLatPos)
+            // {
+            //     followTween.ChangeEndValue(new Vector3(cameraMiddlePosition.x + playerStartPointAtX, cameraMiddlePosition.y, 15), 1, true);
+            // }
 
-            if (cameraMiddlePosition != cameraMiddlePositionLatPos)
-            {
-                followTween.ChangeEndValue(new Vector3(cameraMiddlePosition.x + playerStartPointAtX, cameraMiddlePosition.y, 15), 0.15f, true);
-            }
+            // cameraMiddlePositionLatPos = cameraMiddlePosition;
 
-            cameraMiddlePositionLatPos = cameraMiddlePosition;
+            if (Input.GetKeyDown(KeyCode.F)) setLocalPosTween.Play();
+            if (Input.GetKeyDown(KeyCode.G)) setLocalPosTween.Pause();
+            if (Input.GetKeyDown(KeyCode.E)) setLocalPosTween.Restart();
+            if (Input.GetKeyDown(KeyCode.R)) setLocalPosTween.Rewind();
+            if (Input.GetKeyDown(KeyCode.T)) setLocalPosTween.ChangeStartValue(transform.localPosition, 1);
 
         }
 

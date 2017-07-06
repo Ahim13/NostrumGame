@@ -13,7 +13,7 @@ namespace Endless2DTerrain
             for (int i = 0; i < verticies.Count; i++)
             {
                 copy.Add(new Vector3(verticies[i].x, verticies[i].y, verticies[i].z));
-            }		
+            }
             return copy;
         }
 
@@ -40,7 +40,7 @@ namespace Endless2DTerrain
         public List<Vector3> GetPerpendicularOffset(List<Vector3> verticies, float offset)
         {
             List<Vector3> copy = new List<Vector3>();
-           
+
 
             for (int i = 0; i < verticies.Count; i++)
             {
@@ -55,24 +55,24 @@ namespace Endless2DTerrain
                 {
                     previousVertex = verticies[i - 1];
                 }
-           
-           
+
+
                 Vector3 vectorTowardPlayer = new Vector3(currentVertex.x, currentVertex.y, currentVertex.z - 1);
-					
-				Vector3 a = currentVertex;
-				Vector3 b = previousVertex;
-				Vector3 c = vectorTowardPlayer;					
-					
-					
-	            Vector3 side1 = b-a;
-                Vector3 side2 = c-a;
+
+                Vector3 a = currentVertex;
+                Vector3 b = previousVertex;
+                Vector3 c = vectorTowardPlayer;
+
+
+                Vector3 side1 = b - a;
+                Vector3 side2 = c - a;
 
                 //Get a height of 1 times our offset size
-	            Vector3 perpendicular = Vector3.Cross(side1, side2).normalized * offset;				
-					
+                Vector3 perpendicular = Vector3.Cross(side1, side2).normalized * offset;
+
                 //And get the perp vertex relative to the current vertex
-				perpendicular = perpendicular + currentVertex;	
-	            copy.Add(perpendicular);
+                perpendicular = perpendicular + currentVertex;
+                copy.Add(perpendicular);
             }
 
             return copy;
@@ -102,7 +102,7 @@ namespace Endless2DTerrain
                     verticies[i] = verticies[i] + moveVector;
                 }
 
-              
+
             }
 
             if (copyVertices)
@@ -113,7 +113,7 @@ namespace Endless2DTerrain
             {
                 return verticies;
             }
-         
+
         }
 
         //Rotate a vertex by a given angle
@@ -131,7 +131,7 @@ namespace Endless2DTerrain
         //Rotate a list of verticies by a given angle
         public List<Vector3> RotateVertices(List<Vector3> verticies, float angle)
         {
-			List<Vector3> rotated = new List<Vector3>();
+            List<Vector3> rotated = new List<Vector3>();
             for (int i = 0; i < verticies.Count(); i++)
             {
                 Vector3 vertex = verticies[i];
@@ -158,7 +158,7 @@ namespace Endless2DTerrain
             return (y1 * (1 - mu2) + y2 * mu2);
         }
 
-      
+
 
     }
 }

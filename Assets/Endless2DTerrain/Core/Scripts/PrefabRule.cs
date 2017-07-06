@@ -20,8 +20,8 @@ namespace Endless2DTerrain
         public Vector3 Offset;
         public GameObject PrefabToClone;
         public float MinRepeatDistance;
-        public float MaxRepeatDistance;   
-     
+        public float MaxRepeatDistance;
+
         public int MinGroupSize;
         public int MaxGroupSize;
 
@@ -34,7 +34,7 @@ namespace Endless2DTerrain
         public bool MatchGroundAngle;
 
         //Use for tracking prefabs and setting their location
-        public Vector3 StartLocation{get;set;}
+        public Vector3 StartLocation { get; set; }
         public Vector3 CurrentLocation { get; set; }
         public Vector3 LastPrefabLocation { get; set; }
 
@@ -47,8 +47,9 @@ namespace Endless2DTerrain
 
         public void InstantiatePrefab(Vector3 position, GameObject prefabManager, PrefabPool pool, float angle)
         {
-            var prefab = pool.Add(PrefabToClone, position, angle, PrefabToClone.name, MatchGroundAngle);            
+            var prefab = pool.Add(PrefabToClone, position, angle, PrefabToClone.name, MatchGroundAngle);
             prefab.transform.parent = prefabManager.transform;
+
 
             //If we have an offset (and we are placing prefabs at an angle), get the direction of that offset.
             //In otherwords, if our offset says to move one up in the y direction, getting the transform direction means the 
@@ -61,12 +62,13 @@ namespace Endless2DTerrain
 
         public bool AddPrefab(float repeatDistance)
         {
-           
-			if (CurrentLocation.x > LastPrefabLocation.x){
-				return Mathf.Abs(CurrentLocation.x - LastPrefabLocation.x) >= repeatDistance;
-			}
+
+            if (CurrentLocation.x > LastPrefabLocation.x)
+            {
+                return Mathf.Abs(CurrentLocation.x - LastPrefabLocation.x) >= repeatDistance;
+            }
             return false;
-       
+
         }
 
         public float NextPrefabXLocation(float repeatDistance)

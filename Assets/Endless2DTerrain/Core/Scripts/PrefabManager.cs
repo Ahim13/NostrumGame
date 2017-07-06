@@ -7,7 +7,7 @@ namespace Endless2DTerrain
 {
     public class PrefabManager
     {
-       
+
         public TerrainManager terrainManager { get; set; }
         public PrefabPool Pool { get; set; }
         private TransformHelpers th { get; set; }
@@ -22,10 +22,10 @@ namespace Endless2DTerrain
             Pool = new PrefabPool();
             settings = s;
             InstantiatePrefabManagerObject();
-        
+
         }
 
-    
+
         public void PlacePrefabs(TerrainManager tm)
         {
 
@@ -33,8 +33,8 @@ namespace Endless2DTerrain
             InstantiatePrefabManagerObject();
 
             List<PrefabQueue> prefabsToAdd = new List<PrefabQueue>();
-           
-            
+
+
             for (int i = 0; i < terrainManager.AllFrontTopVerticies.Count(); i++)
             {
                 Vector3 current = terrainManager.AllFrontTopVerticies[i];
@@ -47,8 +47,9 @@ namespace Endless2DTerrain
                     if (rule.PrefabToClone == null) { break; }
 
                     //If we haven't started yet, set our initial values
-                    if (rule.LastPrefabLocation == Vector3.zero){
-                       
+                    if (rule.LastPrefabLocation == Vector3.zero)
+                    {
+
                         rule.LastPrefabLocation = current;
                     }
 
@@ -59,7 +60,7 @@ namespace Endless2DTerrain
 
                     if (rule.AddPrefab(repeatDistance))
                     {
-                        
+
 
                         //Find the location of the first prefab
                         float nextXLocation = rule.NextPrefabXLocation(repeatDistance);
@@ -72,8 +73,8 @@ namespace Endless2DTerrain
                         prefabsToAdd.Clear();
                         prefabsToAdd.Add(new PrefabQueue() { location = nextLocation, angle = angle });
 
-                     
-                        
+
+
 
                         if (rule.GroupSize > 1)
                         {
@@ -135,12 +136,11 @@ namespace Endless2DTerrain
                                     rule.LastPrefabLocation = pq.location;
                                 }
 
-                 
                             }
                         }
                     }
                 }
-          
+
             }
 
         }
@@ -150,7 +150,7 @@ namespace Endless2DTerrain
             Vector3 low = Vector3.zero;
             Vector3 high = Vector3.zero;
 
-            
+
 
             //Find the verticies below and above the given location
             for (int i = 0; i < terrainManager.AllFrontTopVerticies.Count(); i++)
@@ -187,7 +187,7 @@ namespace Endless2DTerrain
         public float FindSlopeAngle(float location)
         {
 
-            Vector3 low = Vector3.zero;      
+            Vector3 low = Vector3.zero;
             Vector3 high = Vector3.zero;
 
 
@@ -207,11 +207,11 @@ namespace Endless2DTerrain
                 }
             }
 
-        
+
             float rise = high.y - low.y;
             float run = high.x - low.x;
             float angle = Mathf.Atan2(rise, run) * 180 / Mathf.PI;
-          
+
             return angle;
         }
 
@@ -220,12 +220,12 @@ namespace Endless2DTerrain
         {
 
             List<GameObject> prefabsToRemove = new List<GameObject>();
-			
-			if (Pool == null){return;}
+
+            if (Pool == null) { return; }
 
             for (int i = 0; i < Pool.Prefabs.Count(); i++)
             {
-                GameObject prefab = Pool.Prefabs[i].Prefab;           
+                GameObject prefab = Pool.Prefabs[i].Prefab;
                 if (prefab.transform.position.x < beginX)
                 {
                     prefabsToRemove.Add(prefab);
@@ -242,16 +242,17 @@ namespace Endless2DTerrain
         public void RemovePrefabObject()
         {
             var obj = GameObject.Find(ManagerName);
-            if (obj != null){
+            if (obj != null)
+            {
                 GameObject.DestroyImmediate(obj);
             }
-            
+
         }
 
 
         private void InstantiatePrefabManagerObject()
         {
-           
+
             //This is just a placeholder for all the mesh pieces
             if (!GameObject.Find(ManagerName))
             {

@@ -7,13 +7,15 @@ namespace Endless2DTerrain
 {
     public class MeshPiece
     {
-        private Settings settings { get; set; }
+        private Settings Settings { get; set; }
+        private MeshPiece RelativeToMeshPiece { get; set; }
 
-        public MeshPiece(VertexGenerator vg, Plane planeType, Settings s)
+        public MeshPiece(VertexGenerator vg, Plane planeType, Settings s, MeshPiece relativeToMeshPiece = null)
         {
             this.vg = vg;
             PlaneType = planeType;
-            settings = s;
+            Settings = s;
+            RelativeToMeshPiece = relativeToMeshPiece;
         }
 
 
@@ -103,6 +105,7 @@ namespace Endless2DTerrain
         {
             get
             {
+                // Debug.Log(PlaneVerticies[0]);
                 return PlaneVerticies[0];
             }
         }
@@ -163,21 +166,25 @@ namespace Endless2DTerrain
             mesh.triangles = GetMeshTriangles(RotatedPlaneVerticies).ToArray();
             mesh.uv = GetUVMapping(RotatedPlaneVerticies).ToArray();
 
-            if (PlaneType == Plane.Front && settings.MainMaterial != null)
+            if (PlaneType == Plane.Front && Settings.MainMaterial != null)
             {
-                meshRenderer.GetComponent<Renderer>().sharedMaterial = settings.MainMaterial;
+                meshRenderer.GetComponent<Renderer>().sharedMaterial = Settings.MainMaterial;
                 meshRenderer.GetComponent<Renderer>().sharedMaterial.renderQueue = RenderQueue.FrontPlane;
 
             }
-            if (PlaneType == Plane.Detail && settings.DetailMaterial != null)
+            if (PlaneType == Plane.Detail && Settings.DetailMaterial != null)
             {
-                meshRenderer.GetComponent<Renderer>().sharedMaterial = settings.DetailMaterial;
+                meshRenderer.GetComponent<Renderer>().sharedMaterial = Settings.DetailMaterial;
                 meshRenderer.GetComponent<Renderer>().sharedMaterial.renderQueue = RenderQueue.DetailPlane;
 
             }
-            if (PlaneType == Plane.Top && settings.DrawTopMeshRenderer && settings.TopMaterial != null)
+            if (PlaneType == Plane.Top && Settings.DrawTopMeshRenderer && Settings.TopMaterial != null)
             {
-                meshRenderer.GetComponent<Renderer>().sharedMaterial = settings.TopMaterial;
+                meshRenderer.GetComponent<Renderer>().sharedMaterial = Settings.TopMaterial;
+            }
+            if (PlaneType == Plane.Bottom)
+            {
+                meshRenderer.GetComponent<Renderer>().sharedMaterial = Settings.TopMaterial;
             }
 
 
@@ -190,7 +197,7 @@ namespace Endless2DTerrain
 
         public void AddCollider()
         {
-            if (PlaneType == Plane.Top && settings.DrawTopMeshCollider)
+            if (PlaneType == Plane.Top && Settings.DrawTopMeshCollider)
             {
                 var colliderMesh = new Mesh();
                 colliderMesh.vertices = mesh.vertices;
@@ -255,7 +262,6 @@ namespace Endless2DTerrain
             return false;
         }
 
-
         private void SetCornerVerticies(List<Vector3> keyTopVerticies, List<Vector3> keyBottomVerticies)
         {
             KeyTopVerticies = keyTopVerticies;
@@ -263,6 +269,7 @@ namespace Endless2DTerrain
 
             AllTopVerticies = keyTopVerticies;
             AllBottomVerticies = keyBottomVerticies;
+
 
             PlaneVerticies = vg.GetPlaneVerticies(AllBottomVerticies, AllTopVerticies);
             RotatedPlaneVerticies = PlaneVerticies;
@@ -287,7 +294,7 @@ namespace Endless2DTerrain
             if (PlaneType == Plane.Front)
             {
                 Vector3 firstBottomVertex = AllTopVerticies[0];
-                Vector3 shift = new Vector3(firstBottomVertex.x, firstBottomVertex.y - settings.MainPlaneHeight, firstBottomVertex.z);
+                Vector3 shift = new Vector3(firstBottomVertex.x, firstBottomVertex.y - Settings.MainPlaneHeight, firstBottomVertex.z);
 
                 AllBottomVerticies = th.MoveStartVertex(AllTopVerticies, AllTopVerticies[0], shift, true);
                 KeyBottomVerticies = th.MoveStartVertex(KeyTopVerticies, AllTopVerticies[0], shift, true);
@@ -301,7 +308,7 @@ namespace Endless2DTerrain
             if (PlaneType == Plane.Detail)
             {
                 Vector3 firstBottomVertex = th.CopyVertex(AllTopVerticies[0]);
-                Vector3 shift = new Vector3(firstBottomVertex.x, firstBottomVertex.y - settings.DetailPlaneHeight, firstBottomVertex.z);
+                Vector3 shift = new Vector3(firstBottomVertex.x, firstBottomVertex.y - Settings.DetailPlaneHeight, firstBottomVertex.z);
 
                 AllBottomVerticies = th.MoveStartVertex(AllTopVerticies, firstBottomVertex, shift, true);
                 KeyBottomVerticies = th.MoveStartVertex(KeyTopVerticies, firstBottomVertex, shift, true);
@@ -318,7 +325,7 @@ namespace Endless2DTerrain
                 Vector3 firstBottomVertex = AllTopVerticies[0];
 
                 //Then shift the top verts into the z plane
-                AllTopVerticies = th.MoveStartVertex(AllTopVerticies, AllTopVerticies[0], new Vector3(firstBottomVertex.x, firstBottomVertex.y, firstBottomVertex.z + settings.TopPlaneHeight), false);
+                AllTopVerticies = th.MoveStartVertex(AllTopVerticies, AllTopVerticies[0], new Vector3(firstBottomVertex.x, firstBottomVertex.y, firstBottomVertex.z + Settings.TopPlaneHeight), false);
             }
             if (PlaneType == Plane.Bottom)
             {
@@ -330,7 +337,7 @@ namespace Endless2DTerrain
                 Vector3 firstBottomVertex = AllTopVerticies[0];
 
                 //Then shift the top verts into the z plane
-                AllTopVerticies = th.MoveStartVertex(AllTopVerticies, AllTopVerticies[0], new Vector3(firstBottomVertex.x, firstBottomVertex.y, firstBottomVertex.z + settings.TopPlaneHeight), false);
+                AllTopVerticies = th.MoveStartVertex(AllTopVerticies, AllTopVerticies[0], new Vector3(firstBottomVertex.x, firstBottomVertex.y, firstBottomVertex.z + Settings.TopPlaneHeight), false);
             }
 
 
@@ -341,11 +348,11 @@ namespace Endless2DTerrain
             //For the top plane we have to move our point of origin based on the plane height
             if (PlaneType == Plane.Top)
             {
-                origin = new Vector3(origin.x, origin.y, origin.z + settings.TopPlaneHeight);
+                origin = new Vector3(origin.x, origin.y, origin.z + Settings.TopPlaneHeight);
             }
             if (PlaneType == Plane.Bottom)
             {
-                origin = new Vector3(origin.x, origin.y, origin.z + settings.TopPlaneHeight);
+                origin = new Vector3(origin.x, origin.y, origin.z + Settings.TopPlaneHeight);
             }
 
 
@@ -358,7 +365,25 @@ namespace Endless2DTerrain
             if (angle != 0)
             {
                 RotatedPlaneVerticies = th.RotateVertices(PlaneVerticies, angle);
-                RotatedPlaneVerticies = th.MoveStartVertex(RotatedPlaneVerticies, RotatedPlaneVerticies[1], origin, false);
+
+
+
+                if (PlaneType == Plane.Bottom)
+                {
+                    var originToRotate = origin;
+
+                    var rotationAngle = angle;
+                    var m = Vector2.Distance(RelativeToMeshPiece.RotatedPlaneVerticies[0], originToRotate);
+
+                    var x = m * Mathf.Sin(rotationAngle * Mathf.Deg2Rad);
+                    var y = m - m * Mathf.Cos(rotationAngle * Mathf.Deg2Rad);
+
+
+                    origin = new Vector3(originToRotate.x + x, originToRotate.y + y, origin.z);
+                    RotatedPlaneVerticies = th.MoveStartVertex(RotatedPlaneVerticies, RotatedPlaneVerticies[1], origin, false);
+                }
+                else RotatedPlaneVerticies = th.MoveStartVertex(RotatedPlaneVerticies, RotatedPlaneVerticies[1], origin, false);
+
             }
             else
             {
@@ -372,6 +397,10 @@ namespace Endless2DTerrain
         {
             MeshObject = new GameObject("MeshPiece");
             MeshObject.tag = "Map";
+            if (PlaneType == Plane.Detail) MeshObject.name = "Detail";
+            if (PlaneType == Plane.Bottom) MeshObject.name = "Bottom";
+            if (PlaneType == Plane.Front) MeshObject.name = "Front";
+            if (PlaneType == Plane.Top) MeshObject.name = "Top";
             AddMeshComponents();
         }
 
@@ -384,11 +413,11 @@ namespace Endless2DTerrain
 
             if (PlaneType == Plane.Top)
             {
-                if (settings.DrawTopMeshRenderer)
+                if (Settings.DrawTopMeshRenderer)
                 {
                     if (meshRenderer == null) { meshRenderer = MeshObject.AddComponent<MeshRenderer>(); }
                 }
-                if (settings.DrawTopMeshCollider)
+                if (Settings.DrawTopMeshCollider)
                 {
                     if (meshCollider == null)
                     {
@@ -477,41 +506,41 @@ namespace Endless2DTerrain
             float yTiling = 1f;
 
             //The uv tiling also has to factor in the height and width of the textures we are using
-            if (settings.MainMaterial != null && settings.MainMaterial.mainTexture != null)
+            if (Settings.MainMaterial != null && Settings.MainMaterial.mainTexture != null)
             {
-                textureHeight = settings.MainMaterial.mainTexture.height;
-                textureWidth = settings.MainMaterial.mainTexture.width;
+                textureHeight = Settings.MainMaterial.mainTexture.height;
+                textureWidth = Settings.MainMaterial.mainTexture.width;
             }
 
-            if (settings.TopMaterial != null && settings.TopMaterial.mainTexture != null)
+            if (Settings.TopMaterial != null && Settings.TopMaterial.mainTexture != null)
             {
-                textureHeight = settings.TopMaterial.mainTexture.height;
-                textureWidth = settings.TopMaterial.mainTexture.width;
+                textureHeight = Settings.TopMaterial.mainTexture.height;
+                textureWidth = Settings.TopMaterial.mainTexture.width;
             }
 
-            if (settings.DetailMaterial != null && settings.DetailMaterial.mainTexture != null)
+            if (Settings.DetailMaterial != null && Settings.DetailMaterial.mainTexture != null)
             {
-                textureHeight = settings.DetailMaterial.mainTexture.height;
-                textureWidth = settings.DetailMaterial.mainTexture.width;
+                textureHeight = Settings.DetailMaterial.mainTexture.height;
+                textureWidth = Settings.DetailMaterial.mainTexture.width;
             }
 
             //Set our tiling depending on the plane
             if (PlaneType == Plane.Front)
             {
-                xTiling = settings.MainMaterialXTiling;
-                yTiling = settings.MainMaterialYTiling;
+                xTiling = Settings.MainMaterialXTiling;
+                yTiling = Settings.MainMaterialYTiling;
             }
 
             if (PlaneType == Plane.Top)
             {
-                xTiling = settings.TopMaterialXTiling;
-                yTiling = settings.TopMaterialYTiling;
+                xTiling = Settings.TopMaterialXTiling;
+                yTiling = Settings.TopMaterialYTiling;
             }
 
             if (PlaneType == Plane.Detail)
             {
-                xTiling = settings.DetailMaterialXTiling;
-                yTiling = settings.DetailMaterialYTiling;
+                xTiling = Settings.DetailMaterialXTiling;
+                yTiling = Settings.DetailMaterialYTiling;
             }
 
 
@@ -562,11 +591,11 @@ namespace Endless2DTerrain
 
 
                 //If we want the uv mapping to follow the curve of the plane instead, set it here
-                if (PlaneType == Plane.Front && settings.MainPlaneFollowTerrainCurve)
+                if (PlaneType == Plane.Front && Settings.MainPlaneFollowTerrainCurve)
                 {
                     if (i % 2 == 0)
                     {
-                        yMapping = -settings.MainPlaneHeight / textureHeight;
+                        yMapping = -Settings.MainPlaneHeight / textureHeight;
                     }
                     else
                     {
@@ -574,11 +603,11 @@ namespace Endless2DTerrain
                     }
                 }
 
-                if (PlaneType == Plane.Detail && settings.DetailPlaneFollowTerrainCurve)
+                if (PlaneType == Plane.Detail && Settings.DetailPlaneFollowTerrainCurve)
                 {
                     if (i % 2 == 0)
                     {
-                        yMapping = -settings.DetailPlaneHeight / textureHeight;
+                        yMapping = -Settings.DetailPlaneHeight / textureHeight;
                     }
                     else
                     {
@@ -591,20 +620,20 @@ namespace Endless2DTerrain
 
 
                 //Now set the rotation of the uv mapping
-                if (settings.MainMaterialRotation != 0 && PlaneType == Plane.Front)
+                if (Settings.MainMaterialRotation != 0 && PlaneType == Plane.Front)
                 {
-                    uv = th.RotateVertex(uv, settings.MainMaterialRotation);
+                    uv = th.RotateVertex(uv, Settings.MainMaterialRotation);
                 }
 
-                if (settings.DetailMaterialRotation != 0 && PlaneType == Plane.Detail)
+                if (Settings.DetailMaterialRotation != 0 && PlaneType == Plane.Detail)
                 {
-                    uv = th.RotateVertex(uv, settings.DetailMaterialRotation);
+                    uv = th.RotateVertex(uv, Settings.DetailMaterialRotation);
                 }
 
 
-                if (settings.TopMaterialRotation != 0 && PlaneType == Plane.Top)
+                if (Settings.TopMaterialRotation != 0 && PlaneType == Plane.Top)
                 {
-                    uv = th.RotateVertex(uv, settings.TopMaterialRotation);
+                    uv = th.RotateVertex(uv, Settings.TopMaterialRotation);
                 }
 
                 uvs.Add(uv);
