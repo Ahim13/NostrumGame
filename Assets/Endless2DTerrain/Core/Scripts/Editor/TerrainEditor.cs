@@ -41,6 +41,7 @@ public class TerrainEditor : Editor
     //Cloned Terrain settings
     public SerializedProperty ClonedTerrainOffset;
     public SerializedProperty ClonedTerrainRotation;
+    public SerializedProperty CameraPathOffset;
 
     //Terrain rules
     private SerializedProperty Rules;
@@ -107,6 +108,7 @@ public class TerrainEditor : Editor
 
         ClonedTerrainOffset = terrainDisplayer.FindProperty("ClonedTerrainOffset");
         ClonedTerrainRotation = terrainDisplayer.FindProperty("ClonedTerrainRotation");
+        CameraPathOffset = terrainDisplayer.FindProperty("CameraPathOffset");
 
     }
 
@@ -223,6 +225,7 @@ public class TerrainEditor : Editor
 
             EditorGUILayout.PropertyField(ClonedTerrainOffset, new GUIContent("Offset", "The offset it will have."));
             EditorGUILayout.PropertyField(ClonedTerrainRotation, new GUIContent("Rotation", "The rotation"));
+            EditorGUILayout.PropertyField(CameraPathOffset, new GUIContent("CamerapathpointsY", "Offset on Y axis"));
 
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();

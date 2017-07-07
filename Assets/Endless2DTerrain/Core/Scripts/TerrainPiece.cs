@@ -3,15 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using NostrumGames;
 
 namespace Endless2DTerrain
 {
     public class TerrainPiece
     {
         private Settings settings { get; set; }
-
-        public Vector3 ClonedTerrainOffset { get; set; }
-        public Vector3 ClonedTerrainRotation { get; set; }
 
         public TerrainPiece(Settings s)
         {
@@ -21,7 +19,6 @@ namespace Endless2DTerrain
 
         //Just for reference
         public float TerrainAngle { get; set; }
-
 
         //The parent terrain piece
         public GameObject TerrainObject { get; set; }
@@ -143,6 +140,16 @@ namespace Endless2DTerrain
             //Create our front mesh piece
             MeshPiece meshPiece = new MeshPiece(vg, MeshPiece.Plane.Front, settings);
             meshPiece.CreateCorner(topVerticies, bottomVerticies);
+
+            if (Application.isPlaying)
+            {
+                var cameraPathPoint = new GameObject("CameraPathPoint");
+                cameraPathPoint.tag = "Path";
+                cameraPathPoint.AddComponent<BoxCollider2D>();
+                cameraPathPoint.AddComponent<PathPoint>().Angle = currentTerrain.TerrainAngle;
+                cameraPathPoint.transform.position = meshPiece.AllTopVerticies[0];
+                cameraPathPoint.transform.position += new Vector3(0, settings.CameraPathOffset, 0);
+            }
 
             //The first mesh could be null if we are below the minimum verticies we need to create a plane
             if (meshPiece.MeshObject != null)

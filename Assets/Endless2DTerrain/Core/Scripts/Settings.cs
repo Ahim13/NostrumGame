@@ -41,6 +41,7 @@ namespace Endless2DTerrain
 
         public Vector3 ClonedTerrainOffset { get; set; }
         public Vector3 ClonedTerrainRotation { get; set; }
+        public float CameraPathOffset { get; set; }
 
         public TerrainDisplayer terrainDisplayer { get; set; }
     }

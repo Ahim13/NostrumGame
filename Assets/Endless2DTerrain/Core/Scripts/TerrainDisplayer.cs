@@ -45,6 +45,8 @@ public class TerrainDisplayer : MonoBehaviour
     public Vector3 ClonedTerrainOffset;
     public Vector3 ClonedTerrainRotation;
 
+    public float CameraPathOffset;
+
     //Width for corner mesh where two planes with different angles meet
     public float CornerMeshWidth;
 
@@ -105,6 +107,7 @@ public class TerrainDisplayer : MonoBehaviour
 
             s.ClonedTerrainOffset = ClonedTerrainOffset;
             s.ClonedTerrainRotation = ClonedTerrainRotation;
+            s.CameraPathOffset = CameraPathOffset;
 
 
             TerrainManager = new TerrainManager(s);
