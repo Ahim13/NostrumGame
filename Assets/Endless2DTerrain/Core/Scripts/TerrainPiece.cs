@@ -9,11 +9,11 @@ namespace Endless2DTerrain
 {
     public class TerrainPiece
     {
-        private Settings settings { get; set; }
+        private Settings _settings { get; set; }
 
         public TerrainPiece(Settings s)
         {
-            settings = s;
+            _settings = s;
             MeshPieces = new List<MeshPiece>();
         }
 
@@ -27,6 +27,9 @@ namespace Endless2DTerrain
 
         //The multiple meshes the terrain is made of
         public List<MeshPiece> MeshPieces { get; set; }
+
+        private static bool _shouldInit = true;
+        private static int _initCounter = 3;
 
         private const string managerName = "Terrain Manager";
 
@@ -63,7 +66,7 @@ namespace Endless2DTerrain
             {
                 //Get the front mesh
                 MeshPiece frontMesh = FrontMesh;
-                if (frontMesh == null) { return settings.OriginalStartPoint; }
+                if (frontMesh == null) { return _settings.OriginalStartPoint; }
 
                 //The last vertex is a top vertex.  Get the last top one so we know where to start the next mesh
                 Vector3 lastTopVertex = frontMesh.TopRightCorner;
@@ -81,12 +84,32 @@ namespace Endless2DTerrain
             TerrainAngle = vg.CurrentTerrainRule.Angle;
 
             //Create the front mesh and populate our key verts for the front plane
-            MeshPiece mp = new MeshPiece(vg, MeshPiece.Plane.Front, settings);
+            MeshPiece mp = new MeshPiece(vg, MeshPiece.Plane.Front, _settings);
             mp.PopulateKeyVerticies(MeshPiece.Plane.Front);
 
             //Now create the mesh
             mp.Create(origin, TerrainAngle);
 
+            if (Application.isPlaying)
+            {
+                if (_initCounter < 3)
+                {
+                    var cameraPathPoint = new GameObject("CameraPathPoint");
+                    cameraPathPoint.tag = "Path";
+                    cameraPathPoint.AddComponent<PathPoint>().Angle = TerrainAngle;
+                    cameraPathPoint.transform.position = mp.TopLeftCorner;
+                    cameraPathPoint.transform.position += new Vector3(0, _settings.CameraPathOffset, -25);
+                    CameraManager.Instance.AddToTargetPoints(cameraPathPoint.transform);
+                }
+
+                _initCounter -= 1;
+
+                if (_initCounter == 0 && _shouldInit)
+                {
+                    CameraManager.Instance.InitTargets();
+                    _shouldInit = false;
+                }
+            }
 
             //The first mesh could be null if we are below the minimum verticies we need to create a plane
             if (mp.MeshObject != null)
@@ -99,22 +122,22 @@ namespace Endless2DTerrain
                 MeshPieces.Add(mp);
 
 
-                if (settings.DrawDetailMeshRenderer)
+                if (_settings.DrawDetailMeshRenderer)
                 {
-                    MeshPiece mpDetail = new MeshPiece(vg, MeshPiece.Plane.Detail, settings);
-                    mpDetail.Create(origin + settings.DetailPlaneOffset, TerrainAngle, mp.KeyTopVerticies);
+                    MeshPiece mpDetail = new MeshPiece(vg, MeshPiece.Plane.Detail, _settings);
+                    mpDetail.Create(origin + _settings.DetailPlaneOffset, TerrainAngle, mp.KeyTopVerticies);
                     MeshPieces.Add(mpDetail);
                 }
 
 
 
-                if (settings.DrawTopMeshCollider || settings.DrawTopMeshRenderer)
+                if (_settings.DrawTopMeshCollider || _settings.DrawTopMeshRenderer)
                 {
-                    MeshPiece mpTop = new MeshPiece(vg, MeshPiece.Plane.Top, settings);
+                    MeshPiece mpTop = new MeshPiece(vg, MeshPiece.Plane.Top, _settings);
                     mpTop.Create(mp.StartTopMesh, TerrainAngle, mp.KeyTopVerticies);
                     MeshPieces.Add(mpTop);
 
-                    MeshPiece mpBottom = new MeshPiece(vg, MeshPiece.Plane.Bottom, settings, mpTop);
+                    MeshPiece mpBottom = new MeshPiece(vg, MeshPiece.Plane.Bottom, _settings, mpTop);
                     mpBottom.Create(mp.StartBotMesh, TerrainAngle, mp.KeyBottomVerticies);
                     MeshPieces.Add(mpBottom);
                 }
@@ -138,18 +161,10 @@ namespace Endless2DTerrain
             List<Vector3> bottomVerticies = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Front, false);
 
             //Create our front mesh piece
-            MeshPiece meshPiece = new MeshPiece(vg, MeshPiece.Plane.Front, settings);
+            MeshPiece meshPiece = new MeshPiece(vg, MeshPiece.Plane.Front, _settings);
             meshPiece.CreateCorner(topVerticies, bottomVerticies);
 
-            if (Application.isPlaying)
-            {
-                var cameraPathPoint = new GameObject("CameraPathPoint");
-                cameraPathPoint.tag = "Path";
-                cameraPathPoint.AddComponent<BoxCollider2D>();
-                cameraPathPoint.AddComponent<PathPoint>().Angle = currentTerrain.TerrainAngle;
-                cameraPathPoint.transform.position = meshPiece.AllTopVerticies[0];
-                cameraPathPoint.transform.position += new Vector3(0, settings.CameraPathOffset, 0);
-            }
+
 
             //The first mesh could be null if we are below the minimum verticies we need to create a plane
             if (meshPiece.MeshObject != null)
@@ -162,9 +177,9 @@ namespace Endless2DTerrain
 
                 //Add detail mesh
 
-                if (settings.DrawDetailMeshRenderer)
+                if (_settings.DrawDetailMeshRenderer)
                 {
-                    MeshPiece meshPieceDetail = new MeshPiece(vg, MeshPiece.Plane.Detail, settings);
+                    MeshPiece meshPieceDetail = new MeshPiece(vg, MeshPiece.Plane.Detail, _settings);
                     topVerticies = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Detail, true);
                     bottomVerticies = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Detail, false);
                     meshPieceDetail.CreateCorner(topVerticies, bottomVerticies);
@@ -172,10 +187,10 @@ namespace Endless2DTerrain
                 }
 
 
-                if (settings.DrawTopMeshCollider || settings.DrawTopMeshRenderer)
+                if (_settings.DrawTopMeshCollider || _settings.DrawTopMeshRenderer)
                 {
                     //Create the verticies for the top of our mesh, and add that too                  
-                    MeshPiece meshPieceTop = new MeshPiece(vg, MeshPiece.Plane.Top, settings);
+                    MeshPiece meshPieceTop = new MeshPiece(vg, MeshPiece.Plane.Top, _settings);
 
                     //Use the top verts as our bottom z row
                     bottomVerticies = th.CopyList(topVerticies);
@@ -185,7 +200,7 @@ namespace Endless2DTerrain
                     // topVerticies = th.MoveStartVertex(topVerticies, firstBottomVertex, new Vector3(firstBottomVertex.x, firstBottomVertex.y, firstBottomVertex.z + settings.TopPlaneHeight), false);
                     // meshPieceTop.CreateCorner(topVerticies, bottomVerticies);
                     // MeshPieces.Add(meshPieceTop);
-                    topVerticies = th.MoveStartVertex(topVerticies, firstBottomVertex, new Vector3(firstBottomVertex.x, firstBottomVertex.y, firstBottomVertex.z + settings.TopPlaneHeight), false);
+                    topVerticies = th.MoveStartVertex(topVerticies, firstBottomVertex, new Vector3(firstBottomVertex.x, firstBottomVertex.y, firstBottomVertex.z + _settings.TopPlaneHeight), false);
                     meshPieceTop.CreateCorner(topVerticies, meshPiece.AllBottomVerticies);
                     MeshPieces.Add(meshPieceTop);
                 }
@@ -256,7 +271,7 @@ namespace Endless2DTerrain
             if (!GameObject.Find(managerName + " Cloned"))
             {
                 ClonedTerrainManager = new GameObject(managerName + " Cloned");
-                ClonedTerrainManager.transform.parent = settings.terrainDisplayer.transform;
+                ClonedTerrainManager.transform.parent = _settings.terrainDisplayer.transform;
             }
             else
             {
@@ -270,8 +285,8 @@ namespace Endless2DTerrain
 
         private void RepositionTerrainPiece(GameObject clonedTerrainObject)
         {
-            var offset = settings.ClonedTerrainOffset;
-            var rotation = settings.ClonedTerrainRotation;
+            var offset = _settings.ClonedTerrainOffset;
+            var rotation = _settings.ClonedTerrainRotation;
 
             clonedTerrainObject.transform.position += offset;
             clonedTerrainObject.transform.localScale = rotation;

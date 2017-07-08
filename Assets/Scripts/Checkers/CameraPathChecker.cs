@@ -15,7 +15,7 @@ namespace NostrumGames
                 .Where(col => col.tag == "Path")
                 .Subscribe(col =>
                 {
-                    CameraManager.Instance.CameraSpeedAngle = col.GetComponent<PathPoint>() ? col.GetComponent<PathPoint>().Angle : 0;
+                    CameraManager.Instance.TerrainAngle = col.GetComponent<PathPoint>() ? col.GetComponent<PathPoint>().Angle : 0;
                 })
                 .AddTo(this);
 

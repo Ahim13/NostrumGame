@@ -12,25 +12,25 @@ namespace NostrumGames
     {
         public IObservable<Unit> MovingVelocity { get; private set; }
         public static float GravityScaleDefualt { get; private set; }
-        public float VelocityX { get { return velocityX; } private set { } }
-        private Rigidbody2D rigidbody2D;
+        public float VelocityX { get { return _velocityX; } private set { } }
+        private Rigidbody2D _rigidbody2D;
         [SerializeField]
-        private float upForce;
+        private float _upForce;
         [SerializeField]
-        private float gravityScale;
+        private float _gravityScale;
         [SerializeField]
-        private float velocityX;
+        private float _velocityX;
         [SerializeField]
         [Range(0, 1)]
-        private float upwardDrag;
+        private float _upwardDrag;
 
-        private IDisposable moveUp;
-        private IDisposable movingOnX;
+        private IDisposable _moveUp;
+        private IDisposable _movingOnX;
 
         void Awake()
         {
-            rigidbody2D = this.GetComponent<Rigidbody2D>();
-            GravityScaleDefualt = rigidbody2D.gravityScale;
+            _rigidbody2D = this.GetComponent<Rigidbody2D>();
+            GravityScaleDefualt = _rigidbody2D.gravityScale;
         }
 
         void Start()
@@ -39,10 +39,10 @@ namespace NostrumGames
             .Where(v => v != Vector2.zero)
             .Subscribe(movement =>
             {
-                if (rigidbody2D.velocity.y < 0) rigidbody2D.AddForce(movement * 150 * rigidbody2D.mass);
+                if (_rigidbody2D.velocity.y < 0) _rigidbody2D.AddForce(movement * 150 * _rigidbody2D.mass);
                 else
                 {
-                    rigidbody2D.AddForce(movement * 150 * rigidbody2D.mass);
+                    _rigidbody2D.AddForce(movement * 150 * _rigidbody2D.mass);
                 }
             })
             .AddTo(this);
@@ -52,20 +52,20 @@ namespace NostrumGames
         }
         private void InitBasicMovement()
         {
-            moveUp = MyInputs.Instance.MoveUp
+            _moveUp = MyInputs.Instance.MoveUp
             .Subscribe(pressingSpace =>
             {
                 if (pressingSpace)
                 {
-                    rigidbody2D.AddForce(Vector2.up * (upForce * rigidbody2D.mass));
+                    _rigidbody2D.AddForce(Vector2.up * (_upForce * _rigidbody2D.mass));
                 }
                 else
                 {
-                    if (rigidbody2D.velocity.y > 0)
+                    if (_rigidbody2D.velocity.y > 0)
                     {
-                        var vel = rigidbody2D.velocity;
-                        vel.y *= upwardDrag;
-                        rigidbody2D.velocity = vel;
+                        var vel = _rigidbody2D.velocity;
+                        vel.y *= _upwardDrag;
+                        _rigidbody2D.velocity = vel;
                     }
                 }
             })
@@ -76,32 +76,32 @@ namespace NostrumGames
 
         private void MovingOnAxisX()
         {
-            movingOnX = this.FixedUpdateAsObservable()
-                .Subscribe(_ => rigidbody2D.velocity = new Vector2(velocityX, rigidbody2D.velocity.y))
+            _movingOnX = this.FixedUpdateAsObservable()
+                .Subscribe(_ => _rigidbody2D.velocity = new Vector2(_velocityX, _rigidbody2D.velocity.y))
                 .AddTo(this);
         }
 
         public void StartNewLife()
         {
-            rigidbody2D.gravityScale = GravityScaleDefualt;
-            rigidbody2D.isKinematic = false;
-            rigidbody2D.velocity = new Vector2(0, 0);
+            _rigidbody2D.gravityScale = GravityScaleDefualt;
+            _rigidbody2D.isKinematic = false;
+            _rigidbody2D.velocity = new Vector2(0, 0);
             InitBasicMovement();
         }
 
         //TODO: make better "death gravity", now you have to set the gravityScale back to default
         public void KillController()
         {
-            moveUp.Dispose();
-            movingOnX.Dispose();
-            rigidbody2D.velocity = Vector3.zero;
-            rigidbody2D.gravityScale = gravityScale;
+            _moveUp.Dispose();
+            _movingOnX.Dispose();
+            _rigidbody2D.velocity = Vector3.zero;
+            _rigidbody2D.gravityScale = _gravityScale;
             // rigidbody2D.isKinematic = true;
         }
 
         public void IsKinematic(bool kinematic)
         {
-            rigidbody2D.isKinematic = kinematic;
+            _rigidbody2D.isKinematic = kinematic;
         }
 
     }

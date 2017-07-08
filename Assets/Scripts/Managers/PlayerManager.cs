@@ -15,30 +15,30 @@ namespace NostrumGames
 
         public Camera MainCamera { get; private set; }
         public float SpeedOnXAxis { get; private set; }
-        private PlayerController playerController;
+        private PlayerController _playerController;
 
-        private Vector3 cameraMiddlePosition;
-        private Vector3 cameraMiddlePositionLatPos;
+        private Vector3 _cameraMiddlePosition;
+        private Vector3 _cameraMiddlePositionLatPos;
 
-        private Sequence deathSequence;
-        private Tweener followTween;
-        private Tweener setLocalPosTween;
+        private Sequence _deathSequence;
+        private Tweener _followTween;
+        private Tweener _setLocalPosTween;
 
         [SerializeField]
-        private float playerStartPointAtX;
+        private float _playerStartPointAtX;
         [SerializeField]
-        private float delayAfterDeath;
+        private float _delayAfterDeath;
         [SerializeField]
-        private float timeToReachSpawnpoint;
+        private float _timeToReachSpawnpoint;
 
         /// <summary>
         /// Awake is called when the script instance is being loaded.
         /// </summary>
         void Awake()
         {
-            playerController = this.GetComponent<PlayerController>();
+            _playerController = this.GetComponent<PlayerController>();
             MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-            SpeedOnXAxis = playerController.VelocityX;
+            SpeedOnXAxis = _playerController.VelocityX;
         }
 
         // Use this for initialization
@@ -63,25 +63,25 @@ namespace NostrumGames
         private void TweenInit()
         {
             var renderer = this.GetComponent<Renderer>();
-            deathSequence = DOTween.Sequence().Pause();
+            _deathSequence = DOTween.Sequence().Pause();
             // deathSequence.AppendInterval(delayAfterDeath);
-            deathSequence.Append(DOTween.ToAlpha(() => renderer.material.color, x => renderer.material.color = x, 0, 0.25f).SetLoops(4, LoopType.Yoyo));
+            _deathSequence.Append(DOTween.ToAlpha(() => renderer.material.color, x => renderer.material.color = x, 0, 0.25f).SetLoops(4, LoopType.Yoyo));
 
-            setLocalPosTween = transform.DOLocalMove(new Vector3(playerStartPointAtX, 0, 10), timeToReachSpawnpoint).SetAutoKill(false).Pause().OnComplete(() => OnSpawnPointSet());
+            _setLocalPosTween = transform.DOLocalMove(new Vector3(_playerStartPointAtX, 0, 10), _timeToReachSpawnpoint).SetAutoKill(false).Pause().OnComplete(() => OnSpawnPointSet());
         }
 
         private void OnSpawnPointSet()
         {
-            deathSequence.Rewind();
+            _deathSequence.Rewind();
             // followTween.Rewind();
             // followTween.Pause();
-            playerController.StartNewLife();
+            _playerController.StartNewLife();
             transform.SetParent(null);
         }
 
         private void OnDeath()
         {
-            playerController.KillController();
+            _playerController.KillController();
             DOVirtual.DelayedCall(1, () => SetParenting());
             // deathSequence.Play();
             // followTween.SetDelay(delayAfterDeath).Play();
@@ -91,10 +91,10 @@ namespace NostrumGames
         private void SetParenting()
         {
             transform.SetParent(MainCamera.transform);
-            playerController.IsKinematic(true);
-            setLocalPosTween.ChangeStartValue(transform.localPosition, timeToReachSpawnpoint);
-            setLocalPosTween.Play();
-            deathSequence.Play();
+            _playerController.IsKinematic(true);
+            _setLocalPosTween.ChangeStartValue(transform.localPosition, _timeToReachSpawnpoint);
+            _setLocalPosTween.Play();
+            _deathSequence.Play();
             //DOVirtual.DelayedCall(2, () => OnSpawnPointSet());
         }
 
@@ -110,11 +110,11 @@ namespace NostrumGames
 
             // cameraMiddlePositionLatPos = cameraMiddlePosition;
 
-            if (Input.GetKeyDown(KeyCode.F)) setLocalPosTween.Play();
-            if (Input.GetKeyDown(KeyCode.G)) setLocalPosTween.Pause();
-            if (Input.GetKeyDown(KeyCode.E)) setLocalPosTween.Restart();
-            if (Input.GetKeyDown(KeyCode.R)) setLocalPosTween.Rewind();
-            if (Input.GetKeyDown(KeyCode.T)) setLocalPosTween.ChangeStartValue(transform.localPosition, 1);
+            if (Input.GetKeyDown(KeyCode.F)) _setLocalPosTween.Play();
+            if (Input.GetKeyDown(KeyCode.G)) _setLocalPosTween.Pause();
+            if (Input.GetKeyDown(KeyCode.E)) _setLocalPosTween.Restart();
+            if (Input.GetKeyDown(KeyCode.R)) _setLocalPosTween.Rewind();
+            if (Input.GetKeyDown(KeyCode.T)) _setLocalPosTween.ChangeStartValue(transform.localPosition, 1);
 
         }
 
