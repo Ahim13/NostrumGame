@@ -42,6 +42,8 @@ namespace Endless2DTerrain
         public float MinDistance;
         public bool UseMaxDistance;
         public float MaxDistance;
+        public bool UseRandomOffset;
+        public Vector2 RandomOffset;
 
 
 
@@ -54,7 +56,14 @@ namespace Endless2DTerrain
             //If we have an offset (and we are placing prefabs at an angle), get the direction of that offset.
             //In otherwords, if our offset says to move one up in the y direction, getting the transform direction means the 
             //prefab will move one up relative to the rotation it currently has
-            Vector3 transformDirection = prefab.transform.TransformDirection(Offset);
+            Vector3 transformDirection;
+            if (UseRandomOffset)
+            {
+                var y = UnityEngine.Random.Range(RandomOffset.x, RandomOffset.y);
+                var offset = new Vector3(0, y, 0);
+                transformDirection = prefab.transform.TransformDirection(offset);
+            }
+            else transformDirection = prefab.transform.TransformDirection(Offset);
             prefab.transform.position = transformDirection + prefab.transform.position;
         }
 

@@ -96,6 +96,7 @@ namespace Endless2DTerrain
                 {
                     var cameraPathPoint = new GameObject("CameraPathPoint");
                     cameraPathPoint.tag = "Path";
+                    cameraPathPoint.transform.SetParent(GameObject.Find("PathPoints").transform);
                     cameraPathPoint.AddComponent<PathPoint>().Angle = TerrainAngle;
                     cameraPathPoint.transform.position = mp.TopLeftCorner;
                     cameraPathPoint.transform.position += new Vector3(0, _settings.CameraPathOffset, -25);

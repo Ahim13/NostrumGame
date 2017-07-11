@@ -15,15 +15,25 @@ namespace NostrumGames
 
         public Camera MainCamera { get; private set; }
         public float SpeedOnXAxis { get; private set; }
+        public int Lives { get { return _lives; } set { _lives = value; } }
+        public bool IsLiving { get; set; }
+        public bool HasShield { get; set; }
+        public List<Component> PickupList { get; set; }
+
+
         private PlayerController _playerController;
+        private PlayerTween _playerTween;
+        private LivesCounter _livesCounter;
+
 
         private Vector3 _cameraMiddlePosition;
         private Vector3 _cameraMiddlePositionLatPos;
 
-        private Sequence _deathSequence;
-        private Tweener _followTween;
-        private Tweener _setLocalPosTween;
 
+        [SerializeField]
+        private int _lives;
+
+        [Space(15)]
         [SerializeField]
         private float _playerStartPointAtX;
         [SerializeField]
@@ -31,91 +41,72 @@ namespace NostrumGames
         [SerializeField]
         private float _timeToReachSpawnpoint;
 
-        /// <summary>
-        /// Awake is called when the script instance is being loaded.
-        /// </summary>
+
+
         void Awake()
         {
-            _playerController = this.GetComponent<PlayerController>();
-            MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-            SpeedOnXAxis = _playerController.VelocityX;
+            InitVariablesProperties();
+            InitTools();
         }
 
-        // Use this for initialization
+
         void Start()
         {
-            this.OnCollisionEnter2DAsObservable()
+            (this).OnCollisionEnter2DAsObservable()
                 .Where(col => col.gameObject.tag == "Map")
                 .Subscribe(col =>
                 {
-                    OnDeath();
+                    if (IsLiving)
+                    {
+                        if (!HasShield) OnCollisionWithObstacle();
+                        else LoseShield();
+                    }
                 })
                 .AddTo(this);
 
-            TweenInit();
+            _playerTween.TweenInit(_playerStartPointAtX, _timeToReachSpawnpoint);
 
-            // cameraMiddlePosition = MainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 15));
-            // cameraMiddlePositionLatPos = cameraMiddlePosition;
-            // followTween = transform.DOMove(new Vector2(cameraMiddlePosition.x + playerStartPointAtX, cameraMiddlePosition.y), deathSequence.Duration(true) - delayAfterDeath).SetAutoKill(false).Pause();
+        }
+
+        private void LoseShield()
+        {
+            if (GetComponent<SpriteOutline>()) _playerTween.OnLoseShield(GetComponent<SpriteOutline>());
+        }
+
+        public void DeleteOutlineComponent()
+        {
+            Destroy(GetComponent<SpriteOutline>());
+            HasShield = false;
         }
 
 
-        private void TweenInit()
+        private void OnCollisionWithObstacle()
         {
-            var renderer = this.GetComponent<Renderer>();
-            _deathSequence = DOTween.Sequence().Pause();
-            // deathSequence.AppendInterval(delayAfterDeath);
-            _deathSequence.Append(DOTween.ToAlpha(() => renderer.material.color, x => renderer.material.color = x, 0, 0.25f).SetLoops(4, LoopType.Yoyo));
-
-            _setLocalPosTween = transform.DOLocalMove(new Vector3(_playerStartPointAtX, 0, 10), _timeToReachSpawnpoint).SetAutoKill(false).Pause().OnComplete(() => OnSpawnPointSet());
+            _playerTween.OnDeath(_playerController, _delayAfterDeath);
+            _livesCounter.Died();
+            if (PickupList.Count > 0) RemovePickup();
         }
 
-        private void OnSpawnPointSet()
+        private void InitVariablesProperties()
         {
-            _deathSequence.Rewind();
-            // followTween.Rewind();
-            // followTween.Pause();
-            _playerController.StartNewLife();
-            transform.SetParent(null);
+            _playerController = this.GetComponent<PlayerController>();
+            IsLiving = true;
+            MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+            SpeedOnXAxis = _playerController.VelocityX;
+            HasShield = false;
         }
 
-        private void OnDeath()
+        private void InitTools()
         {
-            _playerController.KillController();
-            DOVirtual.DelayedCall(1, () => SetParenting());
-            // deathSequence.Play();
-            // followTween.SetDelay(delayAfterDeath).Play();
+            PickupList = new List<Component>();
+            _playerTween = new PlayerTween(transform, this.GetComponent<Renderer>(), MainCamera, _playerController);
+            _livesCounter = new LivesCounter(_lives);
         }
 
-
-        private void SetParenting()
+        public void RemovePickup()
         {
-            transform.SetParent(MainCamera.transform);
-            _playerController.IsKinematic(true);
-            _setLocalPosTween.ChangeStartValue(transform.localPosition, _timeToReachSpawnpoint);
-            _setLocalPosTween.Play();
-            _deathSequence.Play();
-            //DOVirtual.DelayedCall(2, () => OnSpawnPointSet());
-        }
-
-        void Update()
-        {
-
-            // cameraMiddlePosition = MainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 15));
-
-            // if (cameraMiddlePosition != cameraMiddlePositionLatPos)
-            // {
-            //     followTween.ChangeEndValue(new Vector3(cameraMiddlePosition.x + playerStartPointAtX, cameraMiddlePosition.y, 15), 1, true);
-            // }
-
-            // cameraMiddlePositionLatPos = cameraMiddlePosition;
-
-            if (Input.GetKeyDown(KeyCode.F)) _setLocalPosTween.Play();
-            if (Input.GetKeyDown(KeyCode.G)) _setLocalPosTween.Pause();
-            if (Input.GetKeyDown(KeyCode.E)) _setLocalPosTween.Restart();
-            if (Input.GetKeyDown(KeyCode.R)) _setLocalPosTween.Rewind();
-            if (Input.GetKeyDown(KeyCode.T)) _setLocalPosTween.ChangeStartValue(transform.localPosition, 1);
-
+            Destroy(PickupList[0]);
+            PickupList.RemoveAt(0);
         }
 
     }

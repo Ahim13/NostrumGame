@@ -35,19 +35,9 @@ namespace NostrumGames
 
         void Start()
         {
-            MyInputs.Instance.Movement
-            .Where(v => v != Vector2.zero)
-            .Subscribe(movement =>
-            {
-                if (_rigidbody2D.velocity.y < 0) _rigidbody2D.AddForce(movement * 150 * _rigidbody2D.mass);
-                else
-                {
-                    _rigidbody2D.AddForce(movement * 150 * _rigidbody2D.mass);
-                }
-            })
-            .AddTo(this);
-
             InitBasicMovement();
+
+
 
         }
         private void InitBasicMovement()

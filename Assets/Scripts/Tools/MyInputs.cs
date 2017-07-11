@@ -11,6 +11,7 @@ namespace NostrumGames
         protected MyInputs() { }
         public IObservable<Vector2> Movement { get; private set; }
         public IObservable<bool> MoveUp { get; private set; }
+        public IObservable<Unit> ActivatePickup { get; private set; }
 
 
         void Awake()
@@ -27,6 +28,9 @@ namespace NostrumGames
                 .Where(_ => Input.GetKey(KeyCode.Space));
 
             MoveUp = CustomObservables.Latch(this.FixedUpdateAsObservable(), moveUpLatch, false);
+
+            ActivatePickup = this.UpdateAsObservable()
+                .Where(_ => Input.GetKeyDown(KeyCode.Q));
 
         }
 
