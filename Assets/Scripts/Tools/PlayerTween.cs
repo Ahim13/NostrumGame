@@ -14,13 +14,14 @@ namespace NostrumGames
         private Renderer _renderer;
         private Camera _mainCamera;
 
+        private PlayerController _playerController;
 
         private Sequence _deathSequence;
         private Tweener _followTween;
         private Tweener _setLocalPosTween;
         private Tweener _outlineTweener;
         private float _timeToReachSpawnpoint;
-        private PlayerController _playerController;
+        private float _loseShieldDuration = 1.4f;
 
         public PlayerTween(Transform trans, Renderer rend, Camera mainCamera, PlayerController playerController)
         {
@@ -52,27 +53,26 @@ namespace NostrumGames
         public void OnDeath(PlayerController playerController, float delayAfterDeath)
         {
             _playerController.KillController();
-            PlayerManager.Instance.IsLiving = false;
-            DOVirtual.DelayedCall(1, () => SetParenting());
+            DOVirtual.DelayedCall(1, () => SetParentingStartReposition());
         }
 
         public void OnLoseShield(SpriteOutline outline)
         {
             if (_outlineTweener != null && _outlineTweener.IsPlaying()) return;
-            Debug.Log("asdasdsd");
-            _outlineTweener = DOTween.To(() => outline.outlineSize, x => outline.outlineSize = x, 0, 2)
+            _outlineTweener = DOTween.To(() => outline.outlineSize, x => outline.outlineSize = x, 0, _loseShieldDuration)
                 .SetEase(Ease.Flash, 7, 0)
                 .OnComplete(() => PlayerManager.Instance.DeleteOutlineComponent());
         }
 
 
-        private void SetParenting()
+        private void SetParentingStartReposition()
         {
             _transform.SetParent(_mainCamera.transform);
             _playerController.IsKinematic(true);
             _setLocalPosTween.ChangeStartValue(_transform.localPosition, _timeToReachSpawnpoint);
             _setLocalPosTween.Play();
             _deathSequence.Play();
+            _playerController.IsBoxCollider2DEnabled(false);
         }
 
     }

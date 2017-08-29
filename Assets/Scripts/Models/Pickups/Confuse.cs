@@ -7,10 +7,8 @@ using UniRx;
 
 namespace NostrumGames
 {
-    public class GiveBlur : Pickups
+    public class Confuse : Pickups
     {
-
-        public static GiveBlur Instance;
 
         public override PickupTypes PickupType { get { return PickupTypes.Offensive; } }
 

@@ -18,6 +18,7 @@ namespace NostrumGames
         public int Lives { get { return _lives; } set { _lives = value; } }
         public bool IsLiving { get; set; }
         public bool HasShield { get; set; }
+        public ReactiveProperty<bool> Shield { get; private set; }
         public List<Component> PickupList { get; set; }
 
 
@@ -47,25 +48,32 @@ namespace NostrumGames
         {
             InitVariablesProperties();
             InitTools();
+
+            Shield = this.UpdateAsObservable()
+                .Select(_ => HasShield)
+                .ToReactiveProperty();
         }
 
 
         void Start()
         {
             (this).OnCollisionEnter2DAsObservable()
+                .Where(_ => IsLiving)
                 .Where(col => col.gameObject.tag == "Map")
                 .Subscribe(col =>
                 {
-                    if (IsLiving)
-                    {
-                        if (!HasShield) OnCollisionWithObstacle();
-                        else LoseShield();
-                    }
+                    if (!HasShield) OnCollisionWithObstacle();
+                    else LoseShield();
                 })
                 .AddTo(this);
 
             _playerTween.TweenInit(_playerStartPointAtX, _timeToReachSpawnpoint);
 
+        }
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.A)) Debug.Log(HasShield);
+            if (Input.GetKeyDown(KeyCode.S)) Debug.Log(Shield.Value);
         }
 
         private void LoseShield()

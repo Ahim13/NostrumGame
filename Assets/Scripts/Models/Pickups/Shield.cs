@@ -10,8 +10,6 @@ namespace NostrumGames
     public class Shield : Pickups
     {
 
-        public static Darken Instance;
-
         public static readonly int ShieldSize = 16;
 
         public override PickupTypes PickupType { get { return PickupTypes.Defensive; } }

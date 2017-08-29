@@ -31,6 +31,7 @@ namespace NostrumGames
 
         public void Died()
         {
+            PlayerManager.Instance.IsLiving = false;
             CurrentLives.Value -= 1;
             _livesImage.fillAmount = GetFillAmount(_lives, CurrentLives.Value);
         }

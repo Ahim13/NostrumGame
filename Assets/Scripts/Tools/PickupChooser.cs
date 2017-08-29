@@ -13,8 +13,8 @@ namespace NostrumGames
         //TODO: Add every PICKUP
         private enum Pickups
         {
-            // GiveBlur,
-            // Darken,
+            GiveBlur,
+            Darken,
             Shield,
 
         }
@@ -53,14 +53,15 @@ namespace NostrumGames
         private void AddPickupCompononent(Collider2D col)
         {
             Component component = null;
+            _randomPickup = Pickups.Shield;
             switch (_randomPickup)
             {
-                // case Pickups.Darken:
-                //     component = col.gameObject.AddComponent<Darken>();
-                //     break;
-                // case Pickups.GiveBlur:
-                //     component = col.gameObject.AddComponent<GiveBlur>();
-                //     break;
+                case Pickups.Darken:
+                    component = col.gameObject.AddComponent<Darken>();
+                    break;
+                case Pickups.GiveBlur:
+                    component = col.gameObject.AddComponent<Confuse>();
+                    break;
                 case Pickups.Shield:
                     component = col.gameObject.AddComponent<Shield>();
                     break;

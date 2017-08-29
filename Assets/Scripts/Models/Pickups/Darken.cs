@@ -10,7 +10,6 @@ namespace NostrumGames
     public class Darken : Pickups
     {
 
-        public static Darken Instance;
 
         public override PickupTypes PickupType { get { return PickupTypes.Offensive; } }
 
@@ -20,7 +19,7 @@ namespace NostrumGames
             _activatePickup = MyInputs.Instance.ActivatePickup
                 .Subscribe(_ =>
                 {
-                    Debug.Log("KILŐŐŐŐŐŐ");
+                    ShadowEffectManager.Instance.ActivateShadow();
                 })
                 .AddTo(this);
         }
