@@ -10,7 +10,6 @@ namespace NostrumGames
     public class Darken : Pickups
     {
 
-
         public override PickupTypes PickupType { get { return PickupTypes.Offensive; } }
 
 

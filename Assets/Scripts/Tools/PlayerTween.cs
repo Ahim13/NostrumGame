@@ -8,7 +8,7 @@ using DG.Tweening;
 
 namespace NostrumGames
 {
-    public class PlayerTween : PlayerManager
+    public class PlayerTween
     {
         private Transform _transform;
         private Renderer _renderer;

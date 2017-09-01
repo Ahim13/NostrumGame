@@ -23,8 +23,8 @@ namespace NostrumGames
                     SetPlayerHasShield();
 
                     Destroy(this);
-                })
-                .AddTo(this);
+                    _activatePickup.Dispose();
+                });
         }
 
         private void SetPlayerHasShield()
