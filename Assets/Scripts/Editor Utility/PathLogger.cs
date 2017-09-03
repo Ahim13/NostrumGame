@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UnityEditor
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -12,3 +13,4 @@ public class PathLogger
         Debug.Log(AssetDatabase.GetAssetPath(selected));
     }
 }
+#endif

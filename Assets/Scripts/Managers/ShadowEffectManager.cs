@@ -21,6 +21,11 @@ namespace NostrumGames
         [SerializeField]
         private GameObject _circleSprite;
 
+        void Awake()
+        {
+            this.Reload();
+        }
+
         public void ActivateShadow()
         {
             this.GetComponent<SpriteLightKitImageEffect>().enabled = true;

@@ -46,6 +46,8 @@ namespace NostrumGames
 
         void Awake()
         {
+            this.Reload();
+
             InitVariablesProperties();
             InitTools();
 

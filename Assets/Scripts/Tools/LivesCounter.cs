@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
-using UnityEditor;
 using UniRx;
 
 namespace NostrumGames

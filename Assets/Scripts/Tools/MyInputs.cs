@@ -15,6 +15,7 @@ namespace NostrumGames
 
         void Awake()
         {
+            this.Reload();
 
             var moveUpLatch = this.UpdateAsObservable()
                 .Where(_ => Input.GetKey(KeyCode.Space));

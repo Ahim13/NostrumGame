@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UnityEditor
+using UnityEngine;
 using System.Collections;
 using UnityEditor;
 using System;
@@ -34,3 +35,4 @@ public class GroupUtility : Editor {
 		}
 	}
 }
+#endif

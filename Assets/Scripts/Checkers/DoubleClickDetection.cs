@@ -6,12 +6,15 @@ using UniRx.Triggers;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Events;
 
 namespace NostrumGames
 {
     [RequireComponent(typeof(Button))]
     public class DoubleClickDetection : MonoBehaviour
     {
+
+        public UnityEvent OnDoubleClick;
 
         void Awake()
         {
@@ -21,7 +24,7 @@ namespace NostrumGames
 
             clicks.Buffer(clicks.Throttle(TimeSpan.FromMilliseconds(200)))
                 .Where(xs => xs.Count >= 2)
-                .Subscribe(xs => Debug.Log("DoubleClick Detected! Count:" + xs.Count));
+                .Subscribe(xs => OnDoubleClick.Invoke());
         }
     }
 }

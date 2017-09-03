@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace NostrumGames
 {
-    public class Room : MonoBehaviour
+    public class RoomTab : MonoBehaviour
     {
 
         [SerializeField]
@@ -18,6 +18,8 @@ namespace NostrumGames
         [SerializeField]
         private Text _roomSizeText;
 
+        public string RoomName { get { return _roomNameText.text; } }
+
 
         public void SetRoomInfo(string roomNameText, bool isRoomPrivate, string roomSizeText)
         {
@@ -26,11 +28,20 @@ namespace NostrumGames
             _roomSizeText.text = roomSizeText;
         }
 
-        public string GetRoomSizeAndPlayersAsString(int maxPlayers, int currentPlayers)
+        public string GetRoomSizeAndPlayersAsString(byte maxPlayers, int currentPlayers)
         {
             return maxPlayers.ToString() + "/" + currentPlayers.ToString();
         }
 
+        public void DoubleClickedOnTab()
+        {
+            Debug.Log("DoubleClicked");
+            RoomManager._Instance.JoinRoom(this);
+        }
 
+        public void SetInteractable(bool interactable)
+        {
+            this.GetComponent<Button>().interactable = interactable;
+        }
     }
 }
