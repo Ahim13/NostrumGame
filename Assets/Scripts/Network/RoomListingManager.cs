@@ -29,7 +29,6 @@ namespace NostrumGames
         public void RefreshRooms()
         {
             ClearRoomTabs();
-            Debug.Log("asdasd");
 
             RoomInfo[] rooms = PhotonNetwork.GetRoomList();
 

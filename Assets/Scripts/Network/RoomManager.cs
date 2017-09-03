@@ -87,7 +87,17 @@ namespace NostrumGames
         public override void OnJoinedRoom()
         {
             Debug.Log("Joined to room: " + PhotonNetwork.room.Name);
+            Debug.Log("Joined to room new player: " + PhotonNetwork.playerName);
             UIManager.Instance.SwapListViewToRoomView();
+        }
+
+        public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
+        {
+            Debug.Log("New player: " + newPlayer.NickName);
+        }
+        public override void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
+        {
+            Debug.Log("Player left: " + otherPlayer.NickName);
         }
 
         public override void OnPhotonJoinRoomFailed(object[] codeAndMsg)
