@@ -8,7 +8,7 @@ namespace NostrumGames
 {
     public class LobbyManager : PunBehaviour
     {
-        public static LobbyManager _Instance;
+        public static LobbyManager Instance;
 
         //TODO: make lobby list for future lobbies
         [SerializeField]
@@ -23,8 +23,8 @@ namespace NostrumGames
         }
         private void SetAsSingleton()
         {
-            if (_Instance == null) _Instance = this;
-            else if (_Instance != this) Destroy(gameObject);
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
         }
 
         public void ConnectToLobby()
@@ -41,6 +41,12 @@ namespace NostrumGames
         public override void OnLeftLobby()
         {
             Debug.Log("Lobby left");
+        }
+
+        public override void OnReceivedRoomListUpdate()
+        {
+            Debug.Log("ReceivedRoom");
+            RoomListingManager.Instance.RefreshRooms();
         }
 
         #endregion

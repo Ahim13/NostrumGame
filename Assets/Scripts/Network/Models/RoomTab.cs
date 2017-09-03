@@ -36,7 +36,7 @@ namespace NostrumGames
         public void DoubleClickedOnTab()
         {
             Debug.Log("DoubleClicked");
-            RoomManager._Instance.JoinRoom(this);
+            RoomManager.Instance.JoinRoom(this);
         }
 
         public void SetInteractable(bool interactable)

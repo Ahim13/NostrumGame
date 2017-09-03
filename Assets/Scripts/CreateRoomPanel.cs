@@ -20,7 +20,7 @@ namespace NostrumGames
 
         public void MakeRoom()
         {
-            RoomManager._Instance.CreateRoom(RoomName.text, Convert.ToByte(MaxPlayers.text), IsPrivate.isOn, Password.text);
+            RoomManager.Instance.CreateRoom(RoomName.text, Convert.ToByte(MaxPlayers.text), IsPrivate.isOn, Password.text);
         }
 
     }

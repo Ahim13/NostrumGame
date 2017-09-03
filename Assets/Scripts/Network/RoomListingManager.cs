@@ -8,18 +8,28 @@ namespace NostrumGames
 {
     public class RoomListingManager : PunBehaviour
     {
+        public static RoomListingManager Instance;
+
         [SerializeField]
         private GameObject _roomListingContainer;
         [SerializeField]
         private GameObject _roomTabPrefab;
-        void Start()
+
+        void Awake()
         {
-            RefreshRooms();
+            SetAsSingleton();
+        }
+
+        private void SetAsSingleton()
+        {
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
         }
 
         public void RefreshRooms()
         {
             ClearRoomTabs();
+            Debug.Log("asdasd");
 
             RoomInfo[] rooms = PhotonNetwork.GetRoomList();
 
@@ -42,7 +52,7 @@ namespace NostrumGames
         {
             foreach (Transform child in _roomListingContainer.transform)
             {
-                GameObject.Destroy(child.gameObject);
+                if (child.tag != "Header") GameObject.Destroy(child.gameObject);
             }
         }
 

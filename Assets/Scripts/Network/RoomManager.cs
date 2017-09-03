@@ -8,7 +8,7 @@ namespace NostrumGames
 {
     public class RoomManager : PunBehaviour
     {
-        public static RoomManager _Instance;
+        public static RoomManager Instance;
 
         void Awake()
         {
@@ -17,13 +17,17 @@ namespace NostrumGames
 
         private void SetAsSingleton()
         {
-            if (_Instance == null) _Instance = this;
-            else if (_Instance != this) Destroy(gameObject);
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
         }
 
         public void JoinRoom(RoomTab room)
         {
             PhotonNetwork.JoinRoom(room.RoomName);
+        }
+        public void JoinRandomRoom()
+        {
+            PhotonNetwork.JoinRandomRoom();
         }
 
         public void CreateRoom(string roomName, byte maxPlayers, bool isSecret, string password)
@@ -58,10 +62,12 @@ namespace NostrumGames
             roomOptions.CustomRoomProperties = customPropHash;
         }
 
-        public void JoinRandomRoom()
+        public void LeaveRoom()
         {
-            PhotonNetwork.JoinRandomRoom();
+            PhotonNetwork.LeaveRoom();
+            UIManager.Instance.SwapListViewToRoomView();
         }
+
 
         #region PUN Callbacks
         public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
@@ -81,6 +87,7 @@ namespace NostrumGames
         public override void OnJoinedRoom()
         {
             Debug.Log("Joined to room: " + PhotonNetwork.room.Name);
+            UIManager.Instance.SwapListViewToRoomView();
         }
 
         public override void OnPhotonJoinRoomFailed(object[] codeAndMsg)

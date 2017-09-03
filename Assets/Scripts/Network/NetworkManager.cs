@@ -12,7 +12,7 @@ namespace NostrumGames
         [SerializeField]
         private NetworkSettings _networkSettings;
 
-        public static NetworkManager _Instance;
+        public static NetworkManager Instance;
 
         void Awake()
         {
@@ -22,8 +22,8 @@ namespace NostrumGames
 
         private void SetAsSingleton()
         {
-            if (_Instance == null) _Instance = this;
-            else if (_Instance != this) Destroy(gameObject);
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
         }
 
         void Start()
@@ -39,7 +39,8 @@ namespace NostrumGames
         #region PUN Callbacks
         public override void OnConnectedToMaster()
         {
-            LobbyManager._Instance.ConnectToLobby();
+            Debug.Log("Connected to Master");
+            LobbyManager.Instance.ConnectToLobby();
         }
         public override void OnDisconnectedFromPhoton()
         {
