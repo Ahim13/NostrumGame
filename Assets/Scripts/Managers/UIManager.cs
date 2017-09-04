@@ -7,13 +7,27 @@ namespace NostrumGames
 {
     public class UIManager : Singleton<UIManager>
     {
+        [Header("ListView")]
         public GameObject RoomListView;
         public GameObject RoomView;
+
+        [Header("RoomView")]
         public Button RoomStartButton;
 
         void Awake()
         {
             this.Reload();
+        }
+
+        public void RoomWasCreated()
+        {
+            if (PhotonNetwork.isMasterClient)
+            {
+                RoomStartButton.gameObject.SetActive(true);
+                SetRoomStartButtonInteractable(false);
+            }
+            else RoomStartButton.gameObject.SetActive(false);
+
         }
         public void SwapListViewToRoomView()
         {

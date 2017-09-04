@@ -11,16 +11,10 @@ namespace NostrumGames
         {
             this.Reload();
         }
-        public string Name = Guid.NewGuid().ToString();
-
-        public void SetPlayerSettings()
-        {
-            PhotonNetwork.playerName = Name;
-        }
 
         public void SetPlayerName(string newName)
         {
-            Name = newName;
+            PhotonNetwork.playerName = newName;
         }
     }
 }

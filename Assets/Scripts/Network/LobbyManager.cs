@@ -19,6 +19,8 @@ namespace NostrumGames
         void Awake()
         {
             SetAsSingleton();
+
+            //For one game the lobby is set at start -> TODO:More lobby = new Lobbysetting implementation
             _myTypedLobby = new TypedLobby(_lobby.LobbyName, _lobby.ThisLobbyType);
         }
         private void SetAsSingleton()
