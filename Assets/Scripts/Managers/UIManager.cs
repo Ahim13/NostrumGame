@@ -19,7 +19,7 @@ namespace NostrumGames
             this.Reload();
         }
 
-        public void RoomWasCreated()
+        public void CreatedARoom()
         {
             if (PhotonNetwork.isMasterClient)
             {
@@ -28,6 +28,11 @@ namespace NostrumGames
             }
             else RoomStartButton.gameObject.SetActive(false);
 
+        }
+
+        public void JoinedARoom()
+        {
+            RoomStartButton.gameObject.SetActive(false);
         }
         public void SwapListViewToRoomView()
         {
@@ -38,6 +43,13 @@ namespace NostrumGames
         public void SetRoomStartButtonInteractable(bool interactable)
         {
             RoomStartButton.interactable = interactable;
+        }
+
+        ///<summary> Set Active to true and set interactible based on minimum players in room</summary>
+        public void SetStartButtonActiveAndInteractable()
+        {
+            RoomStartButton.gameObject.SetActive(true);
+            RoomStartButton.interactable = PhotonPlayerManager.Instance.CheckPlayersCountMoreOrEqual(PlayersNumberOfGame.MinimumPlayersOfPiggyGame);
         }
     }
 }

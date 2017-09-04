@@ -18,6 +18,10 @@ namespace NostrumGames
             if (Instance == null) Instance = this;
             else if (Instance != this) Destroy(gameObject);
         }
+        public bool CheckPlayersCountMoreOrEqual(int number)
+        {
+            return PhotonNetwork.playerList.Length >= number;
+        }
         public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
         {
             Debug.Log("New player: " + newPlayer.NickName);
@@ -31,9 +35,15 @@ namespace NostrumGames
             Debug.Log("Player left: " + otherPlayer.NickName);
             PlayerListingManager.Instance.RemovePlayerTab(otherPlayer);
         }
-        private bool CheckPlayersCountMoreOrEqual(int number)
+
+        public override void OnMasterClientSwitched(PhotonPlayer newMasterClient)
         {
-            return PhotonNetwork.playerList.Length >= number;
+            //check if we are the new Mater client
+            if (newMasterClient.ID == PhotonNetwork.player.ID)
+            {
+                Debug.Log("<color=blue>We are the master now!</color>");
+                UIManager.Instance.SetStartButtonActiveAndInteractable();
+            }
         }
     }
 }

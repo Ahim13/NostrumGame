@@ -83,13 +83,14 @@ namespace NostrumGames
         public override void OnCreatedRoom()
         {
             Debug.Log("Room created");
-            UIManager.Instance.RoomWasCreated();
+            UIManager.Instance.CreatedARoom();
         }
 
         public override void OnJoinedRoom()
         {
             Debug.Log("Joined to room: " + PhotonNetwork.room.Name);
             UIManager.Instance.SwapListViewToRoomView();
+            UIManager.Instance.JoinedARoom();
             PlayerListingManager.Instance.CreatePlayerTabsForExistingPlayers();
         }
         public override void OnLeftRoom()
