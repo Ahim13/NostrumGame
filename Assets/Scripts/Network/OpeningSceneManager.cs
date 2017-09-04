@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon;
+using UnityEngine.SceneManagement;
 
 namespace NostrumGames
 {
@@ -17,6 +18,10 @@ namespace NostrumGames
         private Button _buttonStart;
         [SerializeField]
         private Text _connectingText;
+        [SerializeField]
+        private Text _badNameWarningText;
+
+        public string LobbySceneName;
         void Awake()
         {
             SetAsSingleton();
@@ -29,6 +34,27 @@ namespace NostrumGames
             if (Instance == null) Instance = this;
             else if (Instance != this) Destroy(gameObject);
         }
+
+        private bool NameValidation()
+        {
+            var name = _playerNameInput.text;
+            return !string.IsNullOrEmpty(name);
+        }
+
+        public void StartGame()
+        {
+            if (NameValidation())
+            {
+                MySceneManager.Instance.LoadScene(LobbySceneName);
+                LobbyManager.Instance.ConnectToLobby();
+                OpeningSceneManager.Instance.SetLocalPlayerName();
+            }
+            else
+            {
+                _badNameWarningText.gameObject.SetActive(true);
+            }
+        }
+
         public void SetStartButtonInteractable(bool interactable)
         {
             _buttonStart.interactable = interactable;
@@ -44,5 +70,6 @@ namespace NostrumGames
             SetStartButtonInteractable(true);
             _connectingText.gameObject.SetActive(false);
         }
+
     }
 }
