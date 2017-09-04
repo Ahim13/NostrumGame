@@ -34,6 +34,7 @@ namespace NostrumGames
         private void ConnectToMasterServer()
         {
             PhotonNetwork.ConnectUsingSettings(_networkSettings.GameVersion);
+
         }
 
         #region PUN Callbacks
@@ -41,7 +42,7 @@ namespace NostrumGames
         {
             Debug.Log("Connected to Master");
             // PlayerSettings.Instance.SetPlayerSettings();
-            // LobbyManager.Instance.ConnectToLobby();
+            if (ApplicationSettings.IsStarted) LobbyManager.Instance.ConnectToLobby();
         }
         public override void OnDisconnectedFromPhoton()
         {

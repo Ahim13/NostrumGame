@@ -6,7 +6,7 @@ namespace NostrumGames
 {
     public static class PlayersNumberOfGame
     {
-        public static readonly int MinimumPlayersOfPiggyGame = 3;
+        public static readonly int MinimumPlayersOfPiggyGame = 2;
         public static readonly int MaximumPlayersOfPiggyGame = 6;
     }
 }

@@ -27,6 +27,7 @@ namespace NostrumGames
             SetAsSingleton();
             _buttonStart.interactable = false;
             _connectingText.gameObject.SetActive(true);
+            ApplicationSettings.IsStarted = false;
         }
 
         private void SetAsSingleton()
@@ -45,9 +46,10 @@ namespace NostrumGames
         {
             if (NameValidation())
             {
-                MySceneManager.Instance.LoadScene(LobbySceneName);
+                ApplicationSettings.IsStarted = true;
                 LobbyManager.Instance.ConnectToLobby();
                 OpeningSceneManager.Instance.SetLocalPlayerName();
+                MySceneManager.Instance.LoadScene(LobbySceneName);
             }
             else
             {

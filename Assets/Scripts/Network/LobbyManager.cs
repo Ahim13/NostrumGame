@@ -34,10 +34,21 @@ namespace NostrumGames
             PhotonNetwork.JoinLobby(_myTypedLobby);
         }
 
+        public void LeaveCurrentLobby()
+        {
+            PhotonNetwork.LeaveLobby();
+            var go = GameObject.FindGameObjectWithTag("RoomTools");
+            if (go != null)
+            {
+                Destroy(go);
+                Debug.LogWarning("RoomTools has been destroyed!");
+            }
+        }
+
         #region PUN Callbacks
         public override void OnJoinedLobby()
         {
-            Debug.Log("InLobby: " + PhotonNetwork.lobby.Name);
+            Debug.Log("InLobby: ---------------------------------------------------------------------" + PhotonNetwork.lobby.Name);
         }
 
         public override void OnLeftLobby()

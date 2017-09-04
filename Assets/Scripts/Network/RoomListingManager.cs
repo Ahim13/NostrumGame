@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace NostrumGames
 {
@@ -13,6 +14,8 @@ namespace NostrumGames
         [SerializeField]
         private GameObject _roomTabPrefab;
 
+
+
         void Awake()
         {
             this.Reload();
@@ -21,10 +24,11 @@ namespace NostrumGames
 
         public void RefreshRooms()
         {
-            Debug.Log("Refresh");
             ClearRoomTabs();
 
             RoomInfo[] rooms = PhotonNetwork.GetRoomList();
+            Debug.Log("Refresh - Romms: " + rooms.Length);
+            // Rooms = new List<RoomInfo>(rooms);
 
             foreach (var room in rooms)
             {
