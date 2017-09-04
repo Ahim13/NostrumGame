@@ -23,5 +23,10 @@ namespace NostrumGames
             RoomManager.Instance.CreateRoom(RoomName.text, Convert.ToByte(MaxPlayers.text), IsPrivate.isOn, Password.text);
         }
 
+        public void SetPanelActive(bool active)
+        {
+            this.gameObject.SetActive(active);
+        }
+
     }
 }

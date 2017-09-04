@@ -40,6 +40,7 @@ namespace NostrumGames
         public override void OnConnectedToMaster()
         {
             Debug.Log("Connected to Master");
+            PlayerSettings.Instance.SetPlayerSettings();
             LobbyManager.Instance.ConnectToLobby();
         }
         public override void OnDisconnectedFromPhoton()

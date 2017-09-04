@@ -6,10 +6,8 @@ using UnityEngine;
 
 namespace NostrumGames
 {
-    public class RoomListingManager : PunBehaviour
+    public class RoomListingManager : Singleton<RoomListingManager>
     {
-        public static RoomListingManager Instance;
-
         [SerializeField]
         private GameObject _roomListingContainer;
         [SerializeField]
@@ -17,14 +15,9 @@ namespace NostrumGames
 
         void Awake()
         {
-            SetAsSingleton();
+            this.Reload();
         }
 
-        private void SetAsSingleton()
-        {
-            if (Instance == null) Instance = this;
-            else if (Instance != this) Destroy(gameObject);
-        }
 
         public void RefreshRooms()
         {

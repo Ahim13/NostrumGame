@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using System;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace NostrumGames
 {
@@ -51,7 +52,7 @@ namespace NostrumGames
 
             string[] customProperties = { "isSecret", "password" };
 
-            ExitGames.Client.Photon.Hashtable customPropHash = new ExitGames.Client.Photon.Hashtable();
+            Hashtable customPropHash = new Hashtable();
             customPropHash.Add("isSecret", isSecret);
             customPropHash.Add("password", password);
 
@@ -87,17 +88,13 @@ namespace NostrumGames
         public override void OnJoinedRoom()
         {
             Debug.Log("Joined to room: " + PhotonNetwork.room.Name);
-            Debug.Log("Joined to room new player: " + PhotonNetwork.playerName);
             UIManager.Instance.SwapListViewToRoomView();
+            PlayerListingManager.Instance.CreatePlayerTabsForExistingPlayers();
         }
-
-        public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
+        public override void OnLeftRoom()
         {
-            Debug.Log("New player: " + newPlayer.NickName);
-        }
-        public override void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
-        {
-            Debug.Log("Player left: " + otherPlayer.NickName);
+            Debug.Log("Left room");
+            PlayerListingManager.Instance.ClearList();
         }
 
         public override void OnPhotonJoinRoomFailed(object[] codeAndMsg)
