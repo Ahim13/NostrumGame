@@ -21,10 +21,10 @@ namespace NostrumGames
 
         public void CreatedARoom()
         {
-            if (PhotonNetwork.isMasterClient)
+            Debug.Log("Created ROOM setting:  " + PhotonPlayerManager.Instance.IsLocalMaster);
+            if (PhotonPlayerManager.Instance.IsLocalMaster)
             {
-                RoomStartButton.gameObject.SetActive(true);
-                SetRoomStartButtonInteractable(false);
+                SetStartButtonActiveAndInteractable();
             }
             else RoomStartButton.gameObject.SetActive(false);
 
@@ -32,7 +32,7 @@ namespace NostrumGames
 
         public void JoinedARoom()
         {
-            RoomStartButton.gameObject.SetActive(false);
+            if (!PhotonPlayerManager.Instance.IsLocalMaster) RoomStartButton.gameObject.SetActive(false);
         }
         public void SwapListViewToRoomView()
         {

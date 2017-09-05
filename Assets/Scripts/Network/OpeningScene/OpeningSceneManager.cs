@@ -49,7 +49,7 @@ namespace NostrumGames
                 ApplicationSettings.IsStarted = true;
                 LobbyManager.Instance.ConnectToLobby();
                 OpeningSceneManager.Instance.SetLocalPlayerName();
-                MySceneManager.Instance.LoadScene(LobbySceneName);
+                SceneManager.LoadScene(LobbySceneName);
             }
             else
             {

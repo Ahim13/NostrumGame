@@ -12,6 +12,7 @@ namespace NostrumGames
 
         public PhotonPlayer LocalPlayer { get { return PhotonNetwork.player; } }
         public PhotonPlayer[] PlayerList { get { return PhotonNetwork.playerList; } }
+        public bool IsLocalMaster { get { return PhotonNetwork.isMasterClient; } }
 
         void Awake()
         {
@@ -24,7 +25,7 @@ namespace NostrumGames
         }
         public bool CheckPlayersCountMoreOrEqual(int number)
         {
-            return PhotonNetwork.playerList.Length >= number;
+            return PlayerList.Length >= number;
         }
         public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
         {
