@@ -9,6 +9,10 @@ namespace NostrumGames
     public class PhotonPlayerManager : PunBehaviour
     {
         public static PhotonPlayerManager Instance;
+
+        public PhotonPlayer LocalPlayer { get { return PhotonNetwork.player; } }
+        public PhotonPlayer[] PlayerList { get { return PhotonNetwork.playerList; } }
+
         void Awake()
         {
             SetAsSingleton();
@@ -25,7 +29,7 @@ namespace NostrumGames
         public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
         {
             Debug.Log("New player: " + newPlayer.NickName);
-            PlayerListingManager.Instance.CreateNewPlayerTab(newPlayer);
+            PlayerListingManager.Instance.AddPlayerTab(newPlayer);
             if (CheckPlayersCountMoreOrEqual(PlayersNumberOfGame.MinimumPlayersOfPiggyGame)) UIManager.Instance.SetRoomStartButtonInteractable(true);
         }
 

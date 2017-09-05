@@ -91,12 +91,12 @@ namespace NostrumGames
             Debug.Log("Joined to room: " + PhotonNetwork.room.Name);
             UIManager.Instance.SwapListViewToRoomView();
             UIManager.Instance.JoinedARoom();
-            PlayerListingManager.Instance.CreatePlayerTabsForExistingPlayers();
+            PlayerListingManager.Instance.AddPlayerTabsForExistingPlayers();
         }
         public override void OnLeftRoom()
         {
             Debug.Log("Left room");
-            PlayerListingManager.Instance.ClearList();
+            PlayerListingManager.Instance.RemoveAllPlayerTab();
         }
 
         public override void OnPhotonJoinRoomFailed(object[] codeAndMsg)

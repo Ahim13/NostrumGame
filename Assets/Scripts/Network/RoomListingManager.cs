@@ -24,7 +24,7 @@ namespace NostrumGames
 
         public void RefreshRooms()
         {
-            ClearRoomTabs();
+            RemoveAllRoomTabs();
 
             RoomInfo[] rooms = PhotonNetwork.GetRoomList();
             Debug.Log("Refresh - Romms: " + rooms.Length);
@@ -32,11 +32,11 @@ namespace NostrumGames
 
             foreach (var room in rooms)
             {
-                CreateRoomTab(room);
+                AddRoomTab(room);
             }
         }
 
-        public void CreateRoomTab(RoomInfo roomInfo)
+        public void AddRoomTab(RoomInfo roomInfo)
         {
             var go = Instantiate(_roomTabPrefab);
             go.transform.SetParent(_roomListingContainer.transform, false);
@@ -45,7 +45,7 @@ namespace NostrumGames
             roomTab.SetRoomInfo(roomInfo.Name, (bool)roomInfo.CustomProperties["isSecret"], roomTab.GetRoomSizeAndPlayersAsString(roomInfo.MaxPlayers, roomInfo.PlayerCount));
         }
 
-        private void ClearRoomTabs()
+        private void RemoveAllRoomTabs()
         {
             foreach (Transform child in _roomListingContainer.transform)
             {

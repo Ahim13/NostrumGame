@@ -22,13 +22,14 @@ namespace NostrumGames
             _playerTabs = new List<GameObject>();
         }
 
-        public void CreateNewPlayerTab(PhotonPlayer newPlayer)
+        public void AddPlayerTab(PhotonPlayer newPlayer)
         {
             var go = Instantiate(_playerTabPrefab);
             go.transform.SetParent(_playerContainer.transform, false);
 
             var playerTabScript = go.GetComponent<PlayerTab>();
             playerTabScript.SetPlayerInfo(newPlayer.NickName, newPlayer.ID);
+            playerTabScript.SetPlayerTabAttributes(newPlayer.IsLocal, PhotonPlayerManager.Instance.LocalPlayer.IsMasterClient);
 
             _playerTabs.Add(go);
         }
@@ -48,17 +49,23 @@ namespace NostrumGames
             }
         }
 
-        public void CreatePlayerTabsForExistingPlayers()
+        public void RefreshPlayerList()
         {
-            var playerList = PhotonNetwork.playerList;
+            RemoveAllPlayerTab();
+            AddPlayerTabsForExistingPlayers();
+        }
+
+        public void AddPlayerTabsForExistingPlayers()
+        {
+            var playerList = PhotonPlayerManager.Instance.PlayerList;
 
             foreach (var player in playerList)
             {
-                CreateNewPlayerTab(player);
+                AddPlayerTab(player);
             }
         }
 
-        public void ClearList()
+        public void RemoveAllPlayerTab()
         {
             foreach (Transform item in _playerContainer.transform)
             {
