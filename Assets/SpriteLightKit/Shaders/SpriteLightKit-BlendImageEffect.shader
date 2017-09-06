@@ -56,6 +56,7 @@ struct fragmentInput
 fragmentInput vert( vertexInput i )
 {
 	fragmentInput o;
+	UNITY_INITIALIZE_OUTPUT(fragmentInput, o);
 	o.pos = UnityObjectToClipPos( i.vertex );
 	o.uv = TRANSFORM_TEX( i.texcoord, _MainTex );
     

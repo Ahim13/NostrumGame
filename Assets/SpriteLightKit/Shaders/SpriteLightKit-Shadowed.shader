@@ -71,6 +71,7 @@ float _VerticalTranslation;
 v2f vert( appdata_t IN )
 {
 	v2f OUT;
+	UNITY_INITIALIZE_OUTPUT(v2f, OUT);
 	OUT.texcoord = IN.texcoord;
 	
 	float4x4 transformMatrix = float4x4

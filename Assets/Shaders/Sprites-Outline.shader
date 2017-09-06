@@ -37,7 +37,7 @@ Shader "Sprites/Outline"
 		CGPROGRAM
 			#pragma vertex SpriteVert
 			#pragma fragment frag
-			#pragma target 2.0
+			#pragma target 2.5
 			#pragma multi_compile_instancing
 			#pragma multi_compile _ PIXELSNAP_ON
 			#pragma multi_compile _ ETC1_EXTERNAL_ALPHA
