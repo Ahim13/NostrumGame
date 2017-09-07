@@ -25,9 +25,6 @@ namespace NostrumGames
             ActivatePickup = this.UpdateAsObservable()
                 .Where(_ => Input.GetKeyDown(KeyCode.Q));
 
-
-            Debug.Log("Myseed: " + Random.seed);
-
         }
 
         // Use this for initialization

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon;
 using UnityEngine.SceneManagement;
+using UniRx;
+using UniRx.Triggers;
 
 namespace NostrumGames
 {
@@ -28,6 +30,8 @@ namespace NostrumGames
             _buttonStart.interactable = false;
             _connectingText.gameObject.SetActive(true);
             ApplicationSettings.IsStarted = false;
+
+            SetButtonSubscription();
         }
 
         private void SetAsSingleton()
@@ -71,6 +75,14 @@ namespace NostrumGames
         {
             SetStartButtonInteractable(true);
             _connectingText.gameObject.SetActive(false);
+        }
+
+        private void SetButtonSubscription()
+        {
+            this.UpdateAsObservable()
+                .Where(_ => Input.GetKeyDown(KeyCode.Return))
+                .Subscribe(_ => _buttonStart.onClick.Invoke())
+                .AddTo(this);
         }
 
     }
