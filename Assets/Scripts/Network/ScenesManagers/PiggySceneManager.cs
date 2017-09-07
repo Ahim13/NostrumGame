@@ -7,18 +7,15 @@ namespace NostrumGames
 
     public class PiggySceneManager : MonoBehaviour
     {
-        public int seed;
 
         void Awake()
         {
-            SetRandomSeed();
         }
 
-        public void SetRandomSeed()
+        void Update()
         {
-            // int seed;
-            seed = SeedGenerator.GenerateSeed();
-            Random.InitState(seed);
+            if (Input.GetMouseButtonDown(0)) Time.timeScale = 0;
+            if (Input.GetMouseButtonDown(1)) Time.timeScale = 1;
         }
 
     }

@@ -2,18 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomSeed : MonoBehaviour
+namespace NostrumGames
 {
-    public int Seed;
-
-    void Awake()
+    public class RandomSeed
     {
-        Random.InitState(Seed);
-    }
+        private static int _seed;
+        public static void SetRandomSeed()
+        {
+            _seed = SeedGenerator.GenerateSeed();
+            Random.InitState(_seed);
+        }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0)) Time.timeScale = 0;
-        if (Input.GetMouseButtonDown(1)) Time.timeScale = 1;
+        public static void SetSeed(int seed)
+        {
+            Random.InitState(seed);
+        }
+        public static void SetSeed(Random.State state)
+        {
+            Random.state = state;
+        }
+
+        public static int GetSeed()
+        {
+            return _seed;
+        }
+
+        public static Random.State GetRandomState()
+        {
+            return Random.state;
+        }
     }
 }

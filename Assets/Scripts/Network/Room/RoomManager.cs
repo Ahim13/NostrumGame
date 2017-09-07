@@ -92,6 +92,9 @@ namespace NostrumGames
             UIManager.Instance.SwapListViewToRoomView();
             UIManager.Instance.JoinedARoom();
             PlayerListingManager.Instance.AddPlayerTabsForExistingPlayers();
+
+            //if we are Masterclient then init randomSeed
+            RandomSeed.SetRandomSeed();
         }
         public override void OnLeftRoom()
         {
