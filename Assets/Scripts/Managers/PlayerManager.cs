@@ -9,20 +9,21 @@ using DG.Tweening;
 namespace NostrumGames
 {
     [RequireComponent(typeof(PlayerController))]
-    public class PlayerManager : Singleton<PlayerManager>
+    public class PlayerManager : PlayerBase
     {
         protected PlayerManager() { }
 
+
         public Camera MainCamera { get; private set; }
-        public float SpeedOnXAxis { get; private set; }
+
         public int Lives { get { return _lives; } set { _lives = value; } }
+
         public bool IsLiving { get; set; }
         public bool HasShield { get; set; }
-        public ReactiveProperty<bool> Shield { get; private set; }
+
         public List<Component> PickupList { get; set; }
 
 
-        private PlayerController _playerController;
         private PlayerTween _playerTween;
         private LivesCounter _livesCounter;
 
@@ -43,17 +44,10 @@ namespace NostrumGames
         private float _timeToReachSpawnpoint;
 
 
-
         void Awake()
         {
-            this.Reload();
-
             InitVariablesProperties();
             InitTools();
-
-            Shield = this.UpdateAsObservable()
-                .Select(_ => HasShield)
-                .ToReactiveProperty();
         }
 
 
@@ -74,10 +68,17 @@ namespace NostrumGames
         }
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.A)) Debug.Log(HasShield);
-            if (Input.GetKeyDown(KeyCode.S)) Debug.Log(Shield.Value);
+            // if (Input.GetKeyDown(KeyCode.A)) Debug.Log(HasShield);
+            // if (Input.GetKeyDown(KeyCode.S)) Debug.Log(Shield.Value);
         }
 
+
+        private void InitTools()
+        {
+            PickupList = new List<Component>();
+            _playerTween = new PlayerTween(transform, this.GetComponent<Renderer>(), MainCamera, PlayerController, this);
+            _livesCounter = new LivesCounter(_lives, this);
+        }
         private void LoseShield()
         {
             if (GetComponent<SpriteOutline>()) _playerTween.OnLoseShield(GetComponent<SpriteOutline>());
@@ -92,25 +93,17 @@ namespace NostrumGames
 
         private void OnCollisionWithObstacle()
         {
-            _playerTween.OnDeath(_playerController, _delayAfterDeath);
+            _playerTween.OnDeath(PlayerController, _delayAfterDeath);
             _livesCounter.Died();
             if (PickupList.Count > 0) RemovePickup();
         }
 
         private void InitVariablesProperties()
         {
-            _playerController = this.GetComponent<PlayerController>();
             IsLiving = true;
             MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-            SpeedOnXAxis = _playerController.VelocityX;
+            Global.PlayersBaseSpeed = PlayerController.VelocityX;
             HasShield = false;
-        }
-
-        private void InitTools()
-        {
-            PickupList = new List<Component>();
-            _playerTween = new PlayerTween(transform, this.GetComponent<Renderer>(), MainCamera, _playerController);
-            _livesCounter = new LivesCounter(_lives);
         }
 
         public void RemovePickup()

@@ -29,7 +29,7 @@ namespace NostrumGames
 
         private void SetPlayerHasShield()
         {
-            PlayerManager.Instance.HasShield = true;
+            PlayerManager.HasShield = true;
         }
 
         private void MakeShieldVisible()

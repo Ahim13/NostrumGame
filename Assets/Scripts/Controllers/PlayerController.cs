@@ -16,7 +16,7 @@ namespace NostrumGames
 
     }
 
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : PlayerBase
     {
         public IObservable<Unit> MovingVelocity { get; private set; }
         public static float GravityScaleDefualt { get; private set; }
@@ -55,11 +55,12 @@ namespace NostrumGames
         private void InitBasicMovement()
         {
             _moveUp = MyInputs.Instance.MoveUp
-            .Subscribe(pressingSpace =>
-            {
-                MovementBasenOnControllType(pressingSpace);
-            })
-            .AddTo(this);
+                // .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
+                .Subscribe(pressingSpace =>
+                {
+                    MovementBasenOnControllType(pressingSpace);
+                })
+                .AddTo(this);
 
             MovingOnAxisX();
         }

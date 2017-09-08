@@ -14,8 +14,7 @@ namespace NostrumGames
 
         void Update()
         {
-            if (Input.GetMouseButtonDown(0)) Time.timeScale = 0;
-            if (Input.GetMouseButtonDown(1)) Time.timeScale = 1;
+            if (Input.GetKeyDown(KeyCode.P)) Time.timeScale = Time.timeScale == 1 ? 0 : 1;
         }
 
     }

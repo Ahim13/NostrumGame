@@ -37,7 +37,7 @@ namespace NostrumGames
                 .Where(col => col.tag == "Player")
                 .Subscribe(col =>
                 {
-                    if (PlayerManager.Instance.PickupList.Count == 0) AddPickupCompononent(col);
+                    if (col.GetComponent<PlayerManager>().PickupList.Count == 0) AddPickupCompononent(col, col.GetComponent<PlayerManager>());
                     else DestroyBox();
 
                 })
@@ -50,7 +50,7 @@ namespace NostrumGames
             Destroy(this.gameObject);
         }
 
-        private void AddPickupCompononent(Collider2D col)
+        private void AddPickupCompononent(Collider2D col, PlayerManager playerManager)
         {
             Component component = null;
             _randomPickup = Pickups.Shield;
@@ -69,7 +69,7 @@ namespace NostrumGames
                     break;
             }
 
-            PlayerManager.Instance.PickupList.Add(component);
+            playerManager.PickupList.Add(component);
             Destroy(this.gameObject);
         }
     }

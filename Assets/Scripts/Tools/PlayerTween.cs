@@ -15,6 +15,7 @@ namespace NostrumGames
         private Camera _mainCamera;
 
         private PlayerController _playerController;
+        private PlayerManager _playerManager;
 
         private Sequence _deathSequence;
         private Tweener _followTween;
@@ -23,12 +24,13 @@ namespace NostrumGames
         private float _timeToReachSpawnpoint;
         private float _loseShieldDuration = 1.4f;
 
-        public PlayerTween(Transform trans, Renderer rend, Camera mainCamera, PlayerController playerController)
+        public PlayerTween(Transform trans, Renderer rend, Camera mainCamera, PlayerController playerController, PlayerManager playerManager)
         {
             this._transform = trans;
             this._renderer = rend;
             this._mainCamera = mainCamera;
             this._playerController = playerController;
+            this._playerManager = playerManager;
         }
 
         public void TweenInit(float playerStartPointAtX, float timeToReachSpawnpoint)
@@ -47,7 +49,7 @@ namespace NostrumGames
             _deathSequence.Rewind();
             _playerController.StartNewLife();
             _transform.SetParent(null);
-            PlayerManager.Instance.IsLiving = true;
+            _playerManager.IsLiving = true;
         }
 
         public void OnDeath(PlayerController playerController, float delayAfterDeath)
@@ -61,7 +63,7 @@ namespace NostrumGames
             if (_outlineTweener != null && _outlineTweener.IsPlaying()) return;
             _outlineTweener = DOTween.To(() => outline.outlineSize, x => outline.outlineSize = x, 0, _loseShieldDuration)
                 .SetEase(Ease.Flash, 7, 0)
-                .OnComplete(() => PlayerManager.Instance.DeleteOutlineComponent());
+                .OnComplete(() => _playerManager.DeleteOutlineComponent());
         }
 
 

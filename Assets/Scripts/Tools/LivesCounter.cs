@@ -8,6 +8,10 @@ namespace NostrumGames
 {
     public class LivesCounter
     {
+
+        public static readonly string LivesImageName = "LivesImage";
+
+
         private float _lives;
         private ReactiveProperty<float> CurrentLives { get; set; }
         private ReactiveProperty<bool> IsLifeRameined { get; set; }
@@ -17,20 +21,25 @@ namespace NostrumGames
 
         private Image _livesImage;
 
-        public LivesCounter(int lives)
+        private PlayerManager _playerManager;
+
+
+        public LivesCounter(int lives, PlayerManager playerManager)
         {
             this._lives = lives;
-            this._livesImage = GameObject.Find("LivesImage").GetComponent<Image>();
+            this._livesImage = GameObject.Find(LivesImageName).GetComponent<Image>();
 
             this.CurrentLives = new ReactiveProperty<float>(lives);
             this.IsLifeRameined = CurrentLives.Select(x => x > 0).ToReactiveProperty();
 
             CurrentLives.Where(x => x == 0).Subscribe(_ => NoMoreLives());
+
+            this._playerManager = playerManager;
         }
 
         public void Died()
         {
-            PlayerManager.Instance.IsLiving = false;
+            _playerManager.IsLiving = false;
             CurrentLives.Value -= 1;
             _livesImage.fillAmount = GetFillAmount(_lives, CurrentLives.Value);
         }

@@ -34,7 +34,7 @@ namespace NostrumGames
         void Awake()
         {
             this.Reload();
-            _playerSpeed = new Vector2(PlayerManager.Instance.SpeedOnXAxis, 0);
+            _playerSpeed = new Vector2(Global.PlayersBaseSpeed, 0);
             _isInitialized = false;
         }
 
