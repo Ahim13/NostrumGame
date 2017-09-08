@@ -28,6 +28,19 @@ namespace NostrumGames
             _playerID = playerID;
         }
 
+
+        void Start()
+        {
+            _buttonKick.onClick.AddListener(() => PhotonPlayerManager.Instance.KickPlayer(PhotonPlayerManager.Instance.GetPlayer(PlayerID)));
+        }
+        void OnDestroy()
+        {
+            _buttonKick.onClick.RemoveAllListeners();
+        }
+
+
+
+
         ///<summary>Set the buttons on playerTab active or not.</summary>
         ///<param name="isMine">Is it my tab?</param>
         ///<param name="isMeMaster">Am I the master?</param>
@@ -37,6 +50,7 @@ namespace NostrumGames
             if (!isMine) _buttonKick.gameObject.SetActive(isMeMaster);
         }
 
+        ///<summary>Set my name's color</summary>
         ///<param name="isMine">Is it my tab?</param>
         ///<param name="isMeMaster">Am I the master?</param>
         public void SetPlayerTabAttributes(bool isMine, bool isMeMaster)

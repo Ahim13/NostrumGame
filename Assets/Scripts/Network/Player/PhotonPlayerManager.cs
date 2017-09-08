@@ -26,6 +26,20 @@ namespace NostrumGames
         {
             return PlayerList.Length >= number;
         }
+
+
+        public void KickPlayer(PhotonPlayer playerToKick)
+        {
+            PhotonNetwork.CloseConnection(playerToKick);
+        }
+
+        public PhotonPlayer GetPlayer(int ID)
+        {
+            return PhotonPlayer.Find(ID);
+        }
+
+
+        #region PUN Callbacks
         public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
         {
             Debug.Log("New player: " + newPlayer.NickName);
@@ -51,6 +65,8 @@ namespace NostrumGames
                 UIManager.Instance.SetStartButtonActiveAndInteractable();
             }
         }
+
+        #endregion
 
         private void SendMastersSeedToNewPlayer(int seed, PhotonPlayer newPlayer)
         {
