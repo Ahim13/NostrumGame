@@ -35,7 +35,7 @@ namespace NostrumGames
         [SerializeField]
         private int _lives;
 
-        [Space(15)]
+        [Header("Tween Settings")]
         [SerializeField]
         private float _playerStartPointAtX;
         [SerializeField]
@@ -102,7 +102,7 @@ namespace NostrumGames
         {
             IsLiving = true;
             MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-            Global.PlayersBaseSpeed = PlayerController.VelocityX;
+            Global.PlayersSpeed = PlayerController.ReactiveVelocityX.Value;
             HasShield = false;
         }
 

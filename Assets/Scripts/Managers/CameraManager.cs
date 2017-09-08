@@ -18,7 +18,7 @@ namespace NostrumGames
 
         [SerializeField]
         private Vector2 _cameraSpeed;
-        private Vector2 _playerSpeed;
+        // private Vector2 _playerSpeed;
         [SerializeField]
         private Transform _player;
 
@@ -34,7 +34,7 @@ namespace NostrumGames
         void Awake()
         {
             this.Reload();
-            _playerSpeed = new Vector2(Global.PlayersBaseSpeed, 0);
+            // _playerSpeed = new Vector2(Global.PlayersSpeed, 0);
             _isInitialized = false;
         }
 
@@ -96,7 +96,12 @@ namespace NostrumGames
 
         private Vector2 GetProperSpeed(bool useManual)
         {
-            return useManual ? _cameraSpeed : _playerSpeed;
+            return useManual ? _cameraSpeed : GetPlayerSpeed();
+        }
+
+        private Vector2 GetPlayerSpeed()
+        {
+            return new Vector2(Global.PlayersSpeed, 0);
         }
 
         public void AddToTargetPoints(Transform newTarget)

@@ -18,9 +18,10 @@ namespace NostrumGames
 
     public class PlayerController : PlayerBase
     {
-        public IObservable<Unit> MovingVelocity { get; private set; }
         public static float GravityScaleDefualt { get; private set; }
-        public float VelocityX { get { return _velocityX; } private set { } }
+
+        public IObservable<Unit> MovingVelocity { get; private set; }
+        public ReactiveProperty<float> ReactiveVelocityX { get; private set; }
 
         private Rigidbody2D _rigidbody2D;
         private BoxCollider2D _boxCollider2D;
@@ -54,6 +55,12 @@ namespace NostrumGames
         }
         private void InitBasicMovement()
         {
+            ReactiveVelocityX = this.FixedUpdateAsObservable()
+                .Select(_ => _velocityX)
+                .Do(velo => Global.PlayersSpeed = velo)
+                .ToReactiveProperty();
+
+
             _moveUp = MyInputs.Instance.MoveUp
                 // .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
                 .Subscribe(pressingSpace =>

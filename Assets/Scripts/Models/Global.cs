@@ -7,7 +7,11 @@ namespace NostrumGames
     public static class Global
     {
 
-        public static float PlayersBaseSpeed;
+        public static float NormalTimeScale = 1;
+        public static float PausedTimeScale = 0;
+
+
+        public static float PlayersSpeed;
 
     }
 }
