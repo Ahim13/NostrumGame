@@ -46,6 +46,13 @@ namespace NostrumGames
             _boxCollider2D = this.GetComponent<BoxCollider2D>();
             GravityScaleDefualt = _rigidbody2D.gravityScale;
             _controllerType = ControllerType.Basic;
+
+            //Init reactiveVeloX - in start it gives nullrefernce issues
+            ReactiveVelocityX = this.FixedUpdateAsObservable()
+                .Select(_ => _velocityX)
+                .Do(velo => Global.PlayersSpeed = velo)
+                .ToReactiveProperty()
+                .AddTo(this);
         }
 
         void Start()
@@ -55,14 +62,11 @@ namespace NostrumGames
         }
         private void InitBasicMovement()
         {
-            ReactiveVelocityX = this.FixedUpdateAsObservable()
-                .Select(_ => _velocityX)
-                .Do(velo => Global.PlayersSpeed = velo)
-                .ToReactiveProperty();
+
 
 
             _moveUp = MyInputs.Instance.MoveUp
-                // .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
+                .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
                 .Subscribe(pressingSpace =>
                 {
                     MovementBasenOnControllType(pressingSpace);

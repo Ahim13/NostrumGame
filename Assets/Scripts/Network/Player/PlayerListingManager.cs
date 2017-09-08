@@ -15,6 +15,8 @@ namespace NostrumGames
 
         private List<GameObject> _playerTabs;
 
+        public List<GameObject> PlayerTabs { get { return _playerTabs; } }
+
         void Awake()
         {
             this.Reload();

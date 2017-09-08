@@ -53,7 +53,9 @@ namespace NostrumGames
         public override void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
         {
             Debug.Log("Player left: " + otherPlayer.NickName);
-            PlayerListingManager.Instance.RemovePlayerTab(otherPlayer);
+
+            //FIXME: null érték mert már destroyolodott mikor game scenben hívódik - kijavítani
+            if (PlayerListingManager.Instance != null) PlayerListingManager.Instance.RemovePlayerTab(otherPlayer);
         }
 
         public override void OnMasterClientSwitched(PhotonPlayer newMasterClient)
