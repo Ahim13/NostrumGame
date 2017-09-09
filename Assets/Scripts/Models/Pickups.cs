@@ -14,6 +14,8 @@ namespace NostrumGames
         Tool
     }
 
+    [RequireComponent(typeof(PlayerManager))]
+    [RequireComponent(typeof(PlayerInput))]
     abstract public class Pickups : MonoBehaviour
     {
 
@@ -23,10 +25,12 @@ namespace NostrumGames
         protected IDisposable _activatePickup;
 
         protected PlayerManager PlayerManager;
+        protected PlayerInput PlayerInput;
 
         void Awake()
         {
             this.PlayerManager = GetComponent<PlayerManager>();
+            this.PlayerInput = GetComponent<PlayerInput>();
         }
 
 

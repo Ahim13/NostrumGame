@@ -4,17 +4,19 @@ using UnityEngine;
 
 namespace NostrumGames
 {
-    [RequireComponent(typeof(PlayerController))]
+    [RequireComponent(typeof(PlayerMovement))]
     [RequireComponent(typeof(PlayerManager))]
     [RequireComponent(typeof(PhotonViewManagerOnPlayer))]
+    [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(PlayerCollision))]
     public class PlayerBase : MonoBehaviour
     {
-        PlayerController _playerController;
-        public PlayerController PlayerController
+        PlayerMovement _playerController;
+        public PlayerMovement PlayerController
         {
             get
             {
-                if (_playerController == null) _playerController = GetComponent<PlayerController>();
+                if (_playerController == null) _playerController = GetComponent<PlayerMovement>();
                 return _playerController;
             }
         }
@@ -36,6 +38,26 @@ namespace NostrumGames
             {
                 if (_photonViewManagerOnPlayer == null) _photonViewManagerOnPlayer = GetComponent<PhotonViewManagerOnPlayer>();
                 return _photonViewManagerOnPlayer;
+            }
+        }
+
+        PlayerInput _playerInput;
+        public PlayerInput PlayerInput
+        {
+            get
+            {
+                if (_playerController == null) _playerInput = GetComponent<PlayerInput>();
+                return _playerInput;
+            }
+        }
+
+        PlayerCollision _playerCollision;
+        public PlayerCollision PlayerCollision
+        {
+            get
+            {
+                if (_playerCollision == null) _playerCollision = GetComponent<PlayerCollision>();
+                return _playerCollision;
             }
         }
     }

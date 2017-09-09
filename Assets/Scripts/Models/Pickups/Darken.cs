@@ -15,7 +15,7 @@ namespace NostrumGames
 
         protected override void ActivatePickup()
         {
-            _activatePickup = MyInputs.Instance.ActivatePickup
+            _activatePickup = PlayerInput.ActivatePickup
                 .Subscribe(_ =>
                 {
                     ShadowEffectManager.Instance.ActivateShadow();

@@ -16,10 +16,8 @@ namespace NostrumGames
 
     }
 
-    public class PlayerController : PlayerBase
+    public class PlayerMovement : PlayerBase
     {
-        public static float GravityScaleDefualt { get; private set; }
-
         public IObservable<Unit> MovingVelocity { get; private set; }
         public ReactiveProperty<float> ReactiveVelocityX { get; private set; }
 
@@ -44,15 +42,19 @@ namespace NostrumGames
         {
             _rigidbody2D = this.GetComponent<Rigidbody2D>();
             _boxCollider2D = this.GetComponent<BoxCollider2D>();
-            GravityScaleDefualt = _rigidbody2D.gravityScale;
+            _rigidbody2D.gravityScale = Global.DefaultGravity;
             _controllerType = ControllerType.Basic;
 
             //Init reactiveVeloX - in start it gives nullrefernce issues
             ReactiveVelocityX = this.FixedUpdateAsObservable()
                 .Select(_ => _velocityX)
-                .Do(velo => Global.PlayersSpeed = velo)
+                .Do(velo =>
+                {
+                    if (Global.PlayersSpeed != velo) Global.PlayersSpeed = velo;
+                })
                 .ToReactiveProperty()
                 .AddTo(this);
+
         }
 
         void Start()
@@ -63,9 +65,7 @@ namespace NostrumGames
         private void InitBasicMovement()
         {
 
-
-
-            _moveUp = MyInputs.Instance.MoveUp
+            _moveUp = PlayerInput.MoveUp
                 .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
                 .Subscribe(pressingSpace =>
                 {
@@ -116,7 +116,7 @@ namespace NostrumGames
 
         public void StartNewLife()
         {
-            _rigidbody2D.gravityScale = GravityScaleDefualt;
+            _rigidbody2D.gravityScale = Global.DefaultGravity;
             _rigidbody2D.isKinematic = false;
             _rigidbody2D.velocity = new Vector2(0, 0);
             _controllerType = ControllerType.Basic;
@@ -152,13 +152,13 @@ namespace NostrumGames
             switch (_controllerType)
             {
                 case ControllerType.Basic:
-                    _rigidbody2D.gravityScale = GravityScaleDefualt;
+                    _rigidbody2D.gravityScale = Global.DefaultGravity;
                     break;
                 case ControllerType.Reflected:
-                    _rigidbody2D.gravityScale = GravityScaleDefualt * -1;
+                    _rigidbody2D.gravityScale = Global.DefaultGravity * -1;
                     break;
                 default:
-                    _rigidbody2D.gravityScale = GravityScaleDefualt;
+                    _rigidbody2D.gravityScale = Global.DefaultGravity;
                     break;
             }
         }

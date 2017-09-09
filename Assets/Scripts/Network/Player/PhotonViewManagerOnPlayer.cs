@@ -23,27 +23,27 @@ namespace NostrumGames
 
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
-            Debug.Log("KREÁLVA lett tőle: " + info.sender.NickName);
+            Debug.Log("Created by him: " + info.sender.NickName);
             if (info.sender.IsLocal) return;
 
             SetAlpha(Global.OtherPlayersAlpha);
-            RemoveOrDisableAllUnnecessaryComponents();
+            DisableAllUnnecessaryComponents();
         }
 
         public void SetAlpha(float otherPlayersAlpha)
         {
             var tempColor = GetComponent<SpriteRenderer>().color;
             GetComponent<SpriteRenderer>().color = new Color(tempColor.r, tempColor.g, tempColor.b, otherPlayersAlpha);
-            Debug.Log(tempColor.a);
-            Debug.Log(otherPlayersAlpha);
         }
 
-        private void RemoveOrDisableAllUnnecessaryComponents()
+        private void DisableAllUnnecessaryComponents()
         {
             PlayerManager.enabled = false;
             PlayerController.enabled = false;
-            Destroy(GetComponent<Rigidbody2D>());
-            Destroy(GetComponent<BoxCollider2D>());
+            PlayerCollision.enabled = false;
+            // PlayerInput.enabled = false;
+            GetComponent<Rigidbody2D>().simulated = false;
+            GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }
