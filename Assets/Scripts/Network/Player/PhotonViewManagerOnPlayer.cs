@@ -23,7 +23,7 @@ namespace NostrumGames
 
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
-            Debug.Log("Created by him: " + info.sender.NickName);
+            // Debug.Log("Created by him: " + info.sender.NickName);
             if (info.sender.IsLocal) return;
 
             SetAlpha(Global.OtherPlayersAlpha);
@@ -38,9 +38,9 @@ namespace NostrumGames
 
         private void DisableAllUnnecessaryComponents()
         {
-            PlayerManager.enabled = false;
-            PlayerController.enabled = false;
-            PlayerCollision.enabled = false;
+            // PlayerManager.enabled = false;
+            // PlayerMovement.enabled = false;
+            // PlayerCollision.enabled = false;
             // PlayerInput.enabled = false;
             GetComponent<Rigidbody2D>().simulated = false;
             GetComponent<BoxCollider2D>().enabled = false;

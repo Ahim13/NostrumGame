@@ -40,13 +40,13 @@ namespace NostrumGames
         #region PUN Callbacks
         public override void OnConnectedToMaster()
         {
-            Debug.Log("Connected to Master");
+            // Debug.Log("Connected to Master");
             // PlayerSettings.Instance.SetPlayerSettings();
             if (ApplicationSettings.IsStarted) LobbyManager.Instance.ConnectToLobby();
         }
         public override void OnDisconnectedFromPhoton()
         {
-            Debug.LogWarning("Disconnected from Photon");
+            // Debug.LogWarning("Disconnected from Photon");
         }
         #endregion
 

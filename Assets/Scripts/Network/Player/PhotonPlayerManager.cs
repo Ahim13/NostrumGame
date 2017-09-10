@@ -42,7 +42,7 @@ namespace NostrumGames
         #region PUN Callbacks
         public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
         {
-            Debug.Log("New player: " + newPlayer.NickName);
+            // Debug.Log("New player: " + newPlayer.NickName);
             PlayerListingManager.Instance.AddPlayerTab(newPlayer);
             if (CheckPlayersCountMoreOrEqual(PlayersNumberOfGame.MinimumPlayersOfPiggyGame)) UIManager.Instance.SetRoomStartButtonInteractable(true);
 
@@ -52,7 +52,7 @@ namespace NostrumGames
 
         public override void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
         {
-            Debug.Log("Player left: " + otherPlayer.NickName);
+            // Debug.Log("Player left: " + otherPlayer.NickName);
 
             //FIXME: null érték mert már destroyolodott mikor game scenben hívódik - kijavítani
             if (PlayerListingManager.Instance != null) PlayerListingManager.Instance.RemovePlayerTab(otherPlayer);
@@ -63,7 +63,7 @@ namespace NostrumGames
             //check if we are the new Mater client
             if (newMasterClient.ID == PhotonNetwork.player.ID)
             {
-                Debug.Log("<color=blue>We are the master now!</color>");
+                // Debug.Log("<color=blue>We are the master now!</color>");
                 UIManager.Instance.SetStartButtonActiveAndInteractable();
             }
         }
@@ -79,7 +79,7 @@ namespace NostrumGames
 
             PhotonNetwork.RaiseEvent(eventCode, seed, reliable, op);
 
-            Debug.Log("<color=red>Sent Seed to new player  </color>" + newPlayer + " " + seed);
+            // Debug.Log("<color=red>Sent Seed to new player  </color>" + newPlayer + " " + seed);
         }
     }
 }

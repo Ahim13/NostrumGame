@@ -39,11 +39,11 @@ namespace NostrumGames
             //Create then join room if possible then load RoomUI
             if (PhotonNetwork.CreateRoom(roomName, roomOptions, null))
             {
-                Debug.Log("Room creation sent");
+                // Debug.Log("Room creation sent");
             }
             else
             {
-                Debug.Log("Could not create room / room already exist");
+                // Debug.Log("Could not create room / room already exist");
             }
         }
 
@@ -82,7 +82,6 @@ namespace NostrumGames
 
         public override void OnCreatedRoom()
         {
-            Debug.Log("Room created");
             UIManager.Instance.CreatedARoom();
         }
 

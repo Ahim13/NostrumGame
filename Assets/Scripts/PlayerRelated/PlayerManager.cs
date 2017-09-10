@@ -8,8 +8,7 @@ using DG.Tweening;
 
 namespace NostrumGames
 {
-    [RequireComponent(typeof(PlayerMovement))]
-    public class PlayerManager : PlayerBase
+    public class PlayerManager : PlayerBase, IPunObservable
     {
         protected PlayerManager() { }
 
@@ -53,6 +52,9 @@ namespace NostrumGames
 
         void Start()
         {
+
+            if (!PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
+
             (this).OnCollisionEnter2DAsObservable()
                 .Where(_ => IsLiving)
                 .Where(col => col.gameObject.tag == "Map")
@@ -76,7 +78,7 @@ namespace NostrumGames
         private void InitTools()
         {
             PickupList = new List<Component>();
-            _playerTween = new PlayerTween(transform, this.GetComponent<Renderer>(), MainCamera, PlayerController, this);
+            _playerTween = new PlayerTween(transform, this.GetComponent<Renderer>(), MainCamera, PlayerMovement, this);
             _livesCounter = new LivesCounter(_lives, this);
         }
         private void LoseShield()
@@ -93,7 +95,7 @@ namespace NostrumGames
 
         private void OnCollisionWithObstacle()
         {
-            _playerTween.OnDeath(PlayerController, _delayAfterDeath);
+            _playerTween.OnDeath(PlayerMovement, _delayAfterDeath);
             _livesCounter.Died();
             if (PickupList.Count > 0) RemovePickup();
         }
@@ -111,5 +113,16 @@ namespace NostrumGames
             PickupList.RemoveAt(0);
         }
 
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            SerializeState(stream, info);
+
+            PlayerMovement.SerializeState(stream, info);
+        }
+
+        private void SerializeState(PhotonStream stream, PhotonMessageInfo info)
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

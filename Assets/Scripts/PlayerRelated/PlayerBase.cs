@@ -11,13 +11,13 @@ namespace NostrumGames
     [RequireComponent(typeof(PlayerCollision))]
     public class PlayerBase : MonoBehaviour
     {
-        PlayerMovement _playerController;
-        public PlayerMovement PlayerController
+        PlayerMovement _playerMovement;
+        public PlayerMovement PlayerMovement
         {
             get
             {
-                if (_playerController == null) _playerController = GetComponent<PlayerMovement>();
-                return _playerController;
+                if (_playerMovement == null) _playerMovement = GetComponent<PlayerMovement>();
+                return _playerMovement;
             }
         }
 
@@ -46,7 +46,7 @@ namespace NostrumGames
         {
             get
             {
-                if (_playerController == null) _playerInput = GetComponent<PlayerInput>();
+                if (_playerInput == null) _playerInput = GetComponent<PlayerInput>();
                 return _playerInput;
             }
         }

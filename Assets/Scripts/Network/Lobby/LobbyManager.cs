@@ -48,17 +48,17 @@ namespace NostrumGames
         #region PUN Callbacks
         public override void OnJoinedLobby()
         {
-            Debug.Log("InLobby: " + PhotonNetwork.lobby.Name);
+            // Debug.Log("InLobby: " + PhotonNetwork.lobby.Name);
         }
 
         public override void OnLeftLobby()
         {
-            Debug.Log("Lobby left");
+            // Debug.Log("Lobby left");
         }
 
         public override void OnReceivedRoomListUpdate()
         {
-            Debug.Log("ReceivedRoom");
+            // Debug.Log("ReceivedRoom");
             RoomListingManager.Instance.RefreshRooms();
         }
 

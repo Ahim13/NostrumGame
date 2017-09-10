@@ -21,7 +21,7 @@ namespace NostrumGames
 
         public void CreatedARoom()
         {
-            Debug.Log("Created ROOM setting:  " + PhotonPlayerManager.Instance.IsLocalMaster);
+            // Debug.Log("Created ROOM setting:  " + PhotonPlayerManager.Instance.IsLocalMaster);
             if (PhotonPlayerManager.Instance.IsLocalMaster)
             {
                 SetStartButtonActiveAndInteractable();

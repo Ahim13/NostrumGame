@@ -27,7 +27,7 @@ namespace NostrumGames
             RemoveAllRoomTabs();
 
             RoomInfo[] rooms = PhotonNetwork.GetRoomList();
-            Debug.Log("Refresh - Romms: " + rooms.Length);
+            // Debug.Log("Refresh - Romms: " + rooms.Length);
             // Rooms = new List<RoomInfo>(rooms);
 
             foreach (var room in rooms)

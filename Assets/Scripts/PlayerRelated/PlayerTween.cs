@@ -14,7 +14,7 @@ namespace NostrumGames
         private Renderer _renderer;
         private Camera _mainCamera;
 
-        private PlayerMovement _playerController;
+        private PlayerMovement _playerMovement;
         private PlayerManager _playerManager;
 
         private Sequence _deathSequence;
@@ -29,7 +29,7 @@ namespace NostrumGames
             this._transform = trans;
             this._renderer = rend;
             this._mainCamera = mainCamera;
-            this._playerController = playerController;
+            this._playerMovement = playerController;
             this._playerManager = playerManager;
         }
 
@@ -47,14 +47,14 @@ namespace NostrumGames
         private void OnSpawnPointSet()
         {
             _deathSequence.Rewind();
-            _playerController.StartNewLife();
+            _playerMovement.StartNewLife();
             _transform.SetParent(null);
             _playerManager.IsLiving = true;
         }
 
         public void OnDeath(PlayerMovement playerController, float delayAfterDeath)
         {
-            _playerController.KillController();
+            _playerMovement.KillController();
             DOVirtual.DelayedCall(1, () => SetParentingStartReposition());
         }
 
@@ -70,11 +70,11 @@ namespace NostrumGames
         private void SetParentingStartReposition()
         {
             _transform.SetParent(_mainCamera.transform);
-            _playerController.IsKinematic(true);
+            _playerMovement.IsKinematic(true);
             _setLocalPosTween.ChangeStartValue(_transform.localPosition, _timeToReachSpawnpoint);
             _setLocalPosTween.Play();
             _deathSequence.Play();
-            _playerController.IsBoxCollider2DEnabled(false);
+            _playerMovement.IsBoxCollider2DEnabled(false);
         }
 
     }

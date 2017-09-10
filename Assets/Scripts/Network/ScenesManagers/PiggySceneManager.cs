@@ -26,6 +26,11 @@ namespace NostrumGames
         {
             if (Input.GetKeyDown(KeyCode.P)) Time.timeScale = Time.timeScale == Global.NormalTimeScale ? Global.PausedTimeScale : Global.NormalTimeScale;
             if (Input.GetKeyDown(KeyCode.A)) Debug.Log(Global.PlayersSpeed);
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("Lobby");
+                RoomManager.Instance.LeaveRoom();
+            };
         }
 
         private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
