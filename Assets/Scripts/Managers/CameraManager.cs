@@ -70,7 +70,6 @@ namespace NostrumGames
         {
 
             var velocity = AngleSpeed(transform.position, currentTarget.position, GetProperSpeed(_useManualSpeed).x) * Time.deltaTime;
-            Debug.Log(velocity);
 
             var distance = currentTarget.transform.position.x - this.transform.position.x;
             if (currentTarget.transform.position.x > this.transform.position.x && velocity < distance)

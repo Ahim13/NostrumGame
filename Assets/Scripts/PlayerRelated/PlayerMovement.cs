@@ -68,17 +68,17 @@ namespace NostrumGames
         {
             InitVairables();
 
-            // if (!PhotonViewManagerOnPlayer.IsPhotonViewMine())
-            // {
-            //     _networkedPlayerMovementInfo = new NetworkedPlayerMovementInfo();
-            //     _previousInfo = new NetworkedPlayerMovementInfo();
-            //     return;
-            // }
+            if (!PhotonViewManagerOnPlayer.IsPhotonViewMine())
+            {
+                _networkedPlayerMovementInfo = new NetworkedPlayerMovementInfo();
+                _previousInfo = new NetworkedPlayerMovementInfo();
+                return;
+            }
 
 
             //Init reactiveVeloX - in start it gives nullrefernce issues
             ReactiveVelocityX = this.FixedUpdateAsObservable()
-                //.Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
+                .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
                 .Select(_ => _velocityX)
                 .Do(velo =>
                 {
@@ -93,7 +93,7 @@ namespace NostrumGames
 
         void Start()
         {
-            //if (!PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
+            if (!PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
 
             InitBasicMovement();
 
@@ -105,7 +105,7 @@ namespace NostrumGames
 
             if (PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
 
-            //UpdateNetworkedPostion();
+            UpdateNetworkedPostion();
         }
 
         void FixedUpdate()
@@ -132,7 +132,7 @@ namespace NostrumGames
         //     // currentTime += Time.deltaTime;
         //     // if (timeToReachGoal != 0) transform.position = Vector2.Lerp(_previousInfo.Position, _networkedPlayerMovementInfo.Position, (float)(currentTime / timeToReachGoal));
 
-        //     if (timeToReachGoal != 0) _rigidbody2D.position = Vector2.Lerp(_previousInfo.Position, _networkedPlayerMovementInfo.Position, (float)(currentTime / timeToReachGoal));
+        //     if (timeToReachGoal != 0) transform.position = Vector2.Lerp(_previousInfo.Position, _networkedPlayerMovementInfo.Position, (float)(currentTime / timeToReachGoal));
 
 
         // }
@@ -150,7 +150,7 @@ namespace NostrumGames
                 (_networkedPlayerMovementInfo.Position.y + _networkedPlayerMovementInfo.SpeedOnY * totalTimePassed)
                 );
 
-            if (magnitude == 0) magnitude = 20;
+            if (magnitude == 0) magnitude = 25;
 
 
             Vector2 newPosition = Vector2.MoveTowards(transform.position, extrapolatedTargetPosition, magnitude * Time.deltaTime);
@@ -178,7 +178,7 @@ namespace NostrumGames
         {
 
             _moveUp = PlayerInput.MoveUp
-                //.Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
+                .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
                 .Subscribe(pressingSpace =>
                 {
                     MovementBasenOnControllType(pressingSpace);
