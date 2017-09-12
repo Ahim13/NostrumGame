@@ -60,5 +60,14 @@ namespace NostrumGames
                 return _playerCollision;
             }
         }
+        PlayerNetwork _playerNetwork;
+        public PlayerNetwork PlayerNetwork
+        {
+            get
+            {
+                if (_playerNetwork == null) _playerNetwork = GetComponent<PlayerNetwork>();
+                return _playerNetwork;
+            }
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace NostrumGames
         public void SetStartButtonActiveAndInteractable()
         {
             RoomStartButton.gameObject.SetActive(true);
-            RoomStartButton.interactable = PhotonPlayerManager.Instance.CheckPlayersCountMoreOrEqual(PlayersNumberOfGame.MinimumPlayersOfPiggyGame);
+            RoomStartButton.interactable = PhotonPlayerManager.Instance.CheckPlayersCountMoreOrEqual(PlayersNumberOfGame.MinimumPlayersOfPiggyGame, true);
         }
     }
 }
