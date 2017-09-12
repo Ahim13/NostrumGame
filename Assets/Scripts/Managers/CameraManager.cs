@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine.SceneManagement;
+using Endless2DTerrain;
 
 namespace NostrumGames
 {
-    public class CameraManager : Singleton<CameraManager>
+    public class CameraManager : MonoBehaviour
     {
-        protected CameraManager() { }
+        public static CameraManager Instance;
 
         public float TerrainAngle { get; set; }
 
@@ -33,19 +35,33 @@ namespace NostrumGames
 
         void Awake()
         {
-            this.Reload();
+            SetAsSingleton();
             // _playerSpeed = new Vector2(Global.PlayersSpeed, 0);
             _isInitialized = false;
         }
+        private void SetAsSingleton()
+        {
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
+        }
+
 
         void Start()
         {
             this.FixedUpdateAsObservable()
                 .Subscribe(_ =>
                 {
+                    if (!TerrainPiece.ShouldInit) InitTargets();
                     if (_isInitialized) MoveToNextTarget(ref _currentTarget, ref _currentTargetIndex, TargetPoints);
                 })
                 .AddTo(this);
+
+            // if (!TerrainPiece.ShouldInit) InitTargets();
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
 
@@ -54,6 +70,7 @@ namespace NostrumGames
         {
 
             var velocity = AngleSpeed(transform.position, currentTarget.position, GetProperSpeed(_useManualSpeed).x) * Time.deltaTime;
+            Debug.Log(velocity);
 
             var distance = currentTarget.transform.position.x - this.transform.position.x;
             if (currentTarget.transform.position.x > this.transform.position.x && velocity < distance)
@@ -115,6 +132,8 @@ namespace NostrumGames
 
         public void InitTargets()
         {
+            if (_isInitialized) return;
+
             _currentTargetIndex = _startingIndex;
             _currentTarget = TargetPoints[_currentTargetIndex];
             _isInitialized = true;

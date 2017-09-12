@@ -24,6 +24,13 @@ namespace NostrumGames
         public float TimeSinceLastUpdate { get { return (float)(PhotonNetwork.time - LastNetworkDataReceived); } }
         public float SpeedOnY { get { return Velocity.y; } }
         public float SpeedOnX { get { return Velocity.x; } }
+
+        public NetworkedPlayerMovementInfo()
+        {
+            Position = Vector2.zero;
+            Velocity = Vector2.zero;
+            LastNetworkDataReceived = 0.0;
+        }
     }
 
     public class PlayerMovement : PlayerBase
@@ -52,37 +59,26 @@ namespace NostrumGames
         private NetworkedPlayerMovementInfo _previousInfo;
 
 
-        private float lastSynchronizationTime = 0f;
-        private float syncDelay = 0f;
-        private float syncTime = 0f;
-        private float progress = 0f;
-        private Vector2 prevPosition = Vector2.zero;
-        private Vector2 realPos = Vector2.zero;
-        private float timer = 0f;
 
-
-        public Vector2 realPosition = Vector2.zero;
-        public Vector2 positionAtLastPacket = Vector2.zero;
         public double currentTime = 0.0;
-        public double currentPacketTime = 0.0;
-        public double lastPacketTime = 0.0;
         public double timeToReachGoal = 0.0;
 
 
         void Awake()
         {
-
-            if (!PhotonViewManagerOnPlayer.IsPhotonViewMine())
-            {
-                _networkedPlayerMovementInfo = new NetworkedPlayerMovementInfo();
-                return;
-            }
-
             InitVairables();
+
+            // if (!PhotonViewManagerOnPlayer.IsPhotonViewMine())
+            // {
+            //     _networkedPlayerMovementInfo = new NetworkedPlayerMovementInfo();
+            //     _previousInfo = new NetworkedPlayerMovementInfo();
+            //     return;
+            // }
+
 
             //Init reactiveVeloX - in start it gives nullrefernce issues
             ReactiveVelocityX = this.FixedUpdateAsObservable()
-                .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
+                //.Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
                 .Select(_ => _velocityX)
                 .Do(velo =>
                 {
@@ -97,7 +93,7 @@ namespace NostrumGames
 
         void Start()
         {
-            if (!PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
+            //if (!PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
 
             InitBasicMovement();
 
@@ -109,75 +105,64 @@ namespace NostrumGames
 
             if (PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
 
-            UpdateNetworkedPostion();
+            //UpdateNetworkedPostion();
         }
 
+        void FixedUpdate()
+        {
+
+            //GetComponent<Rigidbody2D>().position = Vector2.Lerp(transform.position, p, Time.deltaTime);
+        }
+
+        // Beginner type of prediction implementation to movement TODO: find a better one for specificly 2D plastformer
+        // private void UpdateNetworkedPostion()
+        // {
+
+        //     timeToReachGoal = _networkedPlayerMovementInfo.LastNetworkDataReceived - _previousInfo.LastNetworkDataReceived;
+        //     currentTime += Time.deltaTime;
+
+
+        //     //extrapolate
+        //     // Vector2 extrapolatedTargetPosition = new Vector2(
+        //     //     (_networkedPlayerMovementInfo.Position.x + _networkedPlayerMovementInfo.SpeedOnX * (float)timeToReachGoal),
+        //     //     (_networkedPlayerMovementInfo.Position.y + _networkedPlayerMovementInfo.SpeedOnY * (float)timeToReachGoal)
+        //     //     );
+
+        //     // timeToReachGoal = _networkedPlayerMovementInfo.LastNetworkDataReceived - _previousInfo.LastNetworkDataReceived;
+        //     // currentTime += Time.deltaTime;
+        //     // if (timeToReachGoal != 0) transform.position = Vector2.Lerp(_previousInfo.Position, _networkedPlayerMovementInfo.Position, (float)(currentTime / timeToReachGoal));
+
+        //     if (timeToReachGoal != 0) _rigidbody2D.position = Vector2.Lerp(_previousInfo.Position, _networkedPlayerMovementInfo.Position, (float)(currentTime / timeToReachGoal));
+
+
+        // }
         //Beginner type of prediction implementation to movement TODO: find a better one for specificly 2D plastformer
         private void UpdateNetworkedPostion()
         {
+            float pingInSeconds = (float)PhotonNetwork.GetPing() * 0.001f;
+            float timeSinceLastUpdate = (float)(PhotonNetwork.time - _networkedPlayerMovementInfo.LastNetworkDataReceived);
+            float totalTimePassed = pingInSeconds + timeSinceLastUpdate;
 
-            // if (_previousInfo == null)
-            // {
-            //     _previousInfo = new NetworkedPlayerMovementInfo();
-            // }
+            var magnitude = _networkedPlayerMovementInfo.Velocity.magnitude;
 
-            // float pingInSeconds = (float)PhotonNetwork.GetPing() * 0.001f;
-            // //float timeSinceLastUpdate = (float)(PhotonNetwork.time - _networkedPlayerMovementInfo.LastNetworkDataReceived);
-            // float totalTimePassed = pingInSeconds + _networkedPlayerMovementInfo.TimeSinceLastUpdate;
+            Vector2 extrapolatedTargetPosition = new Vector2(
+                (_networkedPlayerMovementInfo.Position.x + _networkedPlayerMovementInfo.SpeedOnX * totalTimePassed),
+                (_networkedPlayerMovementInfo.Position.y + _networkedPlayerMovementInfo.SpeedOnY * totalTimePassed)
+                );
 
-            // var magnitude = _networkedPlayerMovementInfo.Velocity.magnitude;
-
-
-            timeToReachGoal = currentPacketTime - lastPacketTime;
-            currentTime += Time.deltaTime;
-            if (timeToReachGoal != 0) transform.position = Vector2.Lerp(positionAtLastPacket, _networkedPlayerMovementInfo.Position, (float)(currentTime / timeToReachGoal));
+            if (magnitude == 0) magnitude = 20;
 
 
-            // timer += Time.deltaTime / totalTimePassed;
+            Vector2 newPosition = Vector2.MoveTowards(transform.position, extrapolatedTargetPosition, magnitude * Time.deltaTime);
+            // Vector2 newPosition = Vector2.Lerp(transform.position, extrapolatedTargetPosition, magnitude * Time.deltaTime);
 
-            // timer = Mathf.Clamp(timer, 0, 1);
-
-            // var newPosition = Vector2.Lerp(_previousInfo.Position, _networkedPlayerMovementInfo.Position, timer);
-
-            // Debug.Log("prevpos: " + _previousInfo.Position);
-            // Debug.Log("nextpos: " + _networkedPlayerMovementInfo.Position);
-            // Debug.Log("timer: " + timer);
-            // Debug.Log("totalTime: " + totalTimePassed);
-            // Debug.Log("ping: " + pingInSeconds);
-            // Debug.Log("lastupdate: " + _networkedPlayerMovementInfo.TimeSinceLastUpdate);
-
-            // transform.position = newPosition;
-
-
-
-
+            if (Vector2.Distance(transform.position, newPosition) > 2f)
+            {
+                newPosition = extrapolatedTargetPosition;
+                Debug.Log("<color=red>Too big</color>");
+            }
+            transform.position = newPosition;
         }
-        //Beginner type of prediction implementation to movement TODO: find a better one for specificly 2D plastformer
-        // private void UpdateNetworkedPostion()
-        // {
-        //     float pingInSeconds = (float)PhotonNetwork.GetPing() * 0.001f;
-        //     float timeSinceLastUpdate = (float)(PhotonNetwork.time - _networkedPlayerMovementInfo.LastNetworkDataReceived);
-        //     float totalTimePassed = pingInSeconds + timeSinceLastUpdate;
-
-        //     var magnitude = _networkedPlayerMovementInfo.Velocity.magnitude;
-
-        //     Vector2 extrapolatedTargetPosition = new Vector2(
-        //         (_networkedPlayerMovementInfo.Position.x + _networkedPlayerMovementInfo.SpeedOnX * totalTimePassed),
-        //         (_networkedPlayerMovementInfo.Position.y + _networkedPlayerMovementInfo.SpeedOnY * totalTimePassed)
-        //         );
-
-        //     if (magnitude < 0.1) magnitude = 8;
-
-        //     // Vector2 newPosition = Vector2.MoveTowards(transform.position, _networkedPlayerMovementInfo.Position, magnitude * Time.deltaTime);
-        //     Vector2 newPosition = Vector2.Lerp(transform.position, extrapolatedTargetPosition, magnitude * Time.deltaTime);
-
-        //     if (Vector2.Distance(transform.position, newPosition) > 2f)
-        //     {
-        //         newPosition = extrapolatedTargetPosition;
-        //         Debug.Log("<color=red>Too big</color>");
-        //     }
-        //     transform.position = newPosition;
-        // }
 
 
         private void InitVairables()
@@ -193,7 +178,7 @@ namespace NostrumGames
         {
 
             _moveUp = PlayerInput.MoveUp
-                .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
+                //.Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
                 .Subscribe(pressingSpace =>
                 {
                     MovementBasenOnControllType(pressingSpace);
@@ -301,21 +286,17 @@ namespace NostrumGames
             }
             else
             {
-                // _previousInfo = _networkedPlayerMovementInfo;
 
                 currentTime = 0.0;
-                positionAtLastPacket = transform.position;
-                // realPosition = (Vector2)stream.ReceiveNext();
-                lastPacketTime = currentPacketTime;
-                currentPacketTime = info.timestamp;
+
+                _previousInfo.Position = transform.position;
+                _previousInfo.Velocity = _networkedPlayerMovementInfo.Velocity;
+                _previousInfo.LastNetworkDataReceived = _networkedPlayerMovementInfo.LastNetworkDataReceived;
+                _networkedPlayerMovementInfo.LastNetworkDataReceived = info.timestamp;
 
                 _networkedPlayerMovementInfo.Position = (Vector2)stream.ReceiveNext();
                 _networkedPlayerMovementInfo.Velocity = (Vector2)stream.ReceiveNext();
 
-                _networkedPlayerMovementInfo.LastNetworkDataReceived = info.timestamp;
-
-
-                timer = 0;
 
             }
         }

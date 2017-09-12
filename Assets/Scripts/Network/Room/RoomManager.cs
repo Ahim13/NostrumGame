@@ -66,7 +66,6 @@ namespace NostrumGames
         public void LeaveRoom()
         {
             PhotonNetwork.LeaveRoom();
-
         }
 
 
@@ -98,8 +97,8 @@ namespace NostrumGames
         public override void OnLeftRoom()
         {
             Debug.Log("Left room");
-            PlayerListingManager.Instance.RemoveAllPlayerTab();
-            UIManager.Instance.SwapListViewToRoomView();
+            if (PlayerListingManager.Instance != null) PlayerListingManager.Instance.RemoveAllPlayerTab();
+            //UIManager.Instance.SwapListViewToRoomView();
         }
 
         public override void OnPhotonJoinRoomFailed(object[] codeAndMsg)

@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace NostrumGames
 {
-    public class PlayerListingManager : Singleton<PlayerListingManager>
+    public class PlayerListingManager : MonoBehaviour
     {
+
+        public static PlayerListingManager Instance;
 
         [SerializeField]
         private GameObject _playerContainer;
@@ -19,9 +21,15 @@ namespace NostrumGames
 
         void Awake()
         {
-            this.Reload();
+            SetAsSingleton();
 
             _playerTabs = new List<GameObject>();
+        }
+
+        private void SetAsSingleton()
+        {
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
         }
 
         public void AddPlayerTab(PhotonPlayer newPlayer)

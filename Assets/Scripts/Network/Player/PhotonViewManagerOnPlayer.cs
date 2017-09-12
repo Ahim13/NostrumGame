@@ -42,8 +42,9 @@ namespace NostrumGames
             // PlayerMovement.enabled = false;
             // PlayerCollision.enabled = false;
             // PlayerInput.enabled = false;
-            GetComponent<Rigidbody2D>().simulated = false;
-            GetComponent<BoxCollider2D>().enabled = false;
+            // GetComponent<Rigidbody2D>().simulated = false;
+            GetComponent<Rigidbody2D>().gravityScale = 0;
+            // GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }

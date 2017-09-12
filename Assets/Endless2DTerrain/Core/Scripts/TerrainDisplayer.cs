@@ -62,6 +62,9 @@ public class TerrainDisplayer : MonoBehaviour
     void Awake()
     {
         Setup();
+
+        TerrainPiece.InitCounter = 3;
+        TerrainPiece.ShouldInit = true;
     }
 
     public void Setup()

@@ -28,8 +28,8 @@ namespace Endless2DTerrain
         //The multiple meshes the terrain is made of
         public List<MeshPiece> MeshPieces { get; set; }
 
-        private static bool _shouldInit = true;
-        private static int _initCounter = 3;
+        public static bool ShouldInit = true;
+        public static int InitCounter = 3;
 
         private const string managerName = "Terrain Manager";
 
@@ -92,7 +92,8 @@ namespace Endless2DTerrain
 
             if (Application.isPlaying)
             {
-                if (_initCounter < 3)
+
+                if (InitCounter < 3)
                 {
                     var cameraPathPoint = new GameObject("CameraPathPoint");
                     cameraPathPoint.tag = "Path";
@@ -103,12 +104,12 @@ namespace Endless2DTerrain
                     CameraManager.Instance.AddToTargetPoints(cameraPathPoint.transform);
                 }
 
-                _initCounter -= 1;
+                InitCounter -= 1;
 
-                if (_initCounter == 0 && _shouldInit)
+                if (InitCounter == 0 && ShouldInit)
                 {
-                    CameraManager.Instance.InitTargets();
-                    _shouldInit = false;
+                    //CameraManager.Instance.InitTargets();
+                    ShouldInit = false;
                 }
             }
 
