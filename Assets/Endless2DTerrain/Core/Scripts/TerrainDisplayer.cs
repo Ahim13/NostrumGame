@@ -6,6 +6,8 @@ using Endless2DTerrain;
 public class TerrainDisplayer : MonoBehaviour
 {
 
+    public static TerrainDisplayer Instance;
+
     //Length of preview in design view
     public float PreviewLength;
 
@@ -61,10 +63,17 @@ public class TerrainDisplayer : MonoBehaviour
 
     void Awake()
     {
+        SetAsSingleton();
         Setup();
 
         TerrainPiece.InitCounter = 3;
         TerrainPiece.ShouldInit = true;
+    }
+
+    private void SetAsSingleton()
+    {
+        if (Instance == null) Instance = this;
+        else if (Instance != this) Destroy(gameObject);
     }
 
     public void Setup()

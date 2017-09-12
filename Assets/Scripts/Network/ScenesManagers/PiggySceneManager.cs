@@ -5,6 +5,7 @@ using UniRx;
 using UniRx.Triggers;
 using System;
 using UnityEngine.SceneManagement;
+using Endless2DTerrain;
 
 namespace NostrumGames
 {
@@ -14,24 +15,47 @@ namespace NostrumGames
 
         public static PiggySceneManager Instance;
 
+
+        private TerrainRuleGenerator _terrainRuleGenerator;
+        private int _currentRuleIndex = -1;
+
         void Awake()
         {
             SetAsSingleton();
 
             SceneManager.sceneLoaded += OnSceneFinishedLoading;
 
-            Time.timeScale = Global.PausedTimeScale;
+            _terrainRuleGenerator = new TerrainRuleGenerator();
+
+            //Time.timeScale = Global.PausedTimeScale;
         }
 
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.P)) Time.timeScale = Time.timeScale == Global.NormalTimeScale ? Global.PausedTimeScale : Global.NormalTimeScale;
-            if (Input.GetKeyDown(KeyCode.A)) Debug.Log(Global.PlayersSpeed);
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+
+            };
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 SceneManager.LoadScene("Lobby");
                 RoomManager.Instance.LeaveRoom();
             };
+
+            CheckCurrentTerraintRuleIndex();
+        }
+
+        private void CheckCurrentTerraintRuleIndex()
+        {
+            if (TerrainDisplayer.Instance.TerrainManager.VertexGen.GetCurrentTerrainRuleIndex() != _currentRuleIndex)
+            {
+                _currentRuleIndex = TerrainDisplayer.Instance.TerrainManager.VertexGen.GetCurrentTerrainRuleIndex();
+
+                //if it changed then add new rule
+                var newRule = _terrainRuleGenerator.GenerateRandomRule(TerrainRule.TerrainLength.Fixed, -1, 1, 1, 4, 5);
+                _terrainRuleGenerator.AddToTerrainRules(newRule);
+            }
         }
 
         void OnDisable()
