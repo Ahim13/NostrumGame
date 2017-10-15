@@ -46,6 +46,9 @@ namespace NostrumGames
             return !string.IsNullOrEmpty(name);
         }
 
+        /// <summary>
+        /// Load lobby scene
+        /// </summary>
         public void StartGame()
         {
             if (NameValidation())

@@ -53,7 +53,7 @@ namespace NostrumGames
         private void AddPickupCompononent(Collider2D col, PlayerManager playerManager)
         {
             Component component = null;
-            _randomPickup = Pickups.Shield;
+            //_randomPickup = Pickups.Shield;
             switch (_randomPickup)
             {
                 case Pickups.Darken:
