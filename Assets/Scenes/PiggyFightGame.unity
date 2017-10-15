@@ -476,6 +476,7 @@ GameObject:
   - component: {fileID: 194158992}
   - component: {fileID: 194158994}
   - component: {fileID: 194158993}
+  - component: {fileID: 194158995}
   m_Layer: 5
   m_Name: RandomItem
   m_TagString: Untagged
@@ -537,6 +538,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 194158991}
+--- !u!114 &194158995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 194158991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1526c267ddf162c41936adde425a2382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReferencPoint: 260
+  Duration: 1.5
+  Ease: 27
 --- !u!1 &308599821
 GameObject:
   m_ObjectHideFlags: 0
@@ -2044,7 +2059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb249dd62c589d4bb3c8ae2f581ffc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delay: 0.15
+  _delay: 0.1
 --- !u!1 &843607285
 GameObject:
   m_ObjectHideFlags: 0
@@ -3709,7 +3724,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1488180325}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1554367806}
+        m_MethodName: UseItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1488180325
@@ -4194,17 +4220,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59dde02b8592f4a47ac0cbedcdeff75f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickupSprites:
-  - {fileID: 21300000, guid: 47f1b2aad2f56bf47a8859071b391fa1, type: 3}
-  - {fileID: 21300002, guid: 47f1b2aad2f56bf47a8859071b391fa1, type: 3}
-  - {fileID: 21300004, guid: 47f1b2aad2f56bf47a8859071b391fa1, type: 3}
-  - {fileID: 21300006, guid: 47f1b2aad2f56bf47a8859071b391fa1, type: 3}
-  - {fileID: 21300008, guid: 47f1b2aad2f56bf47a8859071b391fa1, type: 3}
-  - {fileID: 21300010, guid: 47f1b2aad2f56bf47a8859071b391fa1, type: 3}
   _aliveGamePickupImage: {fileID: 911385973}
   _deadGamePickupImage: {fileID: 472439230}
   _getRandomItemGO: {fileID: 1713745787}
   _useItemGO: {fileID: 1488180322}
+  _itemImageGO: {fileID: 194158991}
+  _transparent: {fileID: 0}
   _length: 4
   _delay: 0.25
   _deaccelerate: 1
@@ -4226,6 +4247,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+  _delayToRollAgain: 5
 --- !u!4 &1554367807
 Transform:
   m_ObjectHideFlags: 0
