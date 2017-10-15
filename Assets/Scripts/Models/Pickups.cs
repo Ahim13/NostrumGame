@@ -22,24 +22,35 @@ namespace NostrumGames
 
         public abstract PickupTypes PickupType { get; }
 
+        public Sprite PickupSprite;
+
         protected IDisposable _activatePickup;
 
         protected PlayerManager PlayerManager;
         protected PlayerInput PlayerInput;
 
+        public Pickups()
+        {
+            LoadPickupSprite();
+        }
+
+
         void Awake()
         {
             this.PlayerManager = GetComponent<PlayerManager>();
             this.PlayerInput = GetComponent<PlayerInput>();
+
         }
 
 
         void Start()
         {
-            ActivatePickup();
+            ActivatePickupOnInput();
         }
 
-        protected abstract void ActivatePickup();
+        protected abstract void ActivatePickupOnInput();
+        public abstract void ActivatePickup();
+        protected abstract void LoadPickupSprite();
 
     }
 }

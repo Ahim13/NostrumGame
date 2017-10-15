@@ -70,7 +70,7 @@ namespace NostrumGames
             }
 
             playerManager.PickupList.Add(component);
-            Destroy(this.gameObject);
+            DestroyBox();
         }
     }
 }

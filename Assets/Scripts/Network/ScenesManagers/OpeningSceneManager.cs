@@ -6,6 +6,7 @@ using Photon;
 using UnityEngine.SceneManagement;
 using UniRx;
 using UniRx.Triggers;
+using TMPro;
 
 namespace NostrumGames
 {
@@ -19,9 +20,9 @@ namespace NostrumGames
         [SerializeField]
         private Button _buttonStart;
         [SerializeField]
-        private Text _connectingText;
+        private TextMeshProUGUI _connectingText;
         [SerializeField]
-        private Text _badNameWarningText;
+        private TextMeshProUGUI _badNameWarningText;
 
         public string LobbySceneName;
         void Awake()

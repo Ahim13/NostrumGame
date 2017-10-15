@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class FadeOutTextEffect : MonoBehaviour
 {
-    public Text TargetText;
+    public TextMeshProUGUI TargetText;
 
     public float From;
     public float Duration;

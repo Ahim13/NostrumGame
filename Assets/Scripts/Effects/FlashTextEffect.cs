@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class FlashTextEffect : MonoBehaviour
 {
-    public Text TargetText;
+    public TextMeshProUGUI Textmesh;
 
     public float To;
     public float Duration;
@@ -14,6 +15,7 @@ public class FlashTextEffect : MonoBehaviour
 
     void Start()
     {
-        TargetText.DOFade(To, Duration).SetLoops(-1, LoopType.Yoyo).SetEase(EaseType);
+        //TargetText.DOFade(To, Duration).SetLoops(-1, LoopType.Yoyo).SetEase(EaseType);
+        Textmesh.DOFade(To, Duration).SetLoops(-1, LoopType.Yoyo).SetEase(EaseType);
     }
 }

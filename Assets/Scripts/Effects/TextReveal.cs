@@ -12,7 +12,7 @@ namespace NostrumGames
     {
 
         [SerializeField]
-        private float _speed;
+        private float _delay;
 
         private TextMeshProUGUI _text;
 
@@ -50,7 +50,7 @@ namespace NostrumGames
 
                 counter += 1;
 
-                yield return new WaitForSeconds(_speed);
+                yield return new WaitForSeconds(_delay);
             }
 
         }

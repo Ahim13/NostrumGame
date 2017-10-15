@@ -14,17 +14,29 @@ namespace NostrumGames
 
         public override PickupTypes PickupType { get { return PickupTypes.Defensive; } }
 
-        protected override void ActivatePickup()
+        public override void ActivatePickup()
+        {
+            Debug.Log("KILŐŐŐŐŐŐ");
+            MakeShieldVisible();
+            SetPlayerHasShield();
+
+            Destroy(this);
+            _activatePickup.Dispose();
+        }
+
+
+        protected override void ActivatePickupOnInput()
         {
             _activatePickup = PlayerInput.ActivatePickup
                 .Subscribe(_ =>
                 {
-                    MakeShieldVisible();
-                    SetPlayerHasShield();
-
-                    Destroy(this);
-                    _activatePickup.Dispose();
+                    ActivatePickup();
                 });
+        }
+
+        protected override void LoadPickupSprite()
+        {
+            PickupSprite = Resources.Load<Sprite>("PickupSprites/1");
         }
 
         private void SetPlayerHasShield()
@@ -39,6 +51,7 @@ namespace NostrumGames
             ColorUtility.TryParseHtmlString("#33FF00FF", out myColor);
             this.GetComponent<SpriteOutline>().color = myColor;
         }
+
     }
 }
 
