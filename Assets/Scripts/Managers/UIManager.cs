@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 namespace NostrumGames
 {
-    public class UIManager : Singleton<UIManager>
+    public class UIManager : MonoBehaviour
     {
+        public static UIManager Instance;
+
         [Header("ListView")]
         public GameObject RoomListView;
         public GameObject RoomView;
@@ -16,7 +18,13 @@ namespace NostrumGames
 
         void Awake()
         {
-            this.Reload();
+            SetAsSingleton();
+        }
+
+        private void SetAsSingleton()
+        {
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
         }
 
         public void CreatedARoom()

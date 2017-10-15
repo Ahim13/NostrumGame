@@ -4,11 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class NetworkSceneManager : Singleton<NetworkSceneManager>
+public class NetworkSceneManager : MonoBehaviour
 {
+
+    public static NetworkSceneManager Instance;
 
     private List<string> _sceneNamesInBuild = new List<string>();
     private List<int> _sceneIndexesInBuild = new List<int>();
+
+    void Awake()
+    {
+        SetAsSingleton();
+    }
+    private void SetAsSingleton()
+    {
+        if (Instance == null) Instance = this;
+        else if (Instance != this) Destroy(gameObject);
+    }
 
     void Start()
     {

@@ -5,11 +5,18 @@ using UnityEngine;
 
 namespace NostrumGames
 {
-    public class PlayerSettings : Singleton<PlayerSettings>
+    public class PlayerSettings : MonoBehaviour
     {
+        public static PlayerSettings Instance;
+
         void Awake()
         {
-            this.Reload();
+            SetAsSingleton();
+        }
+        private void SetAsSingleton()
+        {
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
         }
 
         public void SetPlayerName(string newName)

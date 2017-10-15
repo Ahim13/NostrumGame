@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Photon;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace NostrumGames
 {
-    public class RoomListingManager : Singleton<RoomListingManager>
+    public class RoomListingManager : MonoBehaviour
     {
+        public static RoomListingManager Instance;
+
         [SerializeField]
         private GameObject _roomListingContainer;
         [SerializeField]
@@ -18,7 +19,13 @@ namespace NostrumGames
 
         void Awake()
         {
-            this.Reload();
+            SetAsSingleton();
+        }
+
+        private void SetAsSingleton()
+        {
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
         }
 
 

@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DDOL : Singleton<DDOL>
+public class DDOL : MonoBehaviour
 {
+    public static DDOL Instance;
+
     void Awake()
     {
-        this.Reload();
+        SetAsSingleton();
         DontDestroyOnLoad(this);
+    }
+    private void SetAsSingleton()
+    {
+        if (Instance == null) Instance = this;
+        else if (Instance != this) Destroy(gameObject);
     }
 }

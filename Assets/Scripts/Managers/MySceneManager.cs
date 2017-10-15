@@ -5,11 +5,17 @@ using UnityEngine.SceneManagement;
 
 namespace NostrumGames
 {
-    public class MySceneManager : Singleton<MySceneManager>
+    public class MySceneManager : MonoBehaviour
     {
+        public static MySceneManager Instance;
         void Awake()
         {
-            this.Reload();
+            SetAsSingleton();
+        }
+        private void SetAsSingleton()
+        {
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
         }
         public void LoadScene(string sceneName)
         {

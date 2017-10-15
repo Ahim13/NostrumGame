@@ -6,14 +6,20 @@ using UniRx.Triggers;
 
 namespace NostrumGames
 {
-    public class MyInputs : Singleton<MyInputs>
+    public class MyInputs : MonoBehaviour
     {
-        protected MyInputs() { }
+        public static MyInputs Instance;
 
         void Awake()
         {
-            this.Reload();
+            SetAsSingleton();
 
+        }
+
+        private void SetAsSingleton()
+        {
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
         }
     }
 }

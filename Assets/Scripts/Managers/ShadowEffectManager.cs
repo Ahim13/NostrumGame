@@ -10,9 +10,9 @@ using UniRx.Triggers;
 namespace NostrumGames
 {
     [RequireComponent(typeof(SpriteLightKitImageEffect))]
-    public class ShadowEffectManager : Singleton<ShadowEffectManager>
+    public class ShadowEffectManager : MonoBehaviour
     {
-        protected ShadowEffectManager() { }
+        public static ShadowEffectManager Instance;
 
         [SerializeField]
         private float _delayToDisable;
@@ -23,7 +23,12 @@ namespace NostrumGames
 
         void Awake()
         {
-            this.Reload();
+            SetAsSingleton();
+        }
+        private void SetAsSingleton()
+        {
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
         }
 
         public void ActivateShadow()
