@@ -15,7 +15,7 @@ namespace NostrumGames
 
         public Camera MainCamera { get; private set; }
 
-        public int Lives { get { return _lives; } set { _lives = value; } }
+        public LivesCounter LivesCounter { get { return _livesCounter; } }
 
         public bool IsLiving { get; set; }
         public bool HasShield { get; set; }
@@ -95,8 +95,8 @@ namespace NostrumGames
 
         private void OnCollisionWithObstacle()
         {
-            _playerTween.OnDeath(PlayerMovement, _delayAfterDeath);
             _livesCounter.Died();
+            _playerTween.OnDeath(_delayAfterDeath);
             if (PickupList.Count > 0) RemovePickup();
         }
 

@@ -12,9 +12,11 @@ namespace NostrumGames
         public static readonly string LivesImageName = "LivesImage";
 
 
-        private float _lives;
+
+        private float _maxLives;
         private ReactiveProperty<float> CurrentLives { get; set; }
-        private ReactiveProperty<bool> IsLifeRameined { get; set; }
+        public ReactiveProperty<bool> IsAlive { get; }
+
         private float _currrentLives;
 
         private bool _noMoreLives;
@@ -26,11 +28,13 @@ namespace NostrumGames
 
         public LivesCounter(int lives, PlayerManager playerManager)
         {
-            this._lives = lives;
+            this._maxLives = lives;
             this._livesImage = GameObject.Find(LivesImageName).GetComponent<Image>();
 
             this.CurrentLives = new ReactiveProperty<float>(lives);
-            this.IsLifeRameined = CurrentLives.Select(x => x > 0).ToReactiveProperty();
+            this.IsAlive = CurrentLives.Select(x => x > 0).ToReactiveProperty();
+
+            // IsLifeRameined.Where(alive => alive).Subscribe(_ => NoMoreLives());
 
             CurrentLives.Where(x => x == 0).Subscribe(_ => NoMoreLives());
 
@@ -41,7 +45,7 @@ namespace NostrumGames
         {
             _playerManager.IsLiving = false;
             CurrentLives.Value -= 1;
-            _livesImage.fillAmount = GetFillAmount(_lives, CurrentLives.Value);
+            _livesImage.fillAmount = GetFillAmount(_maxLives, CurrentLives.Value);
         }
 
 
@@ -53,8 +57,10 @@ namespace NostrumGames
         private void NoMoreLives()
         {
 
+            PiggySceneUIManager.Instance.SetPanelActivity(false);
+
             //TODO: for testing
-            Debug.Break();
+            //Debug.Break();
         }
     }
 

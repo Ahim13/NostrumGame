@@ -60,11 +60,6 @@ namespace NostrumGames
         }
 
 
-        void Update()
-        {
-
-        }
-
         #endregion
 
         public void GetRandomItem()
@@ -91,7 +86,7 @@ namespace NostrumGames
             {
                 _randomPickupIndex = Random.Range(0, _pickups.Count);
             }
-            while (_pickups[_randomPickupIndex].PickupType != PickupTypes.Offensive || _pickups[_randomPickupIndex].PickupType != PickupTypes.Relive);
+            while (_pickups[_randomPickupIndex].PickupType != PickupTypes.Offensive && _pickups[_randomPickupIndex].PickupType != PickupTypes.Relive);
 
 
             while (countDown >= 0)
@@ -122,8 +117,7 @@ namespace NostrumGames
 
         public void UseItem()
         {
-            Debug.Log(_pickups[_randomPickupIndex].PickupSprite);
-            //using item online
+            //TODO: using item online
             _pickups[_randomPickupIndex].ActivatePickup();
 
             //after usage turn it off for some time

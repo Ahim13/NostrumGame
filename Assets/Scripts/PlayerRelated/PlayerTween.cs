@@ -52,10 +52,11 @@ namespace NostrumGames
             _playerManager.IsLiving = true;
         }
 
-        public void OnDeath(PlayerMovement playerController, float delayAfterDeath)
+        public void OnDeath(float delayAfterDeath)
         {
             _playerMovement.KillController();
-            DOVirtual.DelayedCall(1, () => SetParentingStartReposition());
+
+            if (_playerManager.LivesCounter.IsAlive.Value) DOVirtual.DelayedCall(1, () => SetParentingStartReposition());
         }
 
         public void OnLoseShield(SpriteOutline outline)

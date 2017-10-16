@@ -81,14 +81,14 @@ namespace NostrumGames
 
         public override void OnCreatedRoom()
         {
-            UIManager.Instance.CreatedARoom();
+            LobbyUIManager.Instance.CreatedARoom();
         }
 
         public override void OnJoinedRoom()
         {
             Debug.Log("Joined to room: " + PhotonNetwork.room.Name);
-            UIManager.Instance.SwapListViewToRoomView();
-            UIManager.Instance.JoinedARoom();
+            LobbyUIManager.Instance.SwapListViewToRoomView();
+            LobbyUIManager.Instance.JoinedARoom();
             PlayerListingManager.Instance.AddPlayerTabsForExistingPlayers();
 
             //if we are Masterclient then init randomSeed

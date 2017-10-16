@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 namespace NostrumGames
 {
-    public class UIManager : MonoBehaviour
+    public class LobbyUIManager : MonoBehaviour
     {
-        public static UIManager Instance;
+        public static LobbyUIManager Instance;
 
         [Header("ListView")]
         public GameObject RoomListView;

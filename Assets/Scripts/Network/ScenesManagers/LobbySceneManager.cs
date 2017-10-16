@@ -11,7 +11,7 @@ namespace NostrumGames
         public void LeaveRoomButton()
         {
             RoomManager.Instance.LeaveRoom();
-            UIManager.Instance.SwapListViewToRoomView();
+            LobbyUIManager.Instance.SwapListViewToRoomView();
         }
 
         public void StartButtonPressed(string sceneName)

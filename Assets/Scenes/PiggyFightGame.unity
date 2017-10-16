@@ -834,11 +834,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -2024,11 +2024,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -4202,6 +4202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1554367807}
   - component: {fileID: 1554367806}
+  - component: {fileID: 1554367808}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -4225,7 +4226,7 @@ MonoBehaviour:
   _getRandomItemGO: {fileID: 1713745787}
   _useItemGO: {fileID: 1488180322}
   _itemImageGO: {fileID: 194158991}
-  _transparent: {fileID: 0}
+  _transparent: {fileID: 21300000, guid: 09869af95c595104c8dc1b056542a315, type: 3}
   _length: 4
   _delay: 0.25
   _deaccelerate: 1
@@ -4261,6 +4262,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1554367808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1554367805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daded1750e15f94419755213d24afd73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inGamePanel: {fileID: 1696516467}
+  _deathPanel: {fileID: 1896654362}
 --- !u!1 &1560161519
 GameObject:
   m_ObjectHideFlags: 0
@@ -5541,7 +5555,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1896654363
 RectTransform:
   m_ObjectHideFlags: 0
