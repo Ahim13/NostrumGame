@@ -21,7 +21,6 @@ namespace NostrumGames
             SetPlayerHasShield();
 
             Destroy(this);
-            _activatePickup.Dispose();
         }
 
         protected override void LoadPickupSprite()

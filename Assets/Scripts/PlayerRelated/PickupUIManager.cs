@@ -26,7 +26,7 @@ namespace NostrumGames
         [SerializeField]
         private GameObject _itemImageGO;
         [SerializeField]
-        private List<PickupInfo> _pickupInfo;
+        private PickupInfo[] _pickupInfo;
 
         [Header("Defaults")]
         [SerializeField]
@@ -34,16 +34,15 @@ namespace NostrumGames
 
         [Header("Values")]
         [SerializeField]
-        [Tooltip("In seconds")]
+        [Tooltip("Animation time in seconds on death panel")]
         private float _length;
         [SerializeField]
-        [Tooltip("In seconds")]
+        [Tooltip("Animation time in seconds ingame")]
         private float _lengthInGame;
         [SerializeField]
         private float _delay;
         [SerializeField]
-        private bool _deaccelerate;
-        [SerializeField]
+        [Tooltip("Animation curve for how to roll over the images")]
         private AnimationCurve _animCurve;
         [SerializeField]
         private float _delayToRollAgain;
@@ -69,7 +68,7 @@ namespace NostrumGames
             foreach (var pickup in _pickups)
             {
                 // Debug.Log("Tipus" + pickup.GetType().ToString());
-                pickup.PickupSprite = _pickupInfo.Where(info => ("NostrumGames." + info.PickupName) == pickup.GetType().ToString()).Select(info => info.PickupSprite).First();
+                pickup.PickupSprite = _pickupInfo.Where(info => ("NostrumGames." + info.PickupName.ToString()) == pickup.GetType().ToString()).Select(info => info.PickupSprite).First();
             }
 
         }
