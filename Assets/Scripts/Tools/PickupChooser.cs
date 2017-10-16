@@ -53,21 +53,26 @@ namespace NostrumGames
         private void AddPickupCompononent(Collider2D col, PlayerManager playerManager)
         {
             Component component = null;
-            //_randomPickup = Pickups.Shield;
+            _randomPickup = Pickups.Shield;
             switch (_randomPickup)
             {
                 case Pickups.Darken:
                     component = col.gameObject.AddComponent<Darken>();
+                    PickupUIManager.Instance.RollImagesInGame(component.GetComponent<Darken>());
                     break;
                 case Pickups.GiveBlur:
                     component = col.gameObject.AddComponent<Confuse>();
+                    PickupUIManager.Instance.RollImagesInGame(component.GetComponent<Confuse>());
                     break;
                 case Pickups.Shield:
                     component = col.gameObject.AddComponent<Shield>();
+                    PickupUIManager.Instance.RollImagesInGame(component.GetComponent<Shield>());
                     break;
                 default:
                     break;
             }
+
+
 
             playerManager.PickupList.Add(component);
             DestroyBox();

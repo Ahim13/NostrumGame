@@ -834,11 +834,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -2024,11 +2024,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -4226,8 +4226,18 @@ MonoBehaviour:
   _getRandomItemGO: {fileID: 1713745787}
   _useItemGO: {fileID: 1488180322}
   _itemImageGO: {fileID: 194158991}
+  _pickupInfo:
+  - PickupSprite: {fileID: 21300000, guid: f5460a65a0b26f64c85dded09c52ec41, type: 3}
+    PickupName: Darken
+  - PickupSprite: {fileID: 21300000, guid: 33d405908c603e748b5286b161b63840, type: 3}
+    PickupName: Confuse
+  - PickupSprite: {fileID: 21300000, guid: ca3c693bc36e8ee4b9248c317340a499, type: 3}
+    PickupName: Relive
+  - PickupSprite: {fileID: 21300000, guid: 7a02979c216c56945b83221a281d1901, type: 3}
+    PickupName: Shield
   _transparent: {fileID: 21300000, guid: 09869af95c595104c8dc1b056542a315, type: 3}
   _length: 4
+  _lengthInGame: 2
   _delay: 0.25
   _deaccelerate: 1
   _animCurve:

@@ -10,6 +10,8 @@ namespace NostrumGames
     public class PickupUIManager : MonoBehaviour
     {
 
+        public static PickupUIManager Instance;
+
 
         [Space(10)]
         [SerializeField]
@@ -23,6 +25,8 @@ namespace NostrumGames
         private GameObject _useItemGO;
         [SerializeField]
         private GameObject _itemImageGO;
+        [SerializeField]
+        private List<PickupInfo> _pickupInfo;
 
         [Header("Defaults")]
         [SerializeField]
@@ -32,6 +36,9 @@ namespace NostrumGames
         [SerializeField]
         [Tooltip("In seconds")]
         private float _length;
+        [SerializeField]
+        [Tooltip("In seconds")]
+        private float _lengthInGame;
         [SerializeField]
         private float _delay;
         [SerializeField]
@@ -51,12 +58,25 @@ namespace NostrumGames
 
         void Awake()
         {
+            SetAsSingleton();
+
             _pickups = typeof(Pickups)
                 .Assembly.GetTypes()
                 .Where(t => t.IsSubclassOf(typeof(Pickups)) && !t.IsAbstract)
                 .Select(t => (Pickups)System.Activator.CreateInstance(t))
                 .ToList();
 
+            foreach (var pickup in _pickups)
+            {
+                // Debug.Log("Tipus" + pickup.GetType().ToString());
+                pickup.PickupSprite = _pickupInfo.Where(info => ("NostrumGames." + info.PickupName) == pickup.GetType().ToString()).Select(info => info.PickupSprite).First();
+            }
+
+        }
+        private void SetAsSingleton()
+        {
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
         }
 
 
@@ -64,22 +84,9 @@ namespace NostrumGames
 
         public void GetRandomItem()
         {
-            StartCoroutine(GetRandomItem_Coroutine());
             _getRandomItemGO.SetActive(false);
             _useItemGO.SetActive(true);
             _useItemGO.GetComponent<Button>().interactable = false;
-
-        }
-
-        IEnumerator GetRandomItem_Coroutine()
-        {
-            var countDown = _length;
-            var spriteIndex = 0;
-            var timer = 0.0f;
-            var lerpedDelay = 0.0f;
-            var delayFrom = 0.0f;
-
-            if (!_deaccelerate) lerpedDelay = _delay;
 
             //TODO: random chance generator in static class ....
             do
@@ -88,17 +95,41 @@ namespace NostrumGames
             }
             while (_pickups[_randomPickupIndex].PickupType != PickupTypes.Offensive && _pickups[_randomPickupIndex].PickupType != PickupTypes.Relive);
 
+            StartCoroutine(RollOverImagesThenShowChosen(_length, _randomPickupIndex, _deadGamePickupImage, true, true));
+        }
+
+        public void RollImagesInGame(Pickups pickedItem)
+        {
+            var itemIndex = _pickups.FindIndex(item => item.GetType() == pickedItem.GetType());
+            StartCoroutine(RollOverImagesThenShowChosen(_lengthInGame, itemIndex, _aliveGamePickupImage, false, false));
+        }
+        /// <summary>
+        /// Rolls over images then shows the chosen Image
+        /// </summary>
+        /// <param name="length">The length in seconds</param>
+        /// <param name="chosenIndex"></param>
+        /// <param name="pickupImage"></param>
+        /// <param name="onDeadUI"></param>
+        /// <param name="deaccelerate"></param>
+        /// <returns></returns>
+        IEnumerator RollOverImagesThenShowChosen(float length, int chosenIndex, Image pickupImage, bool onDeadUI, bool deaccelerate)
+        {
+            var countDown = length;
+            var spriteIndex = 0;
+            var timer = 0.0f;
+            var lerpedDelay = 0.0f;
+            var delayFrom = 0.0f;
 
             while (countDown >= 0)
             {
 
-                _deadGamePickupImage.sprite = _pickups[spriteIndex].PickupSprite;
+                pickupImage.sprite = _pickups[spriteIndex].PickupSprite;
 
                 spriteIndex++;
 
                 if (spriteIndex > _pickups.Count - 1) spriteIndex = 0;
 
-                if (_deaccelerate)
+                if (deaccelerate)
                 {
                     lerpedDelay = Mathf.Lerp(delayFrom, _delay, _animCurve.Evaluate(timer / _length));
                     timer += Time.smoothDeltaTime + lerpedDelay;
@@ -110,9 +141,9 @@ namespace NostrumGames
                 yield return new WaitForSecondsRealtime(lerpedDelay);
             }
 
-            _deadGamePickupImage.sprite = _pickups[_randomPickupIndex].PickupSprite;
+            pickupImage.sprite = _pickups[chosenIndex].PickupSprite;
 
-            _useItemGO.GetComponent<Button>().interactable = true;
+            if (onDeadUI) _useItemGO.GetComponent<Button>().interactable = true;
         }
 
         public void UseItem()

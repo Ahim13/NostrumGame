@@ -31,7 +31,7 @@ namespace NostrumGames
 
         public Pickups()
         {
-            LoadPickupSprite();
+            //if (PickupSprite == null) LoadPickupSprite();
         }
 
 
@@ -55,7 +55,7 @@ namespace NostrumGames
                 {
                     ActivatePickup();
                 })
-                .AddTo(this);
+                ;
         }
         public abstract void ActivatePickup();
         protected abstract void LoadPickupSprite();
