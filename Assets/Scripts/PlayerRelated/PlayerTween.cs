@@ -47,7 +47,7 @@ namespace NostrumGames
         private void OnSpawnPointSet()
         {
             _deathSequence.Rewind();
-            _playerMovement.StartNewLife();
+            _playerMovement.InvokeStartNewLife();
             _transform.SetParent(null);
             _playerManager.IsLiving = true;
         }

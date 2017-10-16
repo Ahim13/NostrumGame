@@ -24,16 +24,6 @@ namespace NostrumGames
             _activatePickup.Dispose();
         }
 
-
-        protected override void ActivatePickupOnInput()
-        {
-            _activatePickup = PlayerInput.ActivatePickup
-                .Subscribe(_ =>
-                {
-                    ActivatePickup();
-                });
-        }
-
         protected override void LoadPickupSprite()
         {
             PickupSprite = Resources.Load<Sprite>("PickupSprites/1");

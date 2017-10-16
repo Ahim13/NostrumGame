@@ -113,6 +113,17 @@ namespace NostrumGames
             PickupList.RemoveAt(0);
         }
 
+        public void StartNewLife(Rigidbody2D rigidbody2D, ControllerType controllerType)
+        {
+            rigidbody2D.gravityScale = Global.DefaultGravity;
+            rigidbody2D.isKinematic = false;
+            rigidbody2D.velocity = new Vector2(0, 0);
+            controllerType = ControllerType.Basic;
+
+            PlayerMovement.IsBoxCollider2DEnabled(true);
+            PlayerMovement.InitBasicMovement();
+        }
+
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             SerializeState(stream, info);

@@ -11,7 +11,6 @@ namespace NostrumGames
     {
 
 
-
         [Space(10)]
         [SerializeField]
         private Image _aliveGamePickupImage;
@@ -92,7 +91,7 @@ namespace NostrumGames
             {
                 _randomPickupIndex = Random.Range(0, _pickups.Count);
             }
-            while (_pickups[_randomPickupIndex].PickupType != PickupTypes.Offensive);
+            while (_pickups[_randomPickupIndex].PickupType != PickupTypes.Offensive || _pickups[_randomPickupIndex].PickupType != PickupTypes.Relive);
 
 
             while (countDown >= 0)

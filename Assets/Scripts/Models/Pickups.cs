@@ -11,7 +11,7 @@ namespace NostrumGames
     {
         Defensive,
         Offensive,
-        Tool
+        Relive
     }
 
     [RequireComponent(typeof(PlayerManager))]
@@ -48,7 +48,15 @@ namespace NostrumGames
             ActivatePickupOnInput();
         }
 
-        protected abstract void ActivatePickupOnInput();
+        protected void ActivatePickupOnInput()
+        {
+            _activatePickup = PlayerInput.ActivatePickup
+                .Subscribe(_ =>
+                {
+                    ActivatePickup();
+                })
+                .AddTo(this);
+        }
         public abstract void ActivatePickup();
         protected abstract void LoadPickupSprite();
 

@@ -174,7 +174,7 @@ namespace NostrumGames
 
         }
 
-        private void InitBasicMovement()
+        public void InitBasicMovement()
         {
 
             _moveUp = PlayerInput.MoveUp
@@ -226,16 +226,9 @@ namespace NostrumGames
                 .AddTo(this);
         }
 
-        //FIXME: Refactor this - it does not belong here
-        public void StartNewLife()
+        public void InvokeStartNewLife()
         {
-            _rigidbody2D.gravityScale = Global.DefaultGravity;
-            _rigidbody2D.isKinematic = false;
-            _rigidbody2D.velocity = new Vector2(0, 0);
-            _controllerType = ControllerType.Basic;
-
-            IsBoxCollider2DEnabled(true);
-            InitBasicMovement();
+            PlayerManager.StartNewLife(_rigidbody2D, _controllerType);
         }
 
         //TODO: make better "death gravity", now you have to set the gravityScale back to default
