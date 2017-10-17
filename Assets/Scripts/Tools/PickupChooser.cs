@@ -10,16 +10,10 @@ namespace NostrumGames
     public class PickupChooser : MonoBehaviour
     {
 
-        //TODO: Add every PICKUP
-        private enum Pickups
-        {
-            GiveBlur,
-            Darken,
-            Shield,
+        private PickupNames _randomPickup;
 
-        }
-
-        private Pickups _randomPickup;
+        private Collider2D _collider;
+        private PlayerManager _playerManager;
 
 
         static T RandomEnumValue<T>()
@@ -30,14 +24,19 @@ namespace NostrumGames
 
         void Start()
         {
-            _randomPickup = RandomEnumValue<Pickups>();
+            _randomPickup = RandomEnumValue<PickupNames>();
 
 
             this.OnTriggerEnter2DAsObservable()
                 .Where(col => col.tag == "Player")
                 .Subscribe(col =>
                 {
-                    if (col.GetComponent<PlayerManager>().PickupList.Count == 0) AddPickupCompononent(col, col.GetComponent<PlayerManager>());
+                    if (col.GetComponent<PlayerManager>().PickupList.Count == 0)
+                    {
+                        _collider = col;
+                        _playerManager = _collider.GetComponent<PlayerManager>();
+                        ChoosePickupCompononent();
+                    }
                     else DestroyBox();
 
                 })
@@ -50,32 +49,40 @@ namespace NostrumGames
             Destroy(this.gameObject);
         }
 
-        private void AddPickupCompononent(Collider2D col, PlayerManager playerManager)
+        private void ChoosePickupCompononent()
         {
-            Component component = null;
-            _randomPickup = Pickups.Shield;
+            _randomPickup = PickupNames.Shield;
             switch (_randomPickup)
             {
-                case Pickups.Darken:
-                    component = col.gameObject.AddComponent<Darken>();
-                    PickupUIManager.Instance.RollImagesInGame(component.GetComponent<Darken>());
+                case PickupNames.Darken:
+                    // component = col.gameObject.AddComponent<Darken>();
+                    PickupUIManager.Instance.RollImagesInGame(typeof(Darken), this);
                     break;
-                case Pickups.GiveBlur:
-                    component = col.gameObject.AddComponent<Confuse>();
-                    PickupUIManager.Instance.RollImagesInGame(component.GetComponent<Confuse>());
+                case PickupNames.Confuse:
+                    // component = col.gameObject.AddComponent<Confuse>();
+                    PickupUIManager.Instance.RollImagesInGame(typeof(Confuse), this);
                     break;
-                case Pickups.Shield:
-                    component = col.gameObject.AddComponent<Shield>();
-                    PickupUIManager.Instance.RollImagesInGame(component.GetComponent<Shield>());
+                case PickupNames.Shield:
+                    // component = col.gameObject.AddComponent<Shield>();
+                    PickupUIManager.Instance.RollImagesInGame(typeof(Shield), this);
                     break;
                 default:
                     break;
             }
 
-
-
-            playerManager.PickupList.Add(component);
+            // playerManager.PickupList.Add(component);
             DestroyBox();
+        }
+
+        //FIXME: javitani mert ronda nem jó logika
+        public void AddPickupComponent(Type pickupType)
+        {
+            Component component = null;
+
+            component = _collider.gameObject.AddComponent(pickupType);
+
+            _playerManager.PickupList.Add(component);
+
         }
     }
 }

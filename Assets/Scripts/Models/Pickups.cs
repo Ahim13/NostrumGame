@@ -53,6 +53,7 @@ namespace NostrumGames
                 .Subscribe(_ =>
                 {
                     ActivatePickup();
+                    PickupUIManager.Instance.SetImagesToTransparent();
                 })
                 .AddTo(this);
         }

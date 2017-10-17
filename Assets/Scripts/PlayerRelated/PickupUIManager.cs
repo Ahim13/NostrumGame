@@ -94,13 +94,13 @@ namespace NostrumGames
             }
             while (_pickups[_randomPickupIndex].PickupType != PickupTypes.Offensive && _pickups[_randomPickupIndex].PickupType != PickupTypes.Relive);
 
-            StartCoroutine(RollOverImagesThenShowChosen(_length, _randomPickupIndex, _deadGamePickupImage, true, true));
+            StartCoroutine(RollOverImagesThenShowChosen(_length, _randomPickupIndex, _deadGamePickupImage, true, true, null, null));
         }
 
-        public void RollImagesInGame(Pickups pickedItem)
+        public void RollImagesInGame(System.Type pickedItemType, PickupChooser pickupChooser)
         {
-            var itemIndex = _pickups.FindIndex(item => item.GetType() == pickedItem.GetType());
-            StartCoroutine(RollOverImagesThenShowChosen(_lengthInGame, itemIndex, _aliveGamePickupImage, false, false));
+            var itemIndex = _pickups.FindIndex(item => item.GetType() == pickedItemType);
+            StartCoroutine(RollOverImagesThenShowChosen(_lengthInGame, itemIndex, _aliveGamePickupImage, false, false, pickupChooser, pickedItemType));
         }
         /// <summary>
         /// Rolls over images then shows the chosen Image
@@ -111,7 +111,7 @@ namespace NostrumGames
         /// <param name="onDeadUI"></param>
         /// <param name="deaccelerate"></param>
         /// <returns></returns>
-        IEnumerator RollOverImagesThenShowChosen(float length, int chosenIndex, Image pickupImage, bool onDeadUI, bool deaccelerate)
+        IEnumerator RollOverImagesThenShowChosen(float length, int chosenIndex, Image pickupImage, bool onDeadUI, bool deaccelerate, PickupChooser pickupChooser, System.Type pickedItemType)
         {
             var countDown = length;
             var spriteIndex = 0;
@@ -143,6 +143,7 @@ namespace NostrumGames
             pickupImage.sprite = _pickups[chosenIndex].PickupSprite;
 
             if (onDeadUI) _useItemGO.GetComponent<Button>().interactable = true;
+            else pickupChooser.AddPickupComponent(pickedItemType);
         }
 
         public void UseItem()
@@ -159,9 +160,15 @@ namespace NostrumGames
 
         private void EnableRandomItemGetting()
         {
-            _deadGamePickupImage.sprite = _transparent;
+            SetImagesToTransparent();
             _getRandomItemGO.SetActive(true);
             _itemImageGO.SetActive(true);
+        }
+
+        public void SetImagesToTransparent()
+        {
+            _deadGamePickupImage.sprite = _transparent;
+            _aliveGamePickupImage.sprite = _transparent;
         }
 
 
