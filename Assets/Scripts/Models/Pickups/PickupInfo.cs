@@ -9,7 +9,7 @@ namespace NostrumGames
     {
         Confuse,
         Darken,
-        Relive,
+        Revive,
         Shield
     }
 

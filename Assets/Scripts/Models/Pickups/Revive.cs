@@ -4,13 +4,14 @@ using UnityEngine;
 
 namespace NostrumGames
 {
-    public class Relive : Pickups
+    public class Revive : Pickups
     {
-        public override PickupTypes PickupType { get { return PickupTypes.Relive; } }
+        public override PickupTypes PickupType { get { return PickupTypes.Revive; } }
 
         public override void ActivatePickup()
         {
-            Debug.Log("Relive");
+            Debug.Log("Revive");
+            PlayerManager.LocalPlayerGO.GetComponent<PlayerManager>().RevivePlayer();
         }
 
         protected override void LoadPickupSprite()

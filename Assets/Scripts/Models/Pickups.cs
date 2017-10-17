@@ -11,7 +11,7 @@ namespace NostrumGames
     {
         Defensive,
         Offensive,
-        Relive
+        Revive
     }
 
     [RequireComponent(typeof(PlayerManager))]
@@ -26,8 +26,8 @@ namespace NostrumGames
 
         protected IDisposable _activatePickup;
 
-        protected PlayerManager PlayerManager;
-        protected PlayerInput PlayerInput;
+        protected PlayerManager _playerManager;
+        protected PlayerInput _playerInput;
 
         public Pickups()
         {
@@ -37,8 +37,8 @@ namespace NostrumGames
 
         void Awake()
         {
-            this.PlayerManager = GetComponent<PlayerManager>();
-            this.PlayerInput = GetComponent<PlayerInput>();
+            this._playerManager = GetComponent<PlayerManager>();
+            this._playerInput = GetComponent<PlayerInput>();
         }
 
 
@@ -49,7 +49,7 @@ namespace NostrumGames
 
         protected void ActivatePickupOnInput()
         {
-            _activatePickup = PlayerInput.ActivatePickup
+            _activatePickup = _playerInput.ActivatePickup
                 .Subscribe(_ =>
                 {
                     ActivatePickup();

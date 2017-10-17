@@ -65,6 +65,9 @@ namespace NostrumGames
                 .Select(t => (Pickups)System.Activator.CreateInstance(t))
                 .ToList();
 
+            // _pickups = new List<Pickups>();
+            // _pickups.Add((Pickups)System.Activator.CreateInstance(typeof(Revive)));
+
             foreach (var pickup in _pickups)
             {
                 // Debug.Log("Tipus" + pickup.GetType().ToString());
@@ -92,7 +95,7 @@ namespace NostrumGames
             {
                 _randomPickupIndex = Random.Range(0, _pickups.Count);
             }
-            while (_pickups[_randomPickupIndex].PickupType != PickupTypes.Offensive && _pickups[_randomPickupIndex].PickupType != PickupTypes.Relive);
+            while (_pickups[_randomPickupIndex].PickupType != PickupTypes.Offensive && _pickups[_randomPickupIndex].PickupType != PickupTypes.Revive);
 
             StartCoroutine(RollOverImagesThenShowChosen(_length, _randomPickupIndex, _deadGamePickupImage, true, true, null, null));
         }
@@ -106,10 +109,6 @@ namespace NostrumGames
         /// Rolls over images then shows the chosen Image
         /// </summary>
         /// <param name="length">The length in seconds</param>
-        /// <param name="chosenIndex"></param>
-        /// <param name="pickupImage"></param>
-        /// <param name="onDeadUI"></param>
-        /// <param name="deaccelerate"></param>
         /// <returns></returns>
         IEnumerator RollOverImagesThenShowChosen(float length, int chosenIndex, Image pickupImage, bool onDeadUI, bool deaccelerate, PickupChooser pickupChooser, System.Type pickedItemType)
         {

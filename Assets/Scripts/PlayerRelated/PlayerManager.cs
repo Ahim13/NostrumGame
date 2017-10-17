@@ -43,6 +43,9 @@ namespace NostrumGames
         private float _timeToReachSpawnpoint;
 
 
+        public static GameObject LocalPlayerGO { get; private set; }
+
+
         void Awake()
         {
             InitVariablesProperties();
@@ -55,12 +58,15 @@ namespace NostrumGames
 
             if (!PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
 
+            //If it is ours then add to Reference
+            LocalPlayerGO = this.gameObject;
+
             (this).OnCollisionEnter2DAsObservable()
                 .Where(_ => IsLiving)
                 .Where(col => col.gameObject.tag == "Map")
                 .Subscribe(col =>
                 {
-                    if (!HasShield) OnCollisionWithObstacle();
+                    if (!HasShield) DieOnCollisionWithObstacle();
                     else LoseShield();
                 })
                 .AddTo(this);
@@ -92,12 +98,20 @@ namespace NostrumGames
             HasShield = false;
         }
 
-
-        private void OnCollisionWithObstacle()
+        /// <summary>
+        /// Die on collision if no shield, and lose pickup if have any
+        /// </summary>
+        private void DieOnCollisionWithObstacle()
         {
             _livesCounter.Died();
             _playerTween.OnDeath(_delayAfterDeath);
             if (PickupList.Count > 0) RemovePickup();
+        }
+
+        public void RevivePlayer()
+        {
+            _livesCounter.Revived();
+            _playerTween.SetParentingStartReposition();
         }
 
         private void InitVariablesProperties()

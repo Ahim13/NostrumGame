@@ -44,6 +44,9 @@ namespace NostrumGames
             _timeToReachSpawnpoint).SetAutoKill(false).Pause().OnComplete(() => OnSpawnPointSet());
         }
 
+        /// <summary>
+        /// On player postion set to spawn point
+        /// </summary>
         private void OnSpawnPointSet()
         {
             _deathSequence.Rewind();
@@ -56,7 +59,7 @@ namespace NostrumGames
         {
             _playerMovement.KillController();
 
-            if (_playerManager.LivesCounter.IsAlive.Value) DOVirtual.DelayedCall(1, () => SetParentingStartReposition());
+            if (_playerManager.LivesCounter.HasRemainingLife.Value) DOVirtual.DelayedCall(delayAfterDeath, () => SetParentingStartReposition());
         }
 
         public void OnLoseShield(SpriteOutline outline)
@@ -68,7 +71,7 @@ namespace NostrumGames
         }
 
 
-        private void SetParentingStartReposition()
+        public void SetParentingStartReposition()
         {
             _transform.SetParent(_mainCamera.transform);
             _playerMovement.IsKinematic(true);
