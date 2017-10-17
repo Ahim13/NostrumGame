@@ -145,6 +145,14 @@ namespace NostrumGames
             else pickupChooser.AddPickupComponent(pickedItemType);
         }
 
+        // void Update()
+        // {
+        //     if (Input.GetMouseButtonDown(0))
+        //     {
+        //         StopAllCoroutines();
+        //     }
+        // }
+
         public void UseItem()
         {
             //TODO: using item online
@@ -166,6 +174,7 @@ namespace NostrumGames
 
         public void SetImagesToTransparent()
         {
+            StopAllCoroutines();
             _deadGamePickupImage.sprite = _transparent;
             _aliveGamePickupImage.sprite = _transparent;
         }

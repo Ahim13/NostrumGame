@@ -105,6 +105,7 @@ namespace NostrumGames
         {
             _livesCounter.Died();
             _playerTween.OnDeath(_delayAfterDeath);
+            PickupUIManager.Instance.SetImagesToTransparent(); //TODO:nem hatékony
             if (PickupList.Count > 0) RemovePickup();
         }
 

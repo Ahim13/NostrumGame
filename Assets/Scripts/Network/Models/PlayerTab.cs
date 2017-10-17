@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ namespace NostrumGames
     public class PlayerTab : MonoBehaviour
     {
         [SerializeField]
-        private Text _playerName;
+        private TextMeshProUGUI _playerName;
         [SerializeField]
         private Image _selectedCharacter;
         [SerializeField]

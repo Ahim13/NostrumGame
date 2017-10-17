@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +9,10 @@ namespace NostrumGames
 {
     public class CreateRoomPanel : MonoBehaviour
     {
-        public InputField RoomName;
-        public InputField MaxPlayers;
+        public TMP_InputField RoomName;
+        public TMP_InputField MaxPlayers;
         public Toggle IsPrivate;
-        public InputField Password;
+        public TMP_InputField Password;
 
         void Awake()
         {

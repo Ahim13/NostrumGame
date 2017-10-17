@@ -16,7 +16,7 @@ namespace NostrumGames
         public static OpeningSceneManager Instance;
 
         [SerializeField]
-        private InputField _playerNameInput;
+        private TMP_InputField _playerNameInput;
         [SerializeField]
         private Button _buttonStart;
         [SerializeField]
@@ -62,6 +62,8 @@ namespace NostrumGames
             else
             {
                 _badNameWarningText.gameObject.SetActive(true);
+                _playerNameInput.Select();
+                _playerNameInput.ActivateInputField();
             }
         }
 

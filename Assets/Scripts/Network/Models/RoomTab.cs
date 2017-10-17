@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,14 +10,14 @@ namespace NostrumGames
     {
 
         [SerializeField]
-        private Text _roomNameText;
+        private TextMeshProUGUI _roomNameText;
 
         [SerializeField]
         private Image _isRoomPrivateImage;
 
 
         [SerializeField]
-        private Text _roomSizeText;
+        private TextMeshProUGUI _roomSizeText;
 
         public string RoomName { get { return _roomNameText.text; } }
 
