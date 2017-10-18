@@ -17,11 +17,5 @@ namespace NostrumGames
             Debug.Log("KILŐŐŐŐŐŐ");
         }
 
-
-        protected override void LoadPickupSprite()
-        {
-            PickupSprite = Resources.Load<Sprite>("PickupSprites/2");
-        }
-
     }
 }

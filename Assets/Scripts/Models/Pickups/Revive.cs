@@ -14,9 +14,5 @@ namespace NostrumGames
             PlayerManager.LocalPlayerGO.GetComponent<PlayerManager>().RevivePlayer();
         }
 
-        protected override void LoadPickupSprite()
-        {
-            PickupSprite = Resources.Load<Sprite>("PickupSprites/4");
-        }
     }
 }

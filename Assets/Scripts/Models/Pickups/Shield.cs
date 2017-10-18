@@ -23,11 +23,6 @@ namespace NostrumGames
             Destroy(this);
         }
 
-        protected override void LoadPickupSprite()
-        {
-            PickupSprite = Resources.Load<Sprite>("PickupSprites/1");
-        }
-
         private void SetPlayerHasShield()
         {
             _playerManager.HasShield = true;

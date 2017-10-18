@@ -58,7 +58,6 @@ namespace NostrumGames
                 .AddTo(this);
         }
         public abstract void ActivatePickup();
-        protected abstract void LoadPickupSprite();
 
         void OnDestroy()
         {

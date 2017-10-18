@@ -17,11 +17,6 @@ namespace NostrumGames
             ShadowEffectManager.Instance.ActivateShadow();
             Debug.Log("KILŐŐŐŐŐŐ");
         }
-
-        protected override void LoadPickupSprite()
-        {
-            PickupSprite = Resources.Load<Sprite>("PickupSprites/3");
-        }
     }
 }
 

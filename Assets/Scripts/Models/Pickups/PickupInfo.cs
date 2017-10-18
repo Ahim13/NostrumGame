@@ -18,6 +18,7 @@ namespace NostrumGames
     {
         public PickupNames PickupName;
         public Sprite PickupSprite;
+        public int Weight;
 
     }
 }
