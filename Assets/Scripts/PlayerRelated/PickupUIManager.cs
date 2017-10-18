@@ -91,33 +91,32 @@ namespace NostrumGames
             _useItemGO.GetComponent<Button>().interactable = false;
 
             //TODO: random chance generator in static class ....
-            do
-            {
-                _randomPickupIndex = Random.Range(0, _pickups.Count);
-            }
-            while (_pickups[_randomPickupIndex].PickupType != PickupTypes.Offensive && _pickups[_randomPickupIndex].PickupType != PickupTypes.Revive);
             // do
             // {
-            //     _randomPickup = LootManager.Instance.GetRandomPickupFromLootTable();
+            //     _randomPickupIndex = Random.Range(0, _pickups.Count);
             // }
-            // while (_randomPickup.PickupType != PickupTypes.Offensive && _randomPickup.PickupType != PickupTypes.Revive);
+            // while (_pickups[_randomPickupIndex].PickupType != PickupTypes.Offensive && _pickups[_randomPickupIndex].PickupType != PickupTypes.Revive);
+            do
+            {
+                _randomPickup = LootManager.Instance.GetRandomPickupFromLootTable();
+            }
+            while (_randomPickup.PickupType != PickupTypes.Offensive && _randomPickup.PickupType != PickupTypes.Revive);
 
 
 
-            StartCoroutine(RollOverImagesThenShowChosen(_length, _randomPickupIndex, _deadGamePickupImage, true, true, null, null));
+            StartCoroutine(RollOverImagesThenShowChosen(_length, _randomPickup, _deadGamePickupImage, true, true, null));
         }
 
-        public void RollImagesInGame(System.Type pickedItemType, PickupChooser pickupChooser)
+        public void RollImagesInGame(Pickups pickedItemType, PickupChooser pickupChooser)
         {
-            var itemIndex = _pickups.FindIndex(item => item.GetType() == pickedItemType);
-            StartCoroutine(RollOverImagesThenShowChosen(_lengthInGame, itemIndex, _aliveGamePickupImage, false, false, pickupChooser, pickedItemType));
+            StartCoroutine(RollOverImagesThenShowChosen(_lengthInGame, pickedItemType, _aliveGamePickupImage, false, false, pickupChooser));
         }
         /// <summary>
         /// Rolls over images then shows the chosen Image
         /// </summary>
         /// <param name="length">The length in seconds</param>
         /// <returns></returns>
-        IEnumerator RollOverImagesThenShowChosen(float length, int chosenIndex, Image pickupImage, bool onDeadUI, bool deaccelerate, PickupChooser pickupChooser, System.Type pickedItemType)
+        IEnumerator RollOverImagesThenShowChosen(float length, Pickups chosenPickup, Image pickupImage, bool onDeadUI, bool deaccelerate, PickupChooser pickupChooser)
         {
             var countDown = length;
             var spriteIndex = 0;
@@ -146,10 +145,10 @@ namespace NostrumGames
                 yield return new WaitForSecondsRealtime(lerpedDelay);
             }
 
-            pickupImage.sprite = _pickups[chosenIndex].PickupSprite;
+            pickupImage.sprite = _pickups.Where(pickup => pickup.GetType() == chosenPickup.GetType()).Single().PickupSprite;
 
             if (onDeadUI) _useItemGO.GetComponent<Button>().interactable = true;
-            else pickupChooser.AddPickupComponent(pickedItemType);
+            else pickupChooser.AddPickupComponent(chosenPickup);
         }
 
         void Update()
@@ -163,7 +162,7 @@ namespace NostrumGames
         public void UseItem()
         {
             //TODO: using item online
-            _pickups[_randomPickupIndex].ActivatePickup();
+            _randomPickup.ActivatePickup();
 
             //after usage turn it off for some time
             _useItemGO.SetActive(false);

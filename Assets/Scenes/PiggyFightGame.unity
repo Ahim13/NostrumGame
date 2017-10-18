@@ -834,11 +834,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -1952,14 +1952,14 @@ MonoBehaviour:
   m_text: You are dead!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 35799547ccf971f48adc129c5d17f85d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284440575
-  m_fontColor: {r: 1, g: 0.375, b: 0.375, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -2024,11 +2024,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -2859,12 +2859,18 @@ MonoBehaviour:
   _pickupInfos:
   - PickupName: 0
     PickupSprite: {fileID: 21300000, guid: f5460a65a0b26f64c85dded09c52ec41, type: 3}
+    Weight: 10
   - PickupName: 1
     PickupSprite: {fileID: 21300000, guid: 33d405908c603e748b5286b161b63840, type: 3}
+    Weight: 15
   - PickupName: 2
     PickupSprite: {fileID: 21300000, guid: 7a02979c216c56945b83221a281d1901, type: 3}
+    Weight: 30
   - PickupName: 3
     PickupSprite: {fileID: 21300000, guid: 88d4367fd5672ad47b9506c0eecf7012, type: 3}
+    Weight: 25
+  _lootTable:
+    _items: []
 --- !u!4 &1213212865
 Transform:
   m_ObjectHideFlags: 0
@@ -4311,6 +4317,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   _delayToRollAgain: 5
+  _pickups: []
 --- !u!4 &1554367807
 Transform:
   m_ObjectHideFlags: 0

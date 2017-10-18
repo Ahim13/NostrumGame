@@ -56,15 +56,15 @@ namespace NostrumGames
             {
                 case PickupNames.Darken:
                     // component = col.gameObject.AddComponent<Darken>();
-                    PickupUIManager.Instance.RollImagesInGame(typeof(Darken), this);
+                    PickupUIManager.Instance.RollImagesInGame(new Darken(), this);
                     break;
                 case PickupNames.Confuse:
                     // component = col.gameObject.AddComponent<Confuse>();
-                    PickupUIManager.Instance.RollImagesInGame(typeof(Confuse), this);
+                    PickupUIManager.Instance.RollImagesInGame(new Confuse(), this);
                     break;
                 case PickupNames.Shield:
                     // component = col.gameObject.AddComponent<Shield>();
-                    PickupUIManager.Instance.RollImagesInGame(typeof(Shield), this);
+                    PickupUIManager.Instance.RollImagesInGame(new Shield(), this);
                     break;
                 default:
                     break;
@@ -75,11 +75,11 @@ namespace NostrumGames
         }
 
         //FIXME: javitani mert ronda nem jó logika
-        public void AddPickupComponent(Type pickupType)
+        public void AddPickupComponent(Pickups pickupType)
         {
             Component component = null;
 
-            component = _collider.gameObject.AddComponent(pickupType);
+            component = _collider.gameObject.AddComponent(pickupType.GetType());
 
             _playerManager.PickupList.Add(component);
 

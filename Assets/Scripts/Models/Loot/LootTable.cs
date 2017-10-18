@@ -33,6 +33,7 @@ namespace NostrumGames
             _sumWeights = this._pickupInfos.Sum(info => info.Weight);
 
             CreateItemsAndAssignItemRange();
+
         }
 
         private void CreateItemsAndAssignItemRange()
@@ -52,7 +53,7 @@ namespace NostrumGames
                 item.Range = new int[2] { range, rangeEnd };
                 item.Weight = pickupInfo.Weight;
 
-                range += rangeEnd;
+                range = rangeEnd;
 
                 _items.Add(item);
             }
