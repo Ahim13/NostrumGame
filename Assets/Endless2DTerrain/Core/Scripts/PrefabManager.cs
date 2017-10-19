@@ -110,8 +110,11 @@ namespace Endless2DTerrain
 
                                 //Determine if this prefab is allowed to be placed on this terrain rule
                                 var currentRule = tm.VertexGen.CurrentTerrainRule;
-                                bool allowedForThisTerrainRule = currentRule.AllowedPrefabs.Where(ap => ap.Allowed && ap.Index == j).Any();
+                                //if (currentRule.AllowedPrefabs == null) return; //FIXME: nulll
+                                // bool allowedForThisTerrainRule = currentRule.AllowedPrefabs.Where(ap => ap.Allowed && ap.Index == j).Any();
+                                bool allowedForThisTerrainRule = true;
                                 bool meetsDistanceReqs = true;
+
 
                                 //Determine if this prefab is within the distance rules
                                 if (rule.UseMinDistance)
