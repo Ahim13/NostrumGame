@@ -6,6 +6,7 @@ using UniRx.Triggers;
 using System;
 using UnityEngine.SceneManagement;
 using Endless2DTerrain;
+using TMPro;
 
 namespace NostrumGames
 {
@@ -27,7 +28,7 @@ namespace NostrumGames
 
             _terrainRuleGenerator = new TerrainRuleGenerator();
 
-            //Time.timeScale = Global.PausedTimeScale;
+            Time.timeScale = Global.PausedTimeScale;
         }
 
         void Update()
@@ -35,12 +36,11 @@ namespace NostrumGames
             if (Input.GetKeyDown(KeyCode.P)) Time.timeScale = Time.timeScale == Global.NormalTimeScale ? Global.PausedTimeScale : Global.NormalTimeScale;
             if (Input.GetKeyDown(KeyCode.A))
             {
-
-            };
+                StartCountBack();
+            }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                SceneManager.LoadScene("Lobby");
-                RoomManager.Instance.LeaveRoom();
+                PiggySceneUIManager.Instance.ShouldPause(true);
             };
 
             CheckCurrentTerraintRuleIndex();
@@ -86,15 +86,15 @@ namespace NostrumGames
             }
         }
 
-        private IEnumerator StartGameAfterSeconds(int sec)
-        {
-            yield return new WaitForSecondsRealtime(sec);
-            Time.timeScale = Global.NormalTimeScale;
-        }
-
         public void StartCountBack()
         {
-            StartCoroutine(StartGameAfterSeconds(Scenes.WaitTimeToStart));
+            StartCoroutine(PiggySceneUIManager.Instance.StartGameAfterSeconds(Scenes.WaitTimeToStart));
+        }
+
+        public void Leave()
+        {
+            RoomManager.Instance.LeaveRoom();
+            SceneManager.LoadScene("Lobby");
         }
 
     }

@@ -53,7 +53,7 @@ namespace NostrumGames
             _playerManager.IsLiving = true;
             CurrentLives.Value = 1;
             _livesImage.fillAmount = GetFillAmount(_maxLives, CurrentLives.Value);
-            PiggySceneUIManager.Instance.SetPanelActivity(true);
+            PiggySceneUIManager.Instance.SetPanelActivityByAlive(true);
         }
 
 
@@ -65,7 +65,7 @@ namespace NostrumGames
         private void NoMoreLives()
         {
 
-            PiggySceneUIManager.Instance.SetPanelActivity(false);
+            PiggySceneUIManager.Instance.SetPanelActivityByAlive(false);
 
             //TODO: for testing
             //Debug.Break();
