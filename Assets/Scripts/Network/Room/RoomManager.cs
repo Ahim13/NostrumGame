@@ -148,22 +148,21 @@ namespace NostrumGames
 
         public override void OnPhotonCustomRoomPropertiesChanged(Hashtable propertiesThatChanged)
         {
-            if (propertiesThatChanged.ContainsKey(RoomProperty.AlivePlayers) && PhotonNetwork.player.CustomProperties.ContainsKey(PlayerProperty.IsAlive))
+            if (propertiesThatChanged.ContainsKey(RoomProperty.AlivePlayers) && PhotonPlayerManager.Instance.IsLocalMaster) //only master so it will execute only once
             {
                 //check if only one player is alive
                 var alivePlayers = (int)propertiesThatChanged[RoomProperty.AlivePlayers];
 
+                Debug.Log(alivePlayers);
                 if (alivePlayers == 1)
                 {
                     var eventCode = (byte)PhotonEvents.GameOver;
                     bool reliable = true;
+                    RaiseEventOptions options = new RaiseEventOptions();
 
-                    //find alive player, then save his ID to roomProperty for later useage
-                    // var winnerPlayer = PhotonPlayerManager.Instance.PlayerList.Where(player => (bool)player.CustomProperties[PlayerProperty.IsAlive]).Single();
-                    // RoomManager.Instance.SaveWinnerID(winnerPlayer.ID);
+                    options.Receivers = ReceiverGroup.All;
 
-                    Debug.Log("Raise");
-                    PhotonNetwork.RaiseEvent(eventCode, null, reliable, null);
+                    PhotonNetwork.RaiseEvent(eventCode, null, reliable, options);
                 }
             }
         }

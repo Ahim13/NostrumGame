@@ -14,5 +14,6 @@ namespace NostrumGames
     public class PlayerProperty
     {
         public const string IsAlive = "IA";
+        public const string Score = "SC";
     }
 }

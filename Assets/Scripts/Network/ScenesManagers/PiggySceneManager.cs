@@ -16,6 +16,8 @@ namespace NostrumGames
 
         public static PiggySceneManager Instance;
 
+        public static bool IsGameStarted = false;
+
 
         private TerrainRuleGenerator _terrainRuleGenerator;
         private int _currentRuleIndex = -1;
@@ -89,7 +91,6 @@ namespace NostrumGames
 
             if (scene.name == Scenes.PiggySceneName)
             {
-                RoomManager.Instance.SaveNumberOfPlayersToRoomSettings(1);
 
                 PhotonNetwork.Instantiate("Prefabs/Player", new Vector2(5, 6), Quaternion.identity, 0);
                 if (PhotonPlayerManager.Instance.IsLocalMaster)

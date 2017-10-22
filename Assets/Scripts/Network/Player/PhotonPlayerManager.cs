@@ -65,6 +65,9 @@ namespace NostrumGames
             //if all players have loaded the scene
             if (CheckPlayersCountMoreOrEqual(PlayersInGame, false))
             {
+                RoomManager.Instance.SaveNumberOfPlayersToRoomSettings(PlayersInGame);
+
+                PiggySceneManager.IsGameStarted = true;
 
                 _photonView.RPC("RPC_StartCountBack", PhotonTargets.AllViaServer);
             }
@@ -112,17 +115,6 @@ namespace NostrumGames
             var player = (PhotonPlayer)playerAndUpdatedProps[0];
             var hashTable = (Hashtable)playerAndUpdatedProps[1];
 
-            if (hashTable.ContainsKey(PlayerProperty.IsAlive))
-            {
-                if ((bool)hashTable[PlayerProperty.IsAlive])
-                {
-                    RoomManager.Instance.ChangeAlivePlayersInRoomSettings(1);
-                }
-                else
-                {
-                    RoomManager.Instance.ChangeAlivePlayersInRoomSettings(-1);
-                }
-            }
         }
 
         #endregion
