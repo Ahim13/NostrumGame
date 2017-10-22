@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon;
 using System;
 using UnityEngine.SceneManagement;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace NostrumGames
 {
@@ -46,6 +47,24 @@ namespace NostrumGames
             return PhotonPlayer.Find(ID);
         }
 
+        private void SaveNumberOfPlayersToRoomSettings(int numberOfPlayers)
+        {
+            var customPropHash = new Hashtable();
+            customPropHash.Add(RoomProperty.AlivePlayers, numberOfPlayers);
+
+            PhotonNetwork.room.SetCustomProperties(customPropHash);
+        }
+        public void ChangeAlivePlayersInRoomSettings(int addedNumber)
+        {
+            var alivePlayers = (int)PhotonNetwork.room.CustomProperties[RoomProperty.AlivePlayers];
+            alivePlayers += addedNumber;
+
+            var customPropHash = new Hashtable();
+            customPropHash.Add(RoomProperty.AlivePlayers, alivePlayers);
+
+            PhotonNetwork.room.SetCustomProperties(customPropHash);
+        }
+
         #region RPC Calls
 
         [PunRPC]
@@ -56,6 +75,9 @@ namespace NostrumGames
             //if all players have loaded the scene
             if (CheckPlayersCountMoreOrEqual(PlayersInGame, false))
             {
+                //set alive players number in Room settings
+                SaveNumberOfPlayersToRoomSettings(PlayersInGame);
+
                 _photonView.RPC("RPC_StartCountBack", PhotonTargets.AllViaServer);
             }
         }

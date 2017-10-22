@@ -17,6 +17,8 @@ namespace NostrumGames
             // ShadowEffectManager.Instance.ActivateShadow();
             _thisPhotonView.RPC("ActivateDarken", PhotonTargets.Others);
             Debug.Log("KILŐŐŐŐŐŐ");
+
+            Destroy(this);
         }
     }
 }

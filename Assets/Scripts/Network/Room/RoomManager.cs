@@ -50,11 +50,11 @@ namespace NostrumGames
         private void SetRoomSettings(RoomOptions roomOptions, bool isSecret, string password, byte maxPlayers)
         {
 
-            string[] customProperties = { "isSecret", "password" };
+            string[] customProperties = { RoomProperty.IsSecret, RoomProperty.Password };
 
             Hashtable customPropHash = new Hashtable();
-            customPropHash.Add("isSecret", isSecret);
-            customPropHash.Add("password", password);
+            customPropHash.Add(RoomProperty.IsSecret, isSecret);
+            customPropHash.Add(RoomProperty.Password, password);
 
             roomOptions.MaxPlayers = maxPlayers;
             roomOptions.PlayerTtl = 1000;
@@ -91,7 +91,7 @@ namespace NostrumGames
             LobbyUIManager.Instance.JoinedARoom();
             PlayerListingManager.Instance.AddPlayerTabsForExistingPlayers();
 
-            //if we are Masterclient then init randomSeed
+            //if we are Masterclient then init randomSeed //FIXME: add this to custom property
             RandomSeed.SetRandomSeed();
         }
         public override void OnLeftRoom()
@@ -115,6 +115,24 @@ namespace NostrumGames
                 default:
                     Debug.Log("Join failed: " + codeAndMsg[1]);
                     break;
+            }
+        }
+
+        public override void OnPhotonCustomRoomPropertiesChanged(Hashtable propertiesThatChanged)
+        {
+            if (propertiesThatChanged.ContainsKey(RoomProperty.AlivePlayers))
+            {
+                //check if only one player is alive
+                var alivePlayers = (int)propertiesThatChanged[RoomProperty.AlivePlayers];
+
+                if (alivePlayers == 1)
+                {
+                    var eventCode = (byte)PhotonEvents.GameOver;
+                    bool reliable = true;
+
+
+                    PhotonNetwork.RaiseEvent(eventCode, null, reliable, null);
+                }
             }
         }
         #endregion

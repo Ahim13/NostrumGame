@@ -10,8 +10,11 @@ namespace NostrumGames
 
         public override void ActivatePickup()
         {
-            Debug.Log("Revive");
+            // Debug.Log("Revive");
             PlayerManager.LocalPlayerGO.GetComponent<PlayerManager>().RevivePlayer();
+            PhotonPlayerManager.Instance.ChangeAlivePlayersInRoomSettings(1);
+
+            Destroy(this);
         }
 
     }

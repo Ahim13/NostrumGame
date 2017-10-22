@@ -66,6 +66,8 @@ namespace NostrumGames
         {
             ShadowEffectManager.Instance.DeactivateShadow();
 
+            PhotonPlayerManager.Instance.ChangeAlivePlayersInRoomSettings(-1);
+
             PiggySceneUIManager.Instance.SetPanelActivityByAlive(false);
 
             //TODO: for testing

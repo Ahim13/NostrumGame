@@ -6,7 +6,8 @@ namespace NostrumGames
 {
     public enum PhotonEvents : byte
     {
-        SeedSent
+        SeedSent,
+        GameOver
     }
 
     public class PhotonEventHandler : MonoBehaviour
@@ -14,6 +15,7 @@ namespace NostrumGames
         void Awake()
         {
             PhotonNetwork.OnEventCall += this.OnSeedArrived;
+            PhotonNetwork.OnEventCall += this.OnGameOver;
         }
 
         private void OnSeedArrived(byte eventCode, object content, int senderID)
@@ -28,6 +30,14 @@ namespace NostrumGames
                     RandomSeed.SetSeed(state);
                     Debug.Log("Seed arrived and set to Masters seed");
                 }
+            }
+        }
+        private void OnGameOver(byte eventCode, object content, int senderID)
+        {
+            if (eventCode == (byte)PhotonEvents.GameOver)
+            {
+                Debug.Log("Game Over");
+                Time.timeScale = 0;
             }
         }
     }

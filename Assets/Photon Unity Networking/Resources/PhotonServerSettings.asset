@@ -48,4 +48,5 @@ MonoBehaviour:
   - LoseShieldOnline
   - MakeVisibleOnline
   - ActivateDarken
+  - ActivateConfuse
   DisableAutoOpenWizard: 1

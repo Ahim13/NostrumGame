@@ -49,7 +49,7 @@ namespace NostrumGames
             go.transform.SetParent(_roomListingContainer.transform, false);
             var roomTab = go.GetComponent<RoomTab>();
 
-            roomTab.SetRoomInfo(roomInfo.Name, (bool)roomInfo.CustomProperties["isSecret"], roomTab.GetRoomSizeAndPlayersAsString(roomInfo.MaxPlayers, roomInfo.PlayerCount));
+            roomTab.SetRoomInfo(roomInfo.Name, (bool)roomInfo.CustomProperties[RoomProperty.IsSecret], roomTab.GetRoomSizeAndPlayersAsString(roomInfo.MaxPlayers, roomInfo.PlayerCount));
         }
 
         private void RemoveAllRoomTabs()

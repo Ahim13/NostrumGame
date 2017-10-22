@@ -80,6 +80,7 @@ namespace NostrumGames
 
         private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
         {
+
             if (scene.name == Scenes.PiggySceneName)
             {
                 PhotonNetwork.Instantiate("Prefabs/Player", new Vector2(5, 6), Quaternion.identity, 0);
