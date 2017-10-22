@@ -33,5 +33,9 @@ namespace NostrumGames
         {
             SceneManager.LoadScene(indx);
         }
+        public string GetLoadedSceneName()
+        {
+            return SceneManager.GetActiveScene().name;
+        }
     }
 }

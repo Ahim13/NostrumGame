@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using System;
+using UnityEngine.SceneManagement;
 
 namespace NostrumGames
 {
@@ -92,7 +93,7 @@ namespace NostrumGames
             if (newMasterClient.ID == PhotonNetwork.player.ID)
             {
                 // Debug.Log("<color=blue>We are the master now!</color>");
-                LobbyUIManager.Instance.SetStartButtonActiveAndInteractable();
+                if (Scenes.PiggySceneName != SceneManager.GetActiveScene().name) LobbyUIManager.Instance.SetStartButtonActiveAndInteractable();
             }
         }
 

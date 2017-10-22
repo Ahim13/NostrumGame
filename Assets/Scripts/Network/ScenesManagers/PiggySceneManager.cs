@@ -19,6 +19,7 @@ namespace NostrumGames
 
         private TerrainRuleGenerator _terrainRuleGenerator;
         private int _currentRuleIndex = -1;
+        private bool _shouldPause = false;
 
         void Awake()
         {
@@ -28,22 +29,30 @@ namespace NostrumGames
 
             _terrainRuleGenerator = new TerrainRuleGenerator();
 
-            Time.timeScale = Global.PausedTimeScale;
+            //TODO: do it in final version
+            //Time.timeScale = Global.PausedTimeScale;
         }
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P)) Time.timeScale = Time.timeScale == Global.NormalTimeScale ? Global.PausedTimeScale : Global.NormalTimeScale;
+            //if (Input.GetKeyDown(KeyCode.P)) Time.timeScale = Time.timeScale == Global.NormalTimeScale ? Global.PausedTimeScale : Global.NormalTimeScale;
             if (Input.GetKeyDown(KeyCode.A))
             {
-                StartCountBack();
+                //StartCountBack();
+                // Debug.Log(MySceneManager.Instance.GetLoadedSceneName());
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                PiggySceneUIManager.Instance.ShouldPause(true);
+                Paused(!_shouldPause);
+                PiggySceneUIManager.Instance.ShouldPause(_shouldPause);
             };
 
             CheckCurrentTerraintRuleIndex();
+        }
+
+        public void Paused(bool paused)
+        {
+            _shouldPause = paused;
         }
 
         private void CheckCurrentTerraintRuleIndex()

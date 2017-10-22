@@ -28,6 +28,7 @@ namespace NostrumGames
 
         protected PlayerManager _playerManager;
         protected PlayerInput _playerInput;
+        protected PhotonView _thisPhotonView;
 
         public Pickups()
         {
@@ -39,6 +40,7 @@ namespace NostrumGames
         {
             this._playerManager = GetComponent<PlayerManager>();
             this._playerInput = GetComponent<PlayerInput>();
+            this._thisPhotonView = PhotonView.Get(this);
         }
 
 

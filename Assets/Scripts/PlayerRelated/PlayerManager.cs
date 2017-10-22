@@ -87,6 +87,12 @@ namespace NostrumGames
             _playerTween = new PlayerTween(transform, this.GetComponent<Renderer>(), MainCamera, PlayerMovement, this);
             _livesCounter = new LivesCounter(_lives, this);
         }
+        private void InitVariablesProperties()
+        {
+            IsLiving = true;
+            MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+            HasShield = false;
+        }
         private void LoseShield()
         {
             if (GetComponent<SpriteOutline>()) _playerTween.OnLoseShield(GetComponent<SpriteOutline>());
@@ -94,8 +100,9 @@ namespace NostrumGames
 
         public void DeleteOutlineComponent()
         {
-            Destroy(GetComponent<SpriteOutline>());
-            HasShield = false;
+            // Destroy(GetComponent<SpriteOutline>());
+            Debug.Log("Delete");
+            GetComponent<Shield>().LoseShield();
         }
 
         /// <summary>
@@ -115,13 +122,6 @@ namespace NostrumGames
             _playerTween.SetParentingStartReposition();
         }
 
-        private void InitVariablesProperties()
-        {
-            IsLiving = true;
-            MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-            HasShield = false;
-        }
-
         public void RemovePickup()
         {
             Destroy(PickupList[0]);
@@ -139,6 +139,9 @@ namespace NostrumGames
             PlayerMovement.InitBasicMovement();
         }
 
+        #region Photon Serialize
+
+
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             SerializeState(stream, info);
@@ -150,5 +153,26 @@ namespace NostrumGames
         {
             //throw new NotImplementedException();
         }
+        #endregion
+
+        #region PunRpc Calls
+
+
+        [PunRPC]
+        private void MakeVisibleOnline(int shieldSize)
+        {
+            this.gameObject.AddComponent<SpriteOutline>().outlineSize = shieldSize;
+            Color myColor = new Color();
+            ColorUtility.TryParseHtmlString("#33FF00FF", out myColor);
+            this.GetComponent<SpriteOutline>().color = myColor;
+        }
+
+        [PunRPC]
+        private void LoseShieldOnline()
+        {
+            Destroy(GetComponent<SpriteOutline>());
+            Debug.Log("Eltavolit");
+        }
+        #endregion
     }
 }

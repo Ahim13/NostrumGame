@@ -86,7 +86,7 @@ namespace NostrumGames
         private void SetButtonSubscription()
         {
             this.UpdateAsObservable()
-                .Where(_ => Input.GetKeyDown(KeyCode.Return))
+                .Where(_ => (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
                 .Subscribe(_ => _buttonStart.onClick.Invoke())
                 .AddTo(this);
         }

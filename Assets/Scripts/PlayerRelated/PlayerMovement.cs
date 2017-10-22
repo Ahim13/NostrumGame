@@ -72,6 +72,7 @@ namespace NostrumGames
             {
                 _networkedPlayerMovementInfo = new NetworkedPlayerMovementInfo();
                 _previousInfo = new NetworkedPlayerMovementInfo();
+                tag = "OtherPlayer";
                 return;
             }
 
@@ -114,7 +115,6 @@ namespace NostrumGames
             //GetComponent<Rigidbody2D>().position = Vector2.Lerp(transform.position, p, Time.deltaTime);
         }
 
-        // Beginner type of prediction implementation to movement TODO: find a better one for specificly 2D plastformer
         // private void UpdateNetworkedPostion()
         // {
 

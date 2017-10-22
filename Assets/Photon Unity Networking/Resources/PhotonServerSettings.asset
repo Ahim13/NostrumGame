@@ -45,4 +45,6 @@ MonoBehaviour:
   - StartCountBack
   - TaggedPlayer
   - RPC_StartCountBack
+  - LoseShieldOnline
+  - MakeVisibleOnline
   DisableAutoOpenWizard: 1

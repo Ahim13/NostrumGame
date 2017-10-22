@@ -16,24 +16,37 @@ namespace NostrumGames
 
         public override void ActivatePickup()
         {
-            Debug.Log("KILŐŐŐŐŐŐ");
+            Debug.Log("Shield");
+            SetPlayerHasShield(true);
             MakeShieldVisible();
-            SetPlayerHasShield();
 
-            Destroy(this);
+            //Destroy(this);
+            _activatePickup.Dispose();
         }
 
-        private void SetPlayerHasShield()
+        private void SetPlayerHasShield(bool hasShield)
         {
-            _playerManager.HasShield = true;
+            _playerManager.HasShield = hasShield;
         }
 
         private void MakeShieldVisible()
         {
-            this.gameObject.AddComponent<SpriteOutline>().outlineSize = ShieldSize;
-            Color myColor = new Color();
-            ColorUtility.TryParseHtmlString("#33FF00FF", out myColor);
-            this.GetComponent<SpriteOutline>().color = myColor;
+            // this.gameObject.AddComponent<SpriteOutline>().outlineSize = ShieldSize;
+            // Color myColor = new Color();
+            // ColorUtility.TryParseHtmlString("#33FF00FF", out myColor);
+            // this.GetComponent<SpriteOutline>().color = myColor;
+
+            //var photonViewID = PhotonView.Get(this).viewID;
+
+
+            _thisPhotonView.RPC("MakeVisibleOnline", PhotonTargets.All, ShieldSize);
+        }
+
+        public void LoseShield()
+        {
+            SetPlayerHasShield(false);
+            _thisPhotonView.RPC("LoseShieldOnline", PhotonTargets.All);
+            Destroy(this);
         }
 
     }

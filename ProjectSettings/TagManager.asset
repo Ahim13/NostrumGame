@@ -10,6 +10,7 @@ TagManager:
   - RoomTools
   - Obstacle
   - Pickup
+  - OtherPlayer
   layers:
   - Default
   - TransparentFX

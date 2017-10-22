@@ -47,6 +47,7 @@ namespace NostrumGames
         private void DestroyBox()
         {
             Destroy(this.gameObject);
+            // PhotonNetwork.Destroy(this.gameObject);
         }
 
         private void ChoosePickupCompononent()
@@ -74,7 +75,6 @@ namespace NostrumGames
             DestroyBox();
         }
 
-        //FIXME: javitani mert ronda nem jó logika
         public void AddPickupComponent(Pickups pickupType)
         {
             Component component = null;
