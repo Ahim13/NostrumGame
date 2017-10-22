@@ -177,6 +177,8 @@ namespace NostrumGames
         public void InitBasicMovement()
         {
 
+            if (_moveUp != null) _moveUp.Dispose();
+
             _moveUp = PlayerInput.MoveUp
                 .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
                 .Subscribe(pressingSpace =>

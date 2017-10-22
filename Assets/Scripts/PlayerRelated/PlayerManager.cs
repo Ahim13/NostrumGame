@@ -179,6 +179,17 @@ namespace NostrumGames
         {
             ShadowEffectManager.Instance.ActivateShadow();
         }
+        [PunRPC]
+        private void ActivateConfuse()
+        {
+            PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.Reflected);
+            PlayerMovement.InitBasicMovement();
+            DOVirtual.DelayedCall(5, () =>
+                        {
+                            PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.Basic);
+                            PlayerMovement.InitBasicMovement();
+                        });
+        }
         #endregion
     }
 }
