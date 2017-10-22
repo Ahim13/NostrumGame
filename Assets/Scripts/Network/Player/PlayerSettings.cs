@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace NostrumGames
 {
@@ -22,6 +23,11 @@ namespace NostrumGames
         public void SetPlayerName(string newName)
         {
             PhotonNetwork.playerName = newName;
+        }
+
+        public void SetPlayerProperties(Hashtable hash)
+        {
+            PhotonNetwork.player.SetCustomProperties(hash);
         }
     }
 }

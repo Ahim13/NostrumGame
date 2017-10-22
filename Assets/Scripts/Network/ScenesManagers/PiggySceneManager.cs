@@ -78,11 +78,19 @@ namespace NostrumGames
             else if (Instance != this) Destroy(gameObject);
         }
 
+        public static void StartGame()
+        {
+            ScoreManager.Instance.IsScoring = true;
+            Time.timeScale = Global.NormalTimeScale;
+        }
+
         private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
         {
 
             if (scene.name == Scenes.PiggySceneName)
             {
+                RoomManager.Instance.SaveNumberOfPlayersToRoomSettings(1);
+
                 PhotonNetwork.Instantiate("Prefabs/Player", new Vector2(5, 6), Quaternion.identity, 0);
                 if (PhotonPlayerManager.Instance.IsLocalMaster)
                 {

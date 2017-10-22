@@ -39,6 +39,9 @@ namespace NostrumGames
             CurrentLives.Where(x => x == 0).Subscribe(_ => NoMoreLives());
 
             this._playerManager = playerManager;
+
+            //init IsAlive property
+            PhotonPlayerManager.Instance.UpdatePlayerProperty(PlayerProperty.IsAlive, true);
         }
 
         public void Died()
@@ -54,6 +57,8 @@ namespace NostrumGames
             CurrentLives.Value = 1;
             _livesImage.fillAmount = GetFillAmount(_maxLives, CurrentLives.Value);
             PiggySceneUIManager.Instance.SetPanelActivityByAlive(true);
+
+            PhotonPlayerManager.Instance.UpdatePlayerProperty(PlayerProperty.IsAlive, true);
         }
 
 
@@ -66,12 +71,10 @@ namespace NostrumGames
         {
             ShadowEffectManager.Instance.DeactivateShadow();
 
-            PhotonPlayerManager.Instance.ChangeAlivePlayersInRoomSettings(-1);
+            PhotonPlayerManager.Instance.UpdatePlayerProperty(PlayerProperty.IsAlive, false);
 
             PiggySceneUIManager.Instance.SetPanelActivityByAlive(false);
 
-            //TODO: for testing
-            //Debug.Break();
         }
     }
 

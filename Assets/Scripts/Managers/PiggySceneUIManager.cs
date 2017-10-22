@@ -83,7 +83,7 @@ namespace NostrumGames
 
             yield return new WaitForSecondsRealtime(1);
 
-            Time.timeScale = Global.NormalTimeScale;
+            PiggySceneManager.StartGame();
         }
     }
 }

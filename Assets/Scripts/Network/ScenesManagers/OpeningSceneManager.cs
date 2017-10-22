@@ -91,5 +91,10 @@ namespace NostrumGames
                 .AddTo(this);
         }
 
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.A)) PhotonNetwork.RaiseEvent((byte)PhotonEvents.SeedSent, null, true, null);
+        }
+
     }
 }

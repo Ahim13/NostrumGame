@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using System;
+using System.Linq;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace NostrumGames
@@ -68,6 +69,33 @@ namespace NostrumGames
             PhotonNetwork.LeaveRoom();
         }
 
+        public void SaveNumberOfPlayersToRoomSettings(int numberOfPlayers)
+        {
+            var customPropHash = new Hashtable();
+            customPropHash.Add(RoomProperty.AlivePlayers, numberOfPlayers);
+
+            PhotonNetwork.room.SetCustomProperties(customPropHash);
+        }
+        public void ChangeAlivePlayersInRoomSettings(int addedNumber)
+        {
+
+            var alivePlayers = (int)PhotonNetwork.room.CustomProperties[RoomProperty.AlivePlayers];
+            alivePlayers += addedNumber;
+
+            var customPropHash = new Hashtable();
+            customPropHash.Add(RoomProperty.AlivePlayers, alivePlayers);
+
+            PhotonNetwork.room.SetCustomProperties(customPropHash);
+        }
+
+        public void SaveWinnerID(int ID)
+        {
+            var customPropHash = new Hashtable();
+            customPropHash.Add(RoomProperty.WinnerID, ID);
+
+            PhotonNetwork.room.SetCustomProperties(customPropHash);
+        }
+
 
         #region PUN Callbacks
         public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
@@ -120,7 +148,7 @@ namespace NostrumGames
 
         public override void OnPhotonCustomRoomPropertiesChanged(Hashtable propertiesThatChanged)
         {
-            if (propertiesThatChanged.ContainsKey(RoomProperty.AlivePlayers))
+            if (propertiesThatChanged.ContainsKey(RoomProperty.AlivePlayers) && PhotonNetwork.player.CustomProperties.ContainsKey(PlayerProperty.IsAlive))
             {
                 //check if only one player is alive
                 var alivePlayers = (int)propertiesThatChanged[RoomProperty.AlivePlayers];
@@ -130,7 +158,11 @@ namespace NostrumGames
                     var eventCode = (byte)PhotonEvents.GameOver;
                     bool reliable = true;
 
+                    //find alive player, then save his ID to roomProperty for later useage
+                    // var winnerPlayer = PhotonPlayerManager.Instance.PlayerList.Where(player => (bool)player.CustomProperties[PlayerProperty.IsAlive]).Single();
+                    // RoomManager.Instance.SaveWinnerID(winnerPlayer.ID);
 
+                    Debug.Log("Raise");
                     PhotonNetwork.RaiseEvent(eventCode, null, reliable, null);
                 }
             }

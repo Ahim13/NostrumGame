@@ -9,5 +9,10 @@ namespace NostrumGames
         public const string IsSecret = "IS";
         public const string Password = "PS";
         public const string AlivePlayers = "AP";
+        public const string WinnerID = "WI";
+    }
+    public class PlayerProperty
+    {
+        public const string IsAlive = "IA";
     }
 }

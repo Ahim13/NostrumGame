@@ -47,22 +47,12 @@ namespace NostrumGames
             return PhotonPlayer.Find(ID);
         }
 
-        private void SaveNumberOfPlayersToRoomSettings(int numberOfPlayers)
+        public void UpdatePlayerProperty<T>(string key, T value)
         {
             var customPropHash = new Hashtable();
-            customPropHash.Add(RoomProperty.AlivePlayers, numberOfPlayers);
+            customPropHash.Add(key, value);
 
-            PhotonNetwork.room.SetCustomProperties(customPropHash);
-        }
-        public void ChangeAlivePlayersInRoomSettings(int addedNumber)
-        {
-            var alivePlayers = (int)PhotonNetwork.room.CustomProperties[RoomProperty.AlivePlayers];
-            alivePlayers += addedNumber;
-
-            var customPropHash = new Hashtable();
-            customPropHash.Add(RoomProperty.AlivePlayers, alivePlayers);
-
-            PhotonNetwork.room.SetCustomProperties(customPropHash);
+            PlayerSettings.Instance.SetPlayerProperties(customPropHash);
         }
 
         #region RPC Calls
@@ -75,8 +65,6 @@ namespace NostrumGames
             //if all players have loaded the scene
             if (CheckPlayersCountMoreOrEqual(PlayersInGame, false))
             {
-                //set alive players number in Room settings
-                SaveNumberOfPlayersToRoomSettings(PlayersInGame);
 
                 _photonView.RPC("RPC_StartCountBack", PhotonTargets.AllViaServer);
             }
@@ -116,6 +104,24 @@ namespace NostrumGames
             {
                 // Debug.Log("<color=blue>We are the master now!</color>");
                 if (Scenes.PiggySceneName != SceneManager.GetActiveScene().name) LobbyUIManager.Instance.SetStartButtonActiveAndInteractable();
+            }
+        }
+
+        public override void OnPhotonPlayerPropertiesChanged(object[] playerAndUpdatedProps)
+        {
+            var player = (PhotonPlayer)playerAndUpdatedProps[0];
+            var hashTable = (Hashtable)playerAndUpdatedProps[1];
+
+            if (hashTable.ContainsKey(PlayerProperty.IsAlive))
+            {
+                if ((bool)hashTable[PlayerProperty.IsAlive])
+                {
+                    RoomManager.Instance.ChangeAlivePlayersInRoomSettings(1);
+                }
+                else
+                {
+                    RoomManager.Instance.ChangeAlivePlayersInRoomSettings(-1);
+                }
             }
         }
 

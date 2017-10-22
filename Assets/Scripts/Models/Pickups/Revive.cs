@@ -12,7 +12,7 @@ namespace NostrumGames
         {
             // Debug.Log("Revive");
             PlayerManager.LocalPlayerGO.GetComponent<PlayerManager>().RevivePlayer();
-            PhotonPlayerManager.Instance.ChangeAlivePlayersInRoomSettings(1);
+
 
             Destroy(this);
         }

@@ -13,7 +13,7 @@ namespace NostrumGames
 
         [SerializeField]
         private List<PickupInfo> _pickupInfos;
-        [SerializeField]
+
         private LootTable _lootTable;
 
         #region Unity Methods

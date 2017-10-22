@@ -16,6 +16,7 @@ namespace NostrumGames
         {
             PhotonNetwork.OnEventCall += this.OnSeedArrived;
             PhotonNetwork.OnEventCall += this.OnGameOver;
+            Debug.Log("asd");
         }
 
         private void OnSeedArrived(byte eventCode, object content, int senderID)
@@ -39,6 +40,7 @@ namespace NostrumGames
                 Debug.Log("Game Over");
                 Time.timeScale = 0;
             }
+            Debug.Log("Why");
         }
     }
 }
