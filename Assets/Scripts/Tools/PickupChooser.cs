@@ -10,7 +10,7 @@ namespace NostrumGames
     public class PickupChooser : MonoBehaviour
     {
 
-        private PickupNames _randomPickup;
+        private Pickups _randomPickup;
 
         private Collider2D _collider;
         private PlayerManager _playerManager;
@@ -24,7 +24,8 @@ namespace NostrumGames
 
         void Start()
         {
-            _randomPickup = RandomEnumValue<PickupNames>();
+            // _randomPickup = RandomEnumValue<PickupNames>();
+            _randomPickup = LootManager.Instance.GetRandomPickupFromLootTable();
 
 
             this.OnTriggerEnter2DAsObservable()
@@ -52,24 +53,13 @@ namespace NostrumGames
 
         private void ChoosePickupCompononent()
         {
-            _randomPickup = PickupNames.Shield;
-            switch (_randomPickup)
-            {
-                case PickupNames.Darken:
-                    // component = col.gameObject.AddComponent<Darken>();
-                    PickupUIManager.Instance.RollImagesInGame(new Darken(), this);
-                    break;
-                case PickupNames.Confuse:
-                    // component = col.gameObject.AddComponent<Confuse>();
-                    PickupUIManager.Instance.RollImagesInGame(new Confuse(), this);
-                    break;
-                case PickupNames.Shield:
-                    // component = col.gameObject.AddComponent<Shield>();
-                    PickupUIManager.Instance.RollImagesInGame(new Shield(), this);
-                    break;
-                default:
-                    break;
-            }
+            // _randomPickup = PickupNames.Shield;
+
+            _randomPickup = new Darken();
+
+            PickupUIManager.Instance.RollImagesInGame(_randomPickup, this);
+
+
 
             // playerManager.PickupList.Add(component);
             DestroyBox();

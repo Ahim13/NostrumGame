@@ -151,14 +151,6 @@ namespace NostrumGames
             else pickupChooser.AddPickupComponent(chosenPickup);
         }
 
-        void Update()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                LootManager.Instance.PickupInfos.Clear();
-            }
-        }
-
         public void UseItem()
         {
             //TODO: using item online

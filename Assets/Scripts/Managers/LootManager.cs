@@ -20,9 +20,7 @@ namespace NostrumGames
         void Awake()
         {
             SetAsSingleton();
-        }
-        void Start()
-        {
+
             _lootTable = new LootTable(PickupInfos);
         }
         private void SetAsSingleton()
