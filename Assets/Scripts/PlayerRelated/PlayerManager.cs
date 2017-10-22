@@ -173,6 +173,12 @@ namespace NostrumGames
             Destroy(GetComponent<SpriteOutline>());
             Debug.Log("Eltavolit");
         }
+
+        [PunRPC]
+        private void ActivateDarken()
+        {
+            ShadowEffectManager.Instance.ActivateShadow();
+        }
         #endregion
     }
 }

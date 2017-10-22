@@ -38,7 +38,7 @@ namespace NostrumGames
             DeactivateShadow();
         }
 
-        private void DeactivateShadow()
+        public void DeactivateShadow()
         {
             DOVirtual.DelayedCall(_delayToDisable, () =>
                         {

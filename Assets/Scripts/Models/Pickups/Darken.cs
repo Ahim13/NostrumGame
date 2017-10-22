@@ -14,7 +14,8 @@ namespace NostrumGames
 
         public override void ActivatePickup()
         {
-            ShadowEffectManager.Instance.ActivateShadow();
+            // ShadowEffectManager.Instance.ActivateShadow();
+            _thisPhotonView.RPC("ActivateDarken", PhotonTargets.Others);
             Debug.Log("KILŐŐŐŐŐŐ");
         }
     }

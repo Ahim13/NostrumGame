@@ -47,4 +47,5 @@ MonoBehaviour:
   - RPC_StartCountBack
   - LoseShieldOnline
   - MakeVisibleOnline
+  - ActivateDarken
   DisableAutoOpenWizard: 1

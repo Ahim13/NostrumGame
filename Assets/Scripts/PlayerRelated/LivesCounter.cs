@@ -64,6 +64,7 @@ namespace NostrumGames
 
         private void NoMoreLives()
         {
+            ShadowEffectManager.Instance.DeactivateShadow();
 
             PiggySceneUIManager.Instance.SetPanelActivityByAlive(false);
 
