@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace NostrumGames
@@ -15,11 +16,17 @@ namespace NostrumGames
         [SerializeField]
         private GameObject _roomTabPrefab;
 
+        private List<RoomTab> _roomTabs;
+
+        public List<RoomTab> RoomTabs { get { return _roomTabs; } }
+
 
 
         void Awake()
         {
             SetAsSingleton();
+
+            _roomTabs = new List<RoomTab>();
         }
 
         private void SetAsSingleton()
@@ -50,6 +57,9 @@ namespace NostrumGames
             var roomTab = go.GetComponent<RoomTab>();
 
             roomTab.SetRoomInfo(roomInfo.Name, (bool)roomInfo.CustomProperties[RoomProperty.IsSecret], roomTab.GetRoomSizeAndPlayersAsString(roomInfo.MaxPlayers, roomInfo.PlayerCount));
+
+            roomTab.IsSelected = false;
+            _roomTabs.Add(roomTab);
         }
 
         private void RemoveAllRoomTabs()
@@ -58,6 +68,8 @@ namespace NostrumGames
             {
                 if (child.tag != "Header") GameObject.Destroy(child.gameObject);
             }
+
+            _roomTabs.Clear();
         }
 
     }

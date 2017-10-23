@@ -10,7 +10,8 @@ TagManager:
   - RoomTools
   - Obstacle
   - Pickup
-  - OtherPlayer
+  - RoomTab
+  - PlayerTab
   layers:
   - Default
   - TransparentFX
