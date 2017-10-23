@@ -69,38 +69,6 @@ namespace NostrumGames
             PhotonNetwork.LeaveRoom();
         }
 
-
-        //TODO: move to extension file like score
-        public void SaveNumberOfPlayersToRoomSettings(int numberOfPlayers)
-        {
-            var customPropHash = new Hashtable();
-            customPropHash.Add(RoomProperty.AlivePlayers, numberOfPlayers);
-
-            PhotonNetwork.room.SetCustomProperties(customPropHash);
-        }
-        public void ChangeAlivePlayersInRoomSettings(int addedNumber)
-        {
-
-            var alivePlayers = (int)PhotonNetwork.room.CustomProperties[RoomProperty.AlivePlayers];
-            alivePlayers += addedNumber;
-
-            var customPropHash = new Hashtable();
-            customPropHash.Add(RoomProperty.AlivePlayers, alivePlayers);
-
-            Debug.Log("Alive: " + alivePlayers);
-
-            PhotonNetwork.room.SetCustomProperties(customPropHash);
-        }
-
-        public void SaveWinnerID(int ID)
-        {
-            var customPropHash = new Hashtable();
-            customPropHash.Add(RoomProperty.WinnerID, ID);
-
-            PhotonNetwork.room.SetCustomProperties(customPropHash);
-        }
-
-
         #region PUN Callbacks
         public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
         {

@@ -24,7 +24,16 @@ namespace NostrumGames
 
         void Awake()
         {
-            _photonPlayers = new List<PhotonPlayer>(PhotonPlayerManager.Instance.PlayerList).OrderByDescending(player => player.GetScore()).ToList();
+            try
+            {
+                _photonPlayers = new List<PhotonPlayer>(PhotonPlayerManager.Instance.PlayerList).OrderByDescending(player => player.GetScore()).ToList();
+            }
+            catch (System.Exception e)
+            {
+
+                Debug.LogError(e.Message + System.Environment.NewLine + e.Data);
+                this.enabled = false;
+            }
         }
 
         void Start()

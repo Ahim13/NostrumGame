@@ -72,7 +72,7 @@ namespace NostrumGames
             //if all players have loaded the scene
             if (CheckPlayersCountMoreOrEqual(PlayersInGame, false))
             {
-                RoomManager.Instance.SaveNumberOfPlayersToRoomSettings(PlayersInGame);
+                PhotonNetwork.room.SaveNumberOfPlayersToRoomSettings(PlayersInGame);
 
 
                 _photonView.RPC("RPC_StartCountBack", PhotonTargets.AllViaServer);
@@ -111,7 +111,6 @@ namespace NostrumGames
             //check if we are the new Mater client
             if (newMasterClient.ID == PhotonNetwork.player.ID)
             {
-                Debug.Log(ApplicationSettings.IsPiggyGameStarted);
                 // Debug.Log("<color=blue>We are the master now!</color>");
                 if (!ApplicationSettings.IsPiggyGameStarted) LobbyUIManager.Instance.SetStartButtonActiveAndInteractable();
             }

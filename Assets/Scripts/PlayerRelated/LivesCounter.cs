@@ -58,7 +58,7 @@ namespace NostrumGames
             _livesImage.fillAmount = GetFillAmount(_maxLives, CurrentLives.Value);
             PiggySceneUIManager.Instance.SetPanelActivityByAlive(true);
 
-            RoomManager.Instance.ChangeAlivePlayersInRoomSettings(1);
+            PhotonNetwork.room.ChangeAlivePlayersInRoomSettings(1);
         }
 
 
@@ -73,7 +73,7 @@ namespace NostrumGames
 
             PhotonPlayerManager.Instance.LocalPlayer.SetScore((int)ScoreManager.Instance.Score);
 
-            RoomManager.Instance.ChangeAlivePlayersInRoomSettings(-1);
+            PhotonNetwork.room.ChangeAlivePlayersInRoomSettings(-1);
 
             PiggySceneUIManager.Instance.SetPanelActivityByAlive(false);
 

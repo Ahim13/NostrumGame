@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,9 +22,19 @@ namespace NostrumGames
 
         void Update()
         {
-            if (!RestartButton.interactable && PhotonPlayerManager.Instance.IsLocalMaster)
+            try
             {
-                RestartButton.interactable = true;
+                if (!RestartButton.interactable && PhotonPlayerManager.Instance.IsLocalMaster)
+                {
+                    RestartButton.interactable = true;
+                }
+
+            }
+            catch (System.Exception e)
+            {
+
+                Debug.LogError(e.Message + Environment.NewLine + e.Data);
+                this.enabled = false;
             }
         }
 
