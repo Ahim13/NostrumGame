@@ -37,7 +37,12 @@ namespace NostrumGames
             if (eventCode == (byte)PhotonEvents.GameOver)
             {
                 Debug.Log("Game Over");
-                Time.timeScale = 0;
+                // Time.timeScale = 0;
+
+                //set score before loading
+                PhotonPlayerManager.Instance.LocalPlayer.SetScore((int)ScoreManager.Instance.Score);
+
+                NetworkSceneManager.Instance.LoadScene(Scenes.PiggyLeaderBoard);
             }
         }
     }

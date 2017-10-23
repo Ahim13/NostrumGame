@@ -7,5 +7,6 @@ namespace NostrumGames
     public static class ApplicationSettings
     {
         public static bool IsStarted = false;
+        public static bool IsPiggyGameStarted = false;
     }
 }

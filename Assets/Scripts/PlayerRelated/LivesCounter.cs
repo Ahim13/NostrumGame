@@ -71,7 +71,7 @@ namespace NostrumGames
         {
             ShadowEffectManager.Instance.DeactivateShadow();
 
-            PhotonPlayerManager.Instance.UpdatePlayerProperty(PlayerProperty.Score, ScoreManager.Instance.Score);
+            PhotonPlayerManager.Instance.LocalPlayer.SetScore((int)ScoreManager.Instance.Score);
 
             RoomManager.Instance.ChangeAlivePlayersInRoomSettings(-1);
 

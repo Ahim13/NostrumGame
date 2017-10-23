@@ -69,6 +69,8 @@ namespace NostrumGames
             PhotonNetwork.LeaveRoom();
         }
 
+
+        //TODO: move to extension file like score
         public void SaveNumberOfPlayersToRoomSettings(int numberOfPlayers)
         {
             var customPropHash = new Hashtable();
@@ -84,6 +86,8 @@ namespace NostrumGames
 
             var customPropHash = new Hashtable();
             customPropHash.Add(RoomProperty.AlivePlayers, alivePlayers);
+
+            Debug.Log("Alive: " + alivePlayers);
 
             PhotonNetwork.room.SetCustomProperties(customPropHash);
         }
@@ -153,7 +157,6 @@ namespace NostrumGames
                 //check if only one player is alive
                 var alivePlayers = (int)propertiesThatChanged[RoomProperty.AlivePlayers];
 
-                Debug.Log(alivePlayers);
                 if (alivePlayers == 1)
                 {
                     var eventCode = (byte)PhotonEvents.GameOver;
