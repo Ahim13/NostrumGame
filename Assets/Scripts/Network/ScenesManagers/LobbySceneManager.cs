@@ -21,6 +21,7 @@ namespace NostrumGames
 
         public void StartButtonPressed(string sceneName)
         {
+            RoomManager.Instance.MakeRoomVisibleAndOpen(false);
             NetworkSceneManager.Instance.LoadScene(sceneName);
         }
 

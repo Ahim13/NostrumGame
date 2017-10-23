@@ -118,8 +118,8 @@ namespace NostrumGames
 
         public override void OnPhotonPlayerPropertiesChanged(object[] playerAndUpdatedProps)
         {
-            var player = (PhotonPlayer)playerAndUpdatedProps[0];
-            var hashTable = (Hashtable)playerAndUpdatedProps[1];
+            // var player = (PhotonPlayer)playerAndUpdatedProps[0];
+            // var hashTable = (Hashtable)playerAndUpdatedProps[1];
 
         }
 

@@ -64,6 +64,12 @@ namespace NostrumGames
             roomOptions.CustomRoomProperties = customPropHash;
         }
 
+        public void MakeRoomVisibleAndOpen(bool open)
+        {
+            PhotonNetwork.room.IsVisible = open;
+            PhotonNetwork.room.IsOpen = open;
+        }
+
         public void LeaveRoom()
         {
             PhotonNetwork.LeaveRoom();
