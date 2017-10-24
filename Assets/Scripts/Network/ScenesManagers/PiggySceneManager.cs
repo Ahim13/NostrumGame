@@ -87,21 +87,28 @@ namespace NostrumGames
         private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
         {
 
-            if (scene.name == Scenes.PiggySceneName)
+            try
             {
-                ApplicationSettings.IsPiggyGameStarted = true;
-
-                PhotonNetwork.Instantiate("Prefabs/Player", new Vector2(5, 6), Quaternion.identity, 0);
-                if (PhotonPlayerManager.Instance.IsLocalMaster)
+                if (scene.name == Scenes.PiggySceneName)
                 {
-                    PhotonPlayerManager.Reset();
-                    PhotonPlayerManager.Instance.MasterLoaded();
-                }
-                else
-                {
-                    PhotonPlayerManager.Instance.ClientLoaded();
+                    ApplicationSettings.IsPiggyGameStarted = true;
 
+                    PhotonNetwork.Instantiate("Prefabs/Player", new Vector2(5, 6), Quaternion.identity, 0);
+                    if (PhotonPlayerManager.Instance.IsLocalMaster)
+                    {
+                        PhotonPlayerManager.Reset();
+                        PhotonPlayerManager.Instance.MasterLoaded();
+                    }
+                    else
+                    {
+                        PhotonPlayerManager.Instance.ClientLoaded();
+
+                    }
                 }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError(e.Message);
             }
         }
 

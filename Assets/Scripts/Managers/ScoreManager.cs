@@ -45,7 +45,7 @@ namespace NostrumGames
 
         void Update()
         {
-            if (_playerGO.GetComponent<PlayerManager>().IsLiving)
+            if (_playerGO != null && _playerGO.GetComponent<PlayerManager>().IsLiving)
             {
                 Score += _scoreIncreasingPerSec * Time.deltaTime;
 

@@ -43,7 +43,7 @@ namespace NostrumGames
             {
                 WarningManager.Instance.ShowWarning("No room selected");
 
-                Debug.LogWarning(e.Message);
+                Debug.LogError(e.Message);
             }
 
         }

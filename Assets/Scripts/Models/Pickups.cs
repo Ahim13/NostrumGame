@@ -30,11 +30,6 @@ namespace NostrumGames
         protected PlayerInput _playerInput;
         protected PhotonView _thisPhotonView;
 
-        public Pickups()
-        {
-
-        }
-
 
         void Awake()
         {

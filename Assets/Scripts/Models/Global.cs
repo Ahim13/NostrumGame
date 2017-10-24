@@ -14,6 +14,8 @@ namespace NostrumGames
         public static readonly float DefaultGravity = 0.7f;
         public static readonly float OtherPlayersAlpha = 0.35f;
 
+        public static readonly LayerMask MapMask = LayerMask.NameToLayer("Map");
+
         public static float PlayersSpeed;
 
     }
