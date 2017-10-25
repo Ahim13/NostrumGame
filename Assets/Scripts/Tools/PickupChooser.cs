@@ -48,20 +48,14 @@ namespace NostrumGames
         private void DestroyBox()
         {
             Destroy(this.gameObject);
-            // PhotonNetwork.Destroy(this.gameObject);
         }
 
         private void ChoosePickupCompononent()
         {
-            // _randomPickup = PickupNames.Shield;
-
             //_randomPickup = new Confuse();
 
             PickupUIManager.Instance.RollImagesInGame(_randomPickup, this);
 
-
-
-            // playerManager.PickupList.Add(component);
             DestroyBox();
         }
 

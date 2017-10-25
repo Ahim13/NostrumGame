@@ -24,23 +24,25 @@ namespace NostrumGames
         public int ChanceToNotSpawn = 25;
         [Tooltip("Out of 100")]
         [Range(0, 10)]
-        public int MaximumSkippedRocket = 10;
+        public int MaximumNotSpawnedRocket = 10;
 
         [Header("Spawn Time Settings")]
         public float TimeBeforeSpawn;
-        public float MaxTime = 5;
-        public float MinTime = 2;
+        public List<Loot> SpawnTimes;
 
         private float _time;
         private float _spawnTime;
 
         private List<GameObject> _rockets;
 
+        private LootGeneric _lootGeneric;
+
         #region Unity Methods
 
         void Awake()
         {
             _rockets = new List<GameObject>();
+            _lootGeneric = new LootGeneric(SpawnTimes);
             GenerateObjects();
         }
 
@@ -59,13 +61,12 @@ namespace NostrumGames
         }
         void FixedUpdate()
         {
-            if (Time.timeSinceLevelLoad < TimeBeforeSpawn) return;
+            if (Time.timeSinceLevelLoad < TimeBeforeSpawn && !PiggySceneManager.AllowRocketSpawn) return;
 
             //Counts up
             _time += Time.deltaTime;
 
             //Check if its the right time to spawn the object
-            //TODO: check if alloe to spawn! 
             if (_time >= _spawnTime)
             {
                 SpawnObject();
@@ -82,7 +83,7 @@ namespace NostrumGames
             var skipped = 0;
             for (int i = 0; i < _rockets.Count; i++)
             {
-                if (Random.Range(0, 100) < ChanceToNotSpawn && skipped < MaximumSkippedRocket)
+                if (Random.Range(0, 100) < ChanceToNotSpawn && skipped < MaximumNotSpawnedRocket)
                 {
                     skipped++;
                     continue;
@@ -123,13 +124,15 @@ namespace NostrumGames
         //Sets the random time between minTime and maxTime
         void SetRandomTime()
         {
-            _spawnTime = Random.Range(MinTime, MaxTime);
+            var randRange = _lootGeneric.GetRandomRange();
+            _spawnTime = Random.Range(randRange.x, randRange.y);
         }
 
 
 
 
 #if UNITY_EDITOR
+        //Show where the rockets will spawn
         void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;

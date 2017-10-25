@@ -44,7 +44,7 @@ namespace NostrumGames
             if (Input.GetKeyDown(KeyCode.A))
             {
                 //StartCountBack();
-                // Debug.Log(MySceneManager.Instance.GetLoadedSceneName());
+                //Debug.Log(LootManager.Instance.GetRandomPickupFromLootTable().GetType());
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {

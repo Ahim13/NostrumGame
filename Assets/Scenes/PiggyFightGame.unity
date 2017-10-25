@@ -1262,8 +1262,13 @@ MonoBehaviour:
   ChanceToNotSpawn: 50
   MaximumSkippedRocket: 5
   TimeBeforeSpawn: 30
-  MaxTime: 45
-  MinTime: 5
+  SpawnTimes:
+  - TimeRange: {x: 2, y: 25}
+    LootRange: {x: 0, y: 0}
+    Weight: 35
+  - TimeRange: {x: 15, y: 60}
+    LootRange: {x: 0, y: 0}
+    Weight: 65
 --- !u!4 &329965831
 Transform:
   m_ObjectHideFlags: 0
@@ -4215,16 +4220,18 @@ MonoBehaviour:
   _pickupInfos:
   - PickupName: 0
     PickupSprite: {fileID: 21300000, guid: f5460a65a0b26f64c85dded09c52ec41, type: 3}
-    Weight: 10
+    Weight: 15
   - PickupName: 1
     PickupSprite: {fileID: 21300000, guid: 33d405908c603e748b5286b161b63840, type: 3}
-    Weight: 15
+    Weight: 20
   - PickupName: 2
     PickupSprite: {fileID: 21300000, guid: 7a02979c216c56945b83221a281d1901, type: 3}
     Weight: 30
   - PickupName: 3
     PickupSprite: {fileID: 21300000, guid: 88d4367fd5672ad47b9506c0eecf7012, type: 3}
     Weight: 25
+  _lootTable:
+    _items: []
 --- !u!4 &1213212865
 Transform:
   m_ObjectHideFlags: 0
