@@ -17,6 +17,9 @@ namespace NostrumGames
         public static PiggySceneManager Instance;
 
 
+        public static bool AllowRocketSpawn;
+
+
         private TerrainRuleGenerator _terrainRuleGenerator;
         private int _currentRuleIndex = -1;
         private bool _shouldPause = false;
@@ -28,6 +31,8 @@ namespace NostrumGames
             SceneManager.sceneLoaded += OnSceneFinishedLoading;
 
             _terrainRuleGenerator = new TerrainRuleGenerator();
+
+            AllowRocketSpawn = false;
 
             //TODO: do it in final version
             //Time.timeScale = Global.PausedTimeScale;
@@ -48,6 +53,7 @@ namespace NostrumGames
             };
 
             CheckCurrentTerraintRuleIndex();
+            CheckCurrentTerraintRule();
         }
 
         public void Paused(bool paused)
@@ -65,6 +71,13 @@ namespace NostrumGames
                 var newRule = _terrainRuleGenerator.GenerateRandomRule(TerrainRule.TerrainLength.Fixed, -1, 1, 1, 4, 5);
                 _terrainRuleGenerator.AddToTerrainRules(newRule);
             }
+        }
+        private void CheckCurrentTerraintRule()
+        {
+            var currentRule = TerrainDisplayer.Instance.TerrainManager.VertexGen.CurrentTerrainRule;
+
+            if (Mathf.Abs(currentRule.Angle) < 40) AllowRocketSpawn = true;
+            else AllowRocketSpawn = false;
         }
 
         void OnDisable()

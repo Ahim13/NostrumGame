@@ -13,11 +13,26 @@ namespace NostrumGames
         [SerializeField]
         private Vector3 _spawnPointOffset;
 
+
+        [Header("Rocket Settings")]
         [SerializeField]
         private GameObject _rocketToSpawn;
         [SerializeField]
         private int _numberOfRockets;
 
+        [Tooltip("Out of 100")]
+        public int ChanceToNotSpawn = 25;
+        [Tooltip("Out of 100")]
+        [Range(0, 10)]
+        public int MaximumSkippedRocket = 10;
+
+        [Header("Spawn Time Settings")]
+        public float TimeBeforeSpawn;
+        public float MaxTime = 5;
+        public float MinTime = 2;
+
+        private float _time;
+        private float _spawnTime;
 
         private List<GameObject> _rockets;
 
@@ -31,7 +46,8 @@ namespace NostrumGames
 
         void Start()
         {
-
+            SetRandomTime();
+            _time = 0;
         }
 
 
@@ -39,6 +55,23 @@ namespace NostrumGames
         {
             if (Input.GetKeyDown(KeyCode.X)) SpawnRockets();
             if (Input.GetKeyDown(KeyCode.Y)) _rockets.ForEach(rocket => rocket.PutBackToPool());
+
+        }
+        void FixedUpdate()
+        {
+            if (Time.timeSinceLevelLoad < TimeBeforeSpawn) return;
+
+            //Counts up
+            _time += Time.deltaTime;
+
+            //Check if its the right time to spawn the object
+            //TODO: check if alloe to spawn! 
+            if (_time >= _spawnTime)
+            {
+                SpawnObject();
+                SetRandomTime();
+            }
+
         }
 
 
@@ -49,7 +82,7 @@ namespace NostrumGames
             var skipped = 0;
             for (int i = 0; i < _rockets.Count; i++)
             {
-                if (Random.Range(0, 100) < 25 && skipped < 4)
+                if (Random.Range(0, 100) < ChanceToNotSpawn && skipped < MaximumSkippedRocket)
                 {
                     skipped++;
                     continue;
@@ -77,6 +110,20 @@ namespace NostrumGames
                 newRocket.ResetGameObject();
                 _rockets.Add(newRocket);
             }
+        }
+
+
+        //Spawns the object and resets the time
+        void SpawnObject()
+        {
+            _time = 0;
+            SpawnRockets();
+        }
+
+        //Sets the random time between minTime and maxTime
+        void SetRandomTime()
+        {
+            _spawnTime = Random.Range(MinTime, MaxTime);
         }
 
 
