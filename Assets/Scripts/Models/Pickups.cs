@@ -16,11 +16,11 @@ namespace NostrumGames
 
     [RequireComponent(typeof(PlayerManager))]
     [RequireComponent(typeof(PlayerInput))]
-    abstract public class Pickups : MonoBehaviour
+    public class Pickups : MonoBehaviour
     {
 
 
-        public abstract PickupTypes PickupType { get; }
+        public virtual PickupTypes PickupType { get; }
 
         public Sprite PickupSprite;
 
@@ -54,7 +54,7 @@ namespace NostrumGames
                 })
                 .AddTo(this);
         }
-        public abstract void ActivatePickup();
+        public virtual void ActivatePickup() { }
 
         void OnDestroy()
         {
