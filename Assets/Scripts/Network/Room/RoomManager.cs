@@ -131,7 +131,7 @@ namespace NostrumGames
                 //check if only one player is alive
                 var alivePlayers = (int)propertiesThatChanged[RoomProperty.AlivePlayers];
 
-                if (alivePlayers == 1)
+                if (alivePlayers == 0)
                 {
                     var eventCode = (byte)PhotonEvents.GameOver;
                     bool reliable = true;

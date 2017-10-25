@@ -9,19 +9,20 @@ namespace NostrumGames
         public static LootManager Instance;
 
         public List<PickupInfo> PickupInfos { get { return new List<PickupInfo>(_pickupInfos); } } //TODO: might not ok, this only work with value types
-        public LootTable<Pickups> LootTable { get { return _lootTable; } }
+        public LootTable LootTable { get { return _lootTable; } }
 
         [SerializeField]
         private List<PickupInfo> _pickupInfos;
 
-        private LootTable<Pickups> _lootTable;
+        [SerializeField]
+        private LootTable _lootTable;
 
         #region Unity Methods
         void Awake()
         {
             SetAsSingleton();
 
-            _lootTable = new LootTable<Pickups>(PickupInfos);
+            _lootTable = new LootTable(PickupInfos);
         }
         private void SetAsSingleton()
         {

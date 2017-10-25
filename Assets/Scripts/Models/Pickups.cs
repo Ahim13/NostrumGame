@@ -58,6 +58,7 @@ namespace NostrumGames
 
         void OnDestroy()
         {
+            _playerManager.RemovePickup();
             _activatePickup.Dispose();
         }
 

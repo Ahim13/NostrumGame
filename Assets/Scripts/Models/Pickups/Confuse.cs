@@ -14,6 +14,7 @@ namespace NostrumGames
 
         public override void ActivatePickup()
         {
+            Debug.Log("Confuse");
             _thisPhotonView.RPC("ActivateConfuse", PhotonTargets.Others);
 
             Destroy(this);
