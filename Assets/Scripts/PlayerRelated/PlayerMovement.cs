@@ -44,14 +44,16 @@ namespace NostrumGames
         private ControllerType _controllerType;
 
         [SerializeField]
-        private float _upForce;
+        private float _upForce = 25f;
         [SerializeField]
-        private float _gravityScale;
+        private float _VerticalVelocity = 10f;
         [SerializeField]
-        private float _velocityX;
+        private float _gravityScale = 10f;
+        [SerializeField]
+        private float _velocityX = 5f;
         [SerializeField]
         [Range(0, 1)]
-        private float _upwardDrag;
+        private float _upwardDrag = 0.7f;
 
         private IDisposable _moveUp;
         private IDisposable _movingOnX;
@@ -88,8 +90,6 @@ namespace NostrumGames
                 })
                 .ToReactiveProperty()
                 .AddTo(this);
-
-
 
         }
 
@@ -180,13 +180,25 @@ namespace NostrumGames
 
             if (_moveUp != null) _moveUp.Dispose();
 
-            _moveUp = PlayerInput.MoveUp
-                .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
-                .Subscribe(pressingSpace =>
-                {
-                    MovementBasenOnControllType(pressingSpace);
-                })
-                .AddTo(this);
+            if (_controllerType == ControllerType.ZeroGravity)
+            {
+                _moveUp = PlayerInput.MoveUpDown
+                    .Subscribe(value =>
+                    {
+                        _rigidbody2D.velocity = new Vector2(0, value * _upForce);
+                    })
+                    .AddTo(this);
+            }
+            else
+            {
+                _moveUp = PlayerInput.MoveUp
+                    .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
+                    .Subscribe(pressingSpace =>
+                    {
+                        MovementBasenOnControllType(pressingSpace);
+                    })
+                    .AddTo(this);
+            }
 
             MovingOnAxisX();
         }

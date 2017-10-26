@@ -43,6 +43,7 @@ namespace NostrumGames
         private float _timeToReachSpawnpoint;
 
         [Header("Pickup Settings")]
+        [SerializeField]
         private float _confuseDuration = 5;
 
 
@@ -79,7 +80,7 @@ namespace NostrumGames
         }
         void Update()
         {
-            // if (Input.GetKeyDown(KeyCode.A)) Debug.Log(HasShield);
+            if (Input.GetKeyDown(KeyCode.A)) ActivateEasyMovement();
             // if (Input.GetKeyDown(KeyCode.S)) Debug.Log(Shield.Value);
         }
 
@@ -139,6 +140,7 @@ namespace NostrumGames
             controllerType = ControllerType.Basic;
 
             PlayerMovement.IsBoxCollider2DEnabled(true);
+            PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.Basic);
             PlayerMovement.InitBasicMovement();
         }
 
@@ -204,6 +206,16 @@ namespace NostrumGames
         public void ActivateGainLife()
         {
             _livesCounter.AddLife();
+        }
+        public void ActivateEasyMovement()
+        {
+            PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.ZeroGravity);
+            PlayerMovement.InitBasicMovement();
+            DOVirtual.DelayedCall(_confuseDuration, () =>
+                        {
+                            PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.Basic);
+                            PlayerMovement.InitBasicMovement();
+                        });
         }
 
 
