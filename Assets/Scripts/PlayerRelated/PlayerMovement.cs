@@ -106,6 +106,8 @@ namespace NostrumGames
         void Update()
         {
 
+            //set animation
+
             if (PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
 
             UpdateNetworkedPostion();

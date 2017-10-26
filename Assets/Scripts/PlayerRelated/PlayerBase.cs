@@ -60,5 +60,14 @@ namespace NostrumGames
                 return _playerCollision;
             }
         }
+        PlayerAnimation _playerAnimation;
+        public PlayerAnimation PlayerAnimation
+        {
+            get
+            {
+                if (_playerAnimation == null) _playerAnimation = GetComponent<PlayerAnimation>();
+                return _playerAnimation;
+            }
+        }
     }
 }
