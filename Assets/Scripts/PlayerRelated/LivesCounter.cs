@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using TMPro;
 using UniRx;
 
 namespace NostrumGames
@@ -10,6 +11,7 @@ namespace NostrumGames
     {
 
         public static readonly string LivesImageName = "LivesImage";
+        public static readonly string PlusLifeTextName = "PlusLifeText";
 
 
 
@@ -17,11 +19,8 @@ namespace NostrumGames
         private ReactiveProperty<float> CurrentLives { get; set; }
         public ReactiveProperty<bool> HasRemainingLife { get; }
 
-        private float _currrentLives;
-
-        private bool _noMoreLives;
-
         private Image _livesImage;
+        private TextMeshProUGUI _plusLifeText;
 
         private PlayerManager _playerManager;
 
@@ -30,25 +29,36 @@ namespace NostrumGames
         {
             this._maxLives = lives;
             this._livesImage = GameObject.Find(LivesImageName).GetComponent<Image>();
+            this._plusLifeText = GameObject.Find(PlusLifeTextName).GetComponent<TextMeshProUGUI>();
+
 
             this.CurrentLives = new ReactiveProperty<float>(lives);
             this.HasRemainingLife = CurrentLives.Select(x => x > 0).ToReactiveProperty();
-
-            // IsLifeRameined.Where(alive => alive).Subscribe(_ => NoMoreLives());
 
             CurrentLives.Where(x => x == 0).Subscribe(_ => NoMoreLives());
 
             this._playerManager = playerManager;
 
+            SpecifyLives();
+
             //init IsAlive property
             //PhotonPlayerManager.Instance.UpdatePlayerProperty(PlayerProperty.IsAlive, true);
         }
+
+
+        public void AddLife()
+        {
+            CurrentLives.Value++;
+            SpecifyLives();
+        }
+
+
 
         public void Died()
         {
             _playerManager.IsLiving = false;
             CurrentLives.Value -= 1;
-            _livesImage.fillAmount = GetFillAmount(_maxLives, CurrentLives.Value);
+            SpecifyLives();
         }
 
         public void Revived()
@@ -77,6 +87,27 @@ namespace NostrumGames
 
             PiggySceneUIManager.Instance.SetPanelActivityByAlive(false);
 
+        }
+
+        private void SpecifyLives()
+        {
+            if (CurrentLives.Value > _maxLives) ShowText("+" + (CurrentLives.Value - _maxLives).ToString());
+            else
+            {
+                ResetText();
+                _livesImage.fillAmount = GetFillAmount(_maxLives, CurrentLives.Value);
+            }
+        }
+
+        private void ResetText()
+        {
+            _plusLifeText.text = "";
+            _plusLifeText.gameObject.SetActive(false);
+        }
+        private void ShowText(string text)
+        {
+            _plusLifeText.text = text;
+            _plusLifeText.gameObject.SetActive(true);
         }
     }
 

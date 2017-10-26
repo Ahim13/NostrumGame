@@ -42,6 +42,9 @@ namespace NostrumGames
         [SerializeField]
         private float _timeToReachSpawnpoint;
 
+        [Header("Pickup Settings")]
+        private float _confuseDuration = 5;
+
 
         public static GameObject LocalPlayerGO { get; private set; }
 
@@ -63,7 +66,7 @@ namespace NostrumGames
 
             (this).OnCollisionEnter2DAsObservable()
                 .Where(_ => IsLiving)
-                .Where(col => col.gameObject.tag == "Map")
+                .Where(col => col.gameObject.tag == "Map" || col.gameObject.tag == "Obstacle")
                 .Subscribe(col =>
                 {
                     if (!HasShield) DieOnCollisionWithObstacle();
@@ -157,6 +160,9 @@ namespace NostrumGames
 
         #region PunRpc Calls
 
+        #endregion
+
+        #region Pickup Calls
 
         [PunRPC]
         private void MakeVisibleOnline(int shieldSize)
@@ -184,12 +190,26 @@ namespace NostrumGames
         {
             PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.Reflected);
             PlayerMovement.InitBasicMovement();
-            DOVirtual.DelayedCall(5, () =>
+            DOVirtual.DelayedCall(_confuseDuration, () =>
                         {
                             PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.Basic);
                             PlayerMovement.InitBasicMovement();
                         });
         }
+        [PunRPC]
+        private void ActivateRocketLaucher()
+        {
+            RocketSpawnManager.Instance.SpawnRockets();
+        }
+        public void ActivateGainLife()
+        {
+            _livesCounter.AddLife();
+        }
+
+
+
         #endregion
+
+
     }
 }

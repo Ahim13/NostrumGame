@@ -13,6 +13,7 @@ namespace NostrumGames
     {
         Basic,
         Reflected,
+        ZeroGravity
 
     }
 
@@ -264,6 +265,9 @@ namespace NostrumGames
                     break;
                 case ControllerType.Reflected:
                     _rigidbody2D.gravityScale = Global.DefaultGravity * -1;
+                    break;
+                case ControllerType.ZeroGravity:
+                    _rigidbody2D.gravityScale = 0;
                     break;
                 default:
                     _rigidbody2D.gravityScale = Global.DefaultGravity;

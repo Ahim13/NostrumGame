@@ -10,6 +10,7 @@ namespace NostrumGames
     {
 
         public IObservable<bool> MoveUp { get; private set; }
+        public IObservable<float> MoveUpDown { get; private set; }
         public IObservable<Unit> ActivatePickup { get; private set; }
 
 
@@ -23,6 +24,14 @@ namespace NostrumGames
 
             ActivatePickup = this.UpdateAsObservable()
                 .Where(_ => Input.GetKeyDown(KeyCode.Q));
+
+            MoveUpDown = this.FixedUpdateAsObservable()
+                .Select(_ =>
+                {
+                    var y = Input.GetAxis("Vertical");
+
+                    return y;
+                });
 
         }
     }

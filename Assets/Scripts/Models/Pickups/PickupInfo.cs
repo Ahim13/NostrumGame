@@ -10,7 +10,9 @@ namespace NostrumGames
         Confuse,
         Darken,
         Revive,
-        Shield
+        Shield,
+        RocketLauncher,
+        GainLife
     }
 
     [System.Serializable]

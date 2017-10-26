@@ -42,5 +42,16 @@ namespace NostrumGames
         {
             return _lootTable.GetRandomItem();
         }
+        public Pickups GetRandomPickupFromLootTableBut(Pickups excludedPickup)
+        {
+            Pickups randomItem;
+            do
+            {
+                randomItem = _lootTable.GetRandomItem();
+            }
+            while (randomItem.GetType() == excludedPickup.GetType());
+
+            return randomItem;
+        }
     }
 }

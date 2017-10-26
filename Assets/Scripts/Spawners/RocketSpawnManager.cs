@@ -6,6 +6,9 @@ namespace NostrumGames
 {
     public class RocketSpawnManager : MonoBehaviour
     {
+        public static RocketSpawnManager Instance;
+
+
         [SerializeField]
         private Camera _camera;
         [SerializeField]
@@ -41,9 +44,15 @@ namespace NostrumGames
 
         void Awake()
         {
+            SetAsSingleton();
             _rockets = new List<GameObject>();
             _lootGeneric = new LootGeneric(SpawnTimes);
             GenerateObjects();
+        }
+        private void SetAsSingleton()
+        {
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
         }
 
         void Start()
@@ -61,7 +70,8 @@ namespace NostrumGames
         }
         void FixedUpdate()
         {
-            if (Time.timeSinceLevelLoad < TimeBeforeSpawn && !PiggySceneManager.AllowRocketSpawn) return;
+            if (Time.timeSinceLevelLoad < TimeBeforeSpawn) return;
+            if (!PiggySceneManager.AllowRocketSpawn) return;
 
             //Counts up
             _time += Time.deltaTime;
@@ -78,7 +88,7 @@ namespace NostrumGames
 
         #endregion
 
-        private void SpawnRockets()
+        public void SpawnRockets()
         {
             var skipped = 0;
             for (int i = 0; i < _rockets.Count; i++)

@@ -38,10 +38,23 @@ namespace NostrumGames
 
         void Start()
         {
-            ChangeAttributesOfLeaderBoardPlayer(_rank1, 0);
-            ChangeAttributesOfLeaderBoardPlayer(_rank2, 1);
-            if (_photonPlayers.Count > 2) ChangeAttributesOfLeaderBoardPlayer(_rank3, 2);
-            else _rank3.gameObject.SetActive(false);
+            try
+            {
+
+                ChangeAttributesOfLeaderBoardPlayer(_rank1, 0);
+                if (_photonPlayers.Count > 1) ChangeAttributesOfLeaderBoardPlayer(_rank2, 1);
+                else _rank2.gameObject.SetActive(false);
+                if (_photonPlayers.Count > 2) ChangeAttributesOfLeaderBoardPlayer(_rank3, 2);
+                else _rank3.gameObject.SetActive(false);
+            }
+            catch (System.Exception e)
+            {
+
+                Debug.LogError(e.Message + System.Environment.NewLine + e.Data);
+                this.enabled = false;
+            }
+
+            Debug.Log(_photonPlayers.Count);
         }
 
 

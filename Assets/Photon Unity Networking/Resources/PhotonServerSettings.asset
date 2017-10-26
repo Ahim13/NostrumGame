@@ -49,4 +49,6 @@ MonoBehaviour:
   - MakeVisibleOnline
   - ActivateDarken
   - ActivateConfuse
+  - ActivateGainLife
+  - ActivateRocketLaucher
   DisableAutoOpenWizard: 1

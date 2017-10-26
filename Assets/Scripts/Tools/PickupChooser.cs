@@ -25,14 +25,15 @@ namespace NostrumGames
         void Start()
         {
             // _randomPickup = RandomEnumValue<PickupNames>();
-            _randomPickup = LootManager.Instance.GetRandomPickupFromLootTable();
+            _randomPickup = LootManager.Instance.GetRandomPickupFromLootTableBut(new Revive());
 
 
             this.OnTriggerEnter2DAsObservable()
                 .Where(col => col.tag == "Player")
                 .Subscribe(col =>
                 {
-                    if (col.GetComponent<PlayerManager>().PickupList.Count == 0)
+                    var playerManager = col.GetComponent<PlayerManager>();
+                    if (playerManager.PickupList.Count == 0 && playerManager.IsLiving)
                     {
                         _collider = col;
                         _playerManager = _collider.GetComponent<PlayerManager>();
@@ -52,7 +53,7 @@ namespace NostrumGames
 
         private void ChoosePickupCompononent()
         {
-            //_randomPickup = new Confuse();
+            _randomPickup = new GainLife();
 
             PickupUIManager.Instance.RollImagesInGame(_randomPickup, this);
 

@@ -19,6 +19,8 @@ namespace NostrumGames
 
         public static bool AllowRocketSpawn;
 
+        public int AngleToAllowRocketSpawn = 5;
+
 
         private TerrainRuleGenerator _terrainRuleGenerator;
         private int _currentRuleIndex = -1;
@@ -35,7 +37,7 @@ namespace NostrumGames
             AllowRocketSpawn = false;
 
             //TODO: do it in final version
-            //Time.timeScale = Global.PausedTimeScale;
+            Time.timeScale = Global.PausedTimeScale;
         }
 
         void Update()
@@ -44,7 +46,7 @@ namespace NostrumGames
             if (Input.GetKeyDown(KeyCode.A))
             {
                 //StartCountBack();
-                //Debug.Log(LootManager.Instance.GetRandomPickupFromLootTable().GetType());
+                // Debug.Log(new Vector2(0.5f, 0).normalized);
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -76,7 +78,7 @@ namespace NostrumGames
         {
             var currentRule = TerrainDisplayer.Instance.TerrainManager.VertexGen.CurrentTerrainRule;
 
-            if (Mathf.Abs(currentRule.Angle) < 40) AllowRocketSpawn = true;
+            if (Mathf.Abs(currentRule.Angle) < AngleToAllowRocketSpawn) AllowRocketSpawn = true;
             else AllowRocketSpawn = false;
         }
 
