@@ -55,6 +55,9 @@ TagManager:
   - name: Map
     uniqueID: 1834882049
     locked: 0
+  - name: Obstacles
+    uniqueID: 206973857
+    locked: 0
   - name: Player
     uniqueID: 2464060999
     locked: 0
