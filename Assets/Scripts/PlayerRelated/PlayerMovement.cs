@@ -38,6 +38,7 @@ namespace NostrumGames
     {
         public IObservable<Unit> MovingVelocity { get; private set; }
         public ReactiveProperty<float> ReactiveVelocityX { get; private set; }
+        public ControllerType ControllType { get { return _controllerType; } }
 
         private Rigidbody2D _rigidbody2D;
         private BoxCollider2D _boxCollider2D;

@@ -4306,16 +4306,19 @@ MonoBehaviour:
     Weight: 20
   - PickupName: 2
     PickupSprite: {fileID: 21300000, guid: 7a02979c216c56945b83221a281d1901, type: 3}
-    Weight: 30
+    Weight: 20
   - PickupName: 3
     PickupSprite: {fileID: 21300000, guid: 88d4367fd5672ad47b9506c0eecf7012, type: 3}
     Weight: 25
   - PickupName: 4
     PickupSprite: {fileID: 21300000, guid: 88d4367fd5672ad47b9506c0eecf7012, type: 3}
-    Weight: 25
+    Weight: 30
   - PickupName: 5
     PickupSprite: {fileID: 21300000, guid: 88d4367fd5672ad47b9506c0eecf7012, type: 3}
-    Weight: 25
+    Weight: 10
+  - PickupName: 6
+    PickupSprite: {fileID: 21300000, guid: 88d4367fd5672ad47b9506c0eecf7012, type: 3}
+    Weight: 20
   _lootTable:
     _items: []
 --- !u!4 &1213212865

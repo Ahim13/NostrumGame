@@ -194,6 +194,7 @@ namespace NostrumGames
             PlayerMovement.InitBasicMovement();
             DOVirtual.DelayedCall(_confuseDuration, () =>
                         {
+                            if (PlayerMovement.ControllType == ControllerType.Basic) return;  //if player died dont init movement again, not necessary.
                             PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.Basic);
                             PlayerMovement.InitBasicMovement();
                         });
@@ -213,6 +214,7 @@ namespace NostrumGames
             PlayerMovement.InitBasicMovement();
             DOVirtual.DelayedCall(_confuseDuration, () =>
                         {
+                            if (PlayerMovement.ControllType == ControllerType.Basic) return;  //if player died dont init movement again, not necessary.
                             PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.Basic);
                             PlayerMovement.InitBasicMovement();
                         });

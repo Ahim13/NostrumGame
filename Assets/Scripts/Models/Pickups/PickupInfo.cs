@@ -12,7 +12,8 @@ namespace NostrumGames
         Revive,
         Shield,
         RocketLauncher,
-        GainLife
+        GainLife,
+        EasyMove
     }
 
     [System.Serializable]
