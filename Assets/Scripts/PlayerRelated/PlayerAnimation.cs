@@ -9,8 +9,10 @@ namespace NostrumGames
     public class PlayerAnimation : PlayerBase
     {
 
+        public List<PolygonCollider2D> Colliders { get { return _colliders; } }
+
         [SerializeField]
-        private PolygonCollider2D[] colliders;
+        private List<PolygonCollider2D> _colliders;
         private int currentColliderIndex = 0;
 
         private Rigidbody2D _rigidbody2D;
@@ -36,9 +38,9 @@ namespace NostrumGames
 
         public void SetColliderForSprite(int spriteNum)
         {
-            colliders[currentColliderIndex].enabled = false;
+            _colliders[currentColliderIndex].enabled = false;
             currentColliderIndex = spriteNum;
-            colliders[currentColliderIndex].enabled = true;
+            _colliders[currentColliderIndex].enabled = true;
         }
     }
 }

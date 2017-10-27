@@ -80,7 +80,7 @@ namespace NostrumGames
         }
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.A)) ActivateEasyMovement();
+            //if (Input.GetKeyDown(KeyCode.A)) ActivateEasyMovement();
             // if (Input.GetKeyDown(KeyCode.S)) Debug.Log(Shield.Value);
         }
 
@@ -105,7 +105,6 @@ namespace NostrumGames
         public void DeleteOutlineComponent()
         {
             // Destroy(GetComponent<SpriteOutline>());
-            Debug.Log("Delete");
             GetComponent<Shield>().LoseShield();
         }
 
@@ -137,9 +136,9 @@ namespace NostrumGames
             rigidbody2D.gravityScale = Global.DefaultGravity;
             rigidbody2D.isKinematic = false;
             rigidbody2D.velocity = new Vector2(0, 0);
-            controllerType = ControllerType.Basic;
+            //controllerType = ControllerType.Basic;
 
-            PlayerMovement.IsBoxCollider2DEnabled(true);
+            PlayerMovement.IsCollider2DEnabled(true);
             PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.Basic);
             PlayerMovement.InitBasicMovement();
         }

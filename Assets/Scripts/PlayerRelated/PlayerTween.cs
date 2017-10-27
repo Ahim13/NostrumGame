@@ -78,7 +78,7 @@ namespace NostrumGames
             _setLocalPosTween.ChangeStartValue(_transform.localPosition, _timeToReachSpawnpoint);
             _setLocalPosTween.Play();
             _deathSequence.Play();
-            _playerMovement.IsBoxCollider2DEnabled(false);
+            _playerMovement.IsCollider2DEnabled(false);
         }
 
     }

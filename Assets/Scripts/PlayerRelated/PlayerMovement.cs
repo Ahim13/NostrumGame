@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -180,7 +181,7 @@ namespace NostrumGames
 
         public void InitBasicMovement()
         {
-
+            Debug.Log("Init");
             if (_moveUp != null) _moveUp.Dispose();
 
             if (_controllerType == ControllerType.ZeroGravity)
@@ -194,6 +195,7 @@ namespace NostrumGames
             }
             else
             {
+                Debug.Log("MoveUp");
                 _moveUp = PlayerInput.MoveUp
                     .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
                     .Subscribe(pressingSpace =>
@@ -239,6 +241,8 @@ namespace NostrumGames
 
         private void MovingOnAxisX()
         {
+            if (_movingOnX != null) _movingOnX.Dispose();
+
             _movingOnX = this.FixedUpdateAsObservable()
                 .Subscribe(_ => _rigidbody2D.velocity = new Vector2(_velocityX, _rigidbody2D.velocity.y))
                 .AddTo(this);
@@ -264,9 +268,10 @@ namespace NostrumGames
             _rigidbody2D.isKinematic = kinematic;
         }
 
-        public void IsBoxCollider2DEnabled(bool enabled)
+        public void IsCollider2DEnabled(bool enabled)
         {
-            _boxCollider2D.enabled = enabled;
+            // _boxCollider2D.enabled = enabled;
+            PlayerAnimation.Colliders.ForEach(collider => collider.enabled = enabled);
         }
 
         public void ChangeControllerTypeAndGravity(ControllerType newControllType)
