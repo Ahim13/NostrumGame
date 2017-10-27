@@ -67,8 +67,6 @@ namespace NostrumGames
         {
             PlayersInGame++;
 
-            Debug.Log(PlayersInGame);
-
             //if all players have loaded the scene
             if (CheckPlayersCountMoreOrEqual(PlayersInGame, false))
             {

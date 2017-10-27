@@ -40,6 +40,12 @@ namespace NostrumGames
 
         private LootGeneric _lootGeneric;
 
+        [Header("Pool settings")]
+        public int XTimesRockets;
+
+
+        private PoolManager<Rocket> _poolManager;
+
         #region Unity Methods
 
         void Awake()
@@ -47,7 +53,8 @@ namespace NostrumGames
             SetAsSingleton();
             _rockets = new List<GameObject>();
             _lootGeneric = new LootGeneric(SpawnTimes);
-            GenerateObjects();
+            _poolManager = new PoolManager<Rocket>(_rocketToSpawn, "RocketContainer", XTimesRockets * _numberOfRockets);
+            //GenerateObjects();
         }
         private void SetAsSingleton()
         {
@@ -66,6 +73,9 @@ namespace NostrumGames
         {
             if (Input.GetKeyDown(KeyCode.X)) SpawnRockets();
             if (Input.GetKeyDown(KeyCode.Y)) _rockets.ForEach(rocket => rocket.PutBackToPool());
+            if (Input.GetKeyDown(KeyCode.G)) _poolManager.SpawnFromPool(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets);
+
+            //_poolManager.ListPools.ForEach(pool => _poolManager.CheckPoolUsage(pool));
 
         }
         void FixedUpdate()
@@ -145,7 +155,7 @@ namespace NostrumGames
         //Show where the rockets will spawn
         void OnDrawGizmos()
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.blue;
 
             UnityEditor.Handles.Label(_camera.ViewportToWorldPoint(_spawnPoint) + new Vector3(0, 1, 0), "SpawnPiont");
             //Gizmos.DrawSphere(_camera.ViewportToWorldPoint(_spawnPoint), 0.5f);

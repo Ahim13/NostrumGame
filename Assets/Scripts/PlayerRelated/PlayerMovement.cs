@@ -181,7 +181,6 @@ namespace NostrumGames
 
         public void InitBasicMovement()
         {
-            Debug.Log("Init");
             if (_moveUp != null) _moveUp.Dispose();
 
             if (_controllerType == ControllerType.ZeroGravity)
@@ -190,17 +189,18 @@ namespace NostrumGames
                     .Subscribe(value =>
                     {
                         _rigidbody2D.velocity = new Vector2(0, value * _upForce);
+                        EmitParticle(true);
                     })
                     .AddTo(this);
             }
             else
             {
-                Debug.Log("MoveUp");
                 _moveUp = PlayerInput.MoveUp
                     .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
                     .Subscribe(pressingSpace =>
                     {
                         MovementBasenOnControllType(pressingSpace);
+                        EmitParticle(pressingSpace);
                     })
                     .AddTo(this);
             }
@@ -237,6 +237,7 @@ namespace NostrumGames
                 vel.y *= _upwardDrag;
                 _rigidbody2D.velocity = vel;
             }
+
         }
 
         private void MovingOnAxisX()
@@ -248,9 +249,15 @@ namespace NostrumGames
                 .AddTo(this);
         }
 
+        private void EmitParticle(bool pressingSpace)
+        {
+            if (pressingSpace) PlayerAnimation.EmitStars(true);
+            else PlayerAnimation.EmitStars(false);
+        }
+
         public void InvokeStartNewLife()
         {
-            PlayerManager.StartNewLife(_rigidbody2D, _controllerType);
+            PlayerManager.StartNewLife(_rigidbody2D);
         }
 
         //TODO: make better "death gravity", now you have to set the gravityScale back to default
@@ -273,6 +280,7 @@ namespace NostrumGames
             // _boxCollider2D.enabled = enabled;
             PlayerAnimation.Colliders.ForEach(collider => collider.enabled = enabled);
         }
+
 
         public void ChangeControllerTypeAndGravity(ControllerType newControllType)
         {

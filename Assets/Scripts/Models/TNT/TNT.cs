@@ -4,17 +4,12 @@ using UnityEngine;
 
 namespace NostrumGames
 {
-
-    public class Rocket : MyPooling
+    public class TNT : MonoBehaviour
     {
 
-        public Vector2 DirectionToMove;
-
-        public ParticleSystem BurnerParticle;
         public ParticleSystem ExplosionParticle;
 
         public float DistanceOnXAllowedFromViewport;
-
 
         #region Unity Methods
 
@@ -24,17 +19,6 @@ namespace NostrumGames
         }
 
 
-        void Update()
-        {
-            transform.Translate(DirectionToMove * Time.deltaTime, Space.World);
-
-            if (Camera.main.WorldToViewportPoint(transform.position).x < DistanceOnXAllowedFromViewport)
-            {
-                this.gameObject.PutBackToPool();
-                IsInUse = false;
-            }
-        }
-
         void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.tag == "Player")
@@ -43,10 +27,10 @@ namespace NostrumGames
                 // this.enabled = false;
                 Instantiate(ExplosionParticle, transform.position, transform.rotation);
                 this.gameObject.PutBackToPool();
-                IsInUse = false;
             }
         }
 
         #endregion
     }
 }
+

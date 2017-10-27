@@ -131,12 +131,11 @@ namespace NostrumGames
             PickupList.RemoveAt(0);
         }
 
-        public void StartNewLife(Rigidbody2D rigidbody2D, ControllerType controllerType)
+        public void StartNewLife(Rigidbody2D rigidbody2D)
         {
             rigidbody2D.gravityScale = Global.DefaultGravity;
             rigidbody2D.isKinematic = false;
             rigidbody2D.velocity = new Vector2(0, 0);
-            //controllerType = ControllerType.Basic;
 
             PlayerMovement.IsCollider2DEnabled(true);
             PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.Basic);

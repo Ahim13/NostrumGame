@@ -13,10 +13,15 @@ namespace NostrumGames
 
         [SerializeField]
         private List<PolygonCollider2D> _colliders;
+        [SerializeField]
+        private ParticleSystem Stars;
+        [SerializeField]
+        private int EmissionRate = 50;
         private int currentColliderIndex = 0;
 
         private Rigidbody2D _rigidbody2D;
         private Animator _animator;
+        private ParticleSystem.EmissionModule _emission;
 
         #region Unity Methods
 
@@ -24,6 +29,7 @@ namespace NostrumGames
         {
             _animator = GetComponent<Animator>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
+            _emission = Stars.emission;
         }
 
 
@@ -41,6 +47,12 @@ namespace NostrumGames
             _colliders[currentColliderIndex].enabled = false;
             currentColliderIndex = spriteNum;
             _colliders[currentColliderIndex].enabled = true;
+        }
+
+        public void EmitStars(bool emit)
+        {
+            if (emit) _emission.rateOverTime = EmissionRate;
+            else _emission.rateOverTime = 0;
         }
     }
 }

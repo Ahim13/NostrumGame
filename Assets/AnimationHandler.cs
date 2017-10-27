@@ -7,12 +7,16 @@ public class AnimationHandler : MonoBehaviour
 
     public Rigidbody2D Rigidbody2D;
     public Animator Animator;
+    public ParticleSystem Stars;
+    public int EmissionRate;
+
+    private ParticleSystem.EmissionModule _emission;
 
     #region Unity Methods
 
     void Start()
     {
-
+        _emission = Stars.emission;
     }
 
 
@@ -28,6 +32,14 @@ public class AnimationHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
             Rigidbody2D.velocity = new Vector2(0, -1);
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _emission.rateOverTime = EmissionRate;
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            _emission.rateOverTime = 0;
         }
     }
 

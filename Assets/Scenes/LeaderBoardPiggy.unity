@@ -310,14 +310,14 @@ MeshRenderer:
   m_SortingOrder: 0
 --- !u!222 &137922240
 CanvasRenderer:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 222487188327682144, guid: 2583e7161821e7c41a03fdeb1c30f5ee,
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 137922237}
 --- !u!33 &137922241
 MeshFilter:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 33273119712871170, guid: 2583e7161821e7c41a03fdeb1c30f5ee,
     type: 2}
   m_PrefabInternal: {fileID: 0}
@@ -430,7 +430,7 @@ Animator:
   m_GameObject: {fileID: 248805387}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 75fe00c2e306d894097ff3c2f905543b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 06ebf7e1e86b82f42aaca05d6a3eaabc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -590,7 +590,7 @@ Animator:
   m_GameObject: {fileID: 401074467}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 75fe00c2e306d894097ff3c2f905543b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 06ebf7e1e86b82f42aaca05d6a3eaabc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1036,7 +1036,7 @@ Animator:
   m_GameObject: {fileID: 691636291}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 75fe00c2e306d894097ff3c2f905543b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 06ebf7e1e86b82f42aaca05d6a3eaabc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2717,7 +2717,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2130504410
 CanvasRenderer:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 222207947613570452, guid: 2583e7161821e7c41a03fdeb1c30f5ee,
     type: 2}
   m_PrefabInternal: {fileID: 0}
@@ -2759,7 +2759,7 @@ MeshRenderer:
   m_SortingOrder: 0
 --- !u!33 &2130504412
 MeshFilter:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 33638294975341538, guid: 2583e7161821e7c41a03fdeb1c30f5ee,
     type: 2}
   m_PrefabInternal: {fileID: 0}
