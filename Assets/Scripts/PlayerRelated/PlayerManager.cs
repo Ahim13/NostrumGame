@@ -202,6 +202,12 @@ namespace NostrumGames
         {
             RocketSpawnManager.Instance.SpawnRockets();
         }
+        [PunRPC]
+        private void ActivateTnTLaucher()
+        {
+            TNTSpawner.Instance.SpawnTnTs();
+        }
+
         public void ActivateGainLife()
         {
             _livesCounter.AddLife();

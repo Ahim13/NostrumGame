@@ -4724,6 +4724,9 @@ MonoBehaviour:
   - PickupName: 6
     PickupSprite: {fileID: 21300000, guid: ed3c822b50c6442408352e687fe30260, type: 3}
     Weight: 20
+  - PickupName: 7
+    PickupSprite: {fileID: 21300000, guid: 2369d575156bf7f4588a75fd4ff80455, type: 3}
+    Weight: 15
   _lootTable:
     _items: []
 --- !u!4 &1213212865

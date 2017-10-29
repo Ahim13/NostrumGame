@@ -33,8 +33,8 @@ namespace NostrumGames
             ApplicationSettings.IsStarted = false;
 
             SetButtonSubscription();
+            LoadEnglishLocalization();
         }
-
         private void SetAsSingleton()
         {
             if (Instance == null) Instance = this;
@@ -91,10 +91,11 @@ namespace NostrumGames
                 .AddTo(this);
         }
 
-        void Update()
+        public void LoadEnglishLocalization()
         {
-            if (Input.GetKeyDown(KeyCode.A)) PhotonNetwork.RaiseEvent((byte)PhotonEvents.SeedSent, null, true, null);
+            LocalizationManager.Instance.LoadLocalizedText("localizedText_en.json");
         }
+
 
     }
 }

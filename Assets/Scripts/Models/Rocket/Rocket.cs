@@ -38,7 +38,6 @@ namespace NostrumGames
         {
             if (other.gameObject.tag == "Player")
             {
-                Debug.Log("Hit");
                 Instantiate(ExplosionParticle, transform.position, transform.rotation);
                 this.gameObject.PutBackToPool();
             }

@@ -51,8 +51,8 @@ namespace NostrumGames
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.T)) SpawnTnTs();
-            if (Input.GetKeyDown(KeyCode.Z)) _poolManager.PutAllBackToPool();
+            // if (Input.GetKeyDown(KeyCode.T)) SpawnTnTs();
+            // if (Input.GetKeyDown(KeyCode.Z)) _poolManager.PutAllBackToPool();
         }
 
         #endregion

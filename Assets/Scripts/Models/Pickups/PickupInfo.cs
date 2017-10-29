@@ -13,7 +13,8 @@ namespace NostrumGames
         Shield,
         RocketLauncher,
         GainLife,
-        EasyMove
+        EasyMove,
+        TnTLauncher
     }
 
     [System.Serializable]

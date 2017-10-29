@@ -67,8 +67,8 @@ namespace NostrumGames
 
         void Update()
         {
-            // if (Input.GetKeyDown(KeyCode.X)) _poolManager.SpawnFromPoolByChance(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets, ChanceToNotSpawn, MaximumNotSpawnedRocket);
-            // if (Input.GetKeyDown(KeyCode.Y)) _poolManager.PutAllBackToPool();
+            if (Input.GetKeyDown(KeyCode.X)) _poolManager.SpawnFromPoolByChance(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets, ChanceToNotSpawn, MaximumNotSpawnedRocket);
+            if (Input.GetKeyDown(KeyCode.Y)) _poolManager.PutAllBackToPool();
             // if (Input.GetKeyDown(KeyCode.G)) _poolManager.SpawnFromPool(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets);
 
         }
