@@ -47,6 +47,11 @@ namespace NostrumGames
             RoomListView.SetActive(!RoomListView.activeSelf);
             RoomView.SetActive(!RoomView.activeSelf);
         }
+        public void SwapToRoomView()
+        {
+            RoomListView.SetActive(false);
+            RoomView.SetActive(true);
+        }
 
         public void SetRoomStartButtonInteractable(bool interactable)
         {

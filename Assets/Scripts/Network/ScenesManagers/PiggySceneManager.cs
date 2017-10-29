@@ -108,7 +108,7 @@ namespace NostrumGames
                 {
                     ApplicationSettings.IsPiggyGameStarted = true;
 
-                    PhotonNetwork.Instantiate("Prefabs/Player/Player", new Vector2(5, 6), Quaternion.identity, 0);
+                    PhotonNetwork.Instantiate("Prefabs/Player/Player", new Vector2(6, 7), Quaternion.identity, 0);
                     if (PhotonPlayerManager.Instance.IsLocalMaster)
                     {
                         PhotonPlayerManager.Reset();

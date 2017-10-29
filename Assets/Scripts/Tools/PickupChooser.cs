@@ -39,7 +39,11 @@ namespace NostrumGames
                         _playerManager = _collider.GetComponent<PlayerManager>();
                         ChoosePickupCompononent();
                     }
-                    else DestroyBox();
+                    else
+                    {
+                        Debug.Log("DestroyTheBox");
+                        DestroyBox();
+                    }
 
                 })
                 .AddTo(this);

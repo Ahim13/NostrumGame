@@ -52,6 +52,8 @@ namespace NostrumGames
 
         void Awake()
         {
+            if (!PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
+
             InitVariablesProperties();
             InitTools();
         }
@@ -127,8 +129,11 @@ namespace NostrumGames
 
         public void RemovePickup()
         {
-            Destroy(PickupList[0]);
-            PickupList.RemoveAt(0);
+            if (PickupList.Count > 0)
+            {
+                Destroy(PickupList[0]);
+                PickupList.RemoveAt(0);
+            }
         }
 
         public void StartNewLife(Rigidbody2D rigidbody2D)

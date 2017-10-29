@@ -53,8 +53,6 @@ namespace NostrumGames
                 Debug.LogError(e.Message + System.Environment.NewLine + e.Data);
                 this.enabled = false;
             }
-
-            Debug.Log(_photonPlayers.Count);
         }
 
 

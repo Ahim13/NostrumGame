@@ -21,7 +21,27 @@ namespace NostrumGames
 
         public void MakeRoom()
         {
-            RoomManager.Instance.CreateRoom(RoomName.text, Convert.ToByte(MaxPlayers.text), IsPrivate.isOn, Password.text);
+            try
+            {
+                RoomManager.Instance.CreateRoom(RoomName.text, Convert.ToByte(MaxPlayers.text), IsPrivate.isOn, Password.text);
+                SetPanelActive(false);
+            }
+            catch (System.NullReferenceException e)
+            {
+                Debug.Log(e.Message);
+                WarningManager.Instance.ShowWarning("No empty boxes!");
+            }
+            catch (System.FormatException e)
+            {
+                Debug.Log(e.Message);
+                WarningManager.Instance.ShowWarning("No empty boxes!");
+            }
+            catch (System.Exception e)
+            {
+
+                Debug.Log(e.Message);
+                WarningManager.Instance.ShowWarning("Room can not be created!");
+            }
         }
 
         public void SetPanelActive(bool active)

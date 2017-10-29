@@ -12,6 +12,11 @@ namespace NostrumGames
     {
         public static RoomManager Instance;
 
+
+        [SerializeField]
+        [Tooltip("This number if 0 then eveyone has to die to go to the leaderboards")]
+        private int NumberOfPlayersToEndGame = 1;
+
         void Awake()
         {
             SetAsSingleton();
@@ -93,7 +98,8 @@ namespace NostrumGames
         public override void OnJoinedRoom()
         {
             Debug.Log("Joined to room: " + PhotonNetwork.room.Name);
-            LobbyUIManager.Instance.SwapListViewToRoomView();
+            // LobbyUIManager.Instance.SwapListViewToRoomView();
+            LobbyUIManager.Instance.SwapToRoomView();
             LobbyUIManager.Instance.JoinedARoom();
             PlayerListingManager.Instance.AddPlayerTabsForExistingPlayers();
 
@@ -131,7 +137,7 @@ namespace NostrumGames
                 //check if only one player is alive
                 var alivePlayers = (int)propertiesThatChanged[RoomProperty.AlivePlayers];
 
-                if (alivePlayers == 0)
+                if (alivePlayers == NumberOfPlayersToEndGame)
                 {
                     var eventCode = (byte)PhotonEvents.GameOver;
                     bool reliable = true;

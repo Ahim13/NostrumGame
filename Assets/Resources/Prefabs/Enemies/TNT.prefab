@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114953991395614900}
   m_Layer: 0
   m_Name: TNT
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12beb9963959cda4e9b90ab3b947bb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInUse: 0
   ExplosionParticle: {fileID: 0}
   DistanceOnXAllowedFromViewport: -0.5
 --- !u!212 &212213536247507746

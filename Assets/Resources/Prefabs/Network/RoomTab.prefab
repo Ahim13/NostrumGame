@@ -342,8 +342,8 @@ MonoBehaviour:
   _roomNameText: {fileID: 114273717959425378}
   _isRoomPrivateImage: {fileID: 114614378542788124}
   _roomSizeText: {fileID: 114812984050208328}
-  _selectedColor: {r: 0.25882354, g: 0.93725497, b: 1, a: 1}
-  _unSelectedColor: {r: 0.28627452, g: 0.4784314, b: 0.7803922, a: 1}
+  _selectedColor: {r: 0.52156866, g: 0.32941177, b: 0.2784314, a: 1}
+  _unSelectedColor: {r: 0.21176472, g: 0.16862746, b: 0.18431373, a: 1}
 --- !u!114 &114666979212218004
 MonoBehaviour:
   m_ObjectHideFlags: 1

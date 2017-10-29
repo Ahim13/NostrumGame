@@ -12,6 +12,7 @@ TagManager:
   - Pickup
   - RoomTab
   - PlayerTab
+  - OtherPlayer
   layers:
   - Default
   - TransparentFX
