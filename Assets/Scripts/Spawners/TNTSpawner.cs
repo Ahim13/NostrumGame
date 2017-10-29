@@ -14,14 +14,14 @@ namespace NostrumGames
         [SerializeField]
         private Vector3 _spawnPoint;
         [SerializeField]
-        private Vector3 _spawnPointOffsetMin;
+        private Vector3 _spawnPointOffset;
         [SerializeField]
-        private Vector3 _spawnPointOffsetMax;
+        private Vector3 _offsetMaxOnX;
 
 
         [Header("TNT Settings")]
         [SerializeField]
-        private GameObject _TNTToSpawn;
+        private GameObject _tntToSpawn;
         [SerializeField]
         private int _numberOfTNT;
 
@@ -30,20 +30,18 @@ namespace NostrumGames
         [Tooltip("Out of 100")]
         [Range(0, 10)]
         public int MaximumNotSpawnedTNT = 10;
+        [Header("Pool settings")]
+        public int XTimesTnTs;
 
 
-
-        private List<GameObject> _tnts;
-
-        private LootGeneric _lootGeneric;
+        private PoolManager<TNT> _poolManager;
 
         #region Unity Methods
 
         void Awake()
         {
             SetAsSingleton();
-            _tnts = new List<GameObject>();
-            GenerateObjects();
+            _poolManager = new PoolManager<TNT>(_tntToSpawn, "TnTConstainer", XTimesTnTs * _numberOfTNT);
         }
         private void SetAsSingleton()
         {
@@ -51,52 +49,17 @@ namespace NostrumGames
             else if (Instance != this) Destroy(gameObject);
         }
 
-        void Start()
-        {
-
-        }
-
-
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.T)) SpawnTNTs();
-            if (Input.GetKeyDown(KeyCode.Z)) _tnts.ForEach(tnt => tnt.PutBackToPool());
+            if (Input.GetKeyDown(KeyCode.T)) SpawnTnTs();
+            if (Input.GetKeyDown(KeyCode.Z)) _poolManager.PutAllBackToPool();
         }
 
         #endregion
 
-        public void SpawnTNTs()
+        public void SpawnTnTs()
         {
-            var skipped = 0;
-            for (int i = 0; i < _tnts.Count; i++)
-            {
-                if (Random.Range(0, 100) < ChanceToNotSpawn && skipped < MaximumNotSpawnedTNT)
-                {
-                    skipped++;
-                    continue;
-                }
-
-                var newPos = _camera.ViewportToWorldPoint(_spawnPoint) + i * new Vector3(0, _spawnPointOffsetMin.y, 0) + GetRandomOffsetOnlyX(_spawnPointOffsetMin, _spawnPointOffsetMax);
-                _tnts[i].TakeFromPool(true, newPos, Quaternion.identity);
-            }
-
-            //if 0 was skipped that mean unfair/unplayable
-            if (skipped == 0)
-            {
-                _tnts[_tnts.Count / 2].PutBackToPool();
-                Debug.Log("Small chance happened");
-            }
-        }
-
-        private void GenerateObjects()
-        {
-            var tntContainer = new GameObject("TNTContainer");
-            for (int i = 0; i < _numberOfTNT; i++)
-            {
-                var newRocket = Instantiate(_TNTToSpawn, Vector2.zero, Quaternion.identity, tntContainer.transform);
-                newRocket.ResetGameObject();
-                _tnts.Add(newRocket);
-            }
+            _poolManager.SpawnFromPoolByChance(_camera, _spawnPoint, _spawnPointOffset, Vector3.up, _numberOfTNT, ChanceToNotSpawn, MaximumNotSpawnedTNT, _spawnPointOffset, _offsetMaxOnX);
         }
 
         private Vector3 GetRandomOffsetOnlyX(Vector3 min, Vector3 max)
@@ -118,13 +81,13 @@ namespace NostrumGames
 
             for (int i = 0; i < _numberOfTNT; i++)
             {
-                Gizmos.DrawSphere(_camera.ViewportToWorldPoint(_spawnPoint) + i * _spawnPointOffsetMin, 0.4f);
+                Gizmos.DrawSphere(_camera.ViewportToWorldPoint(_spawnPoint) + i * _spawnPointOffset, 0.4f);
             }
             Gizmos.color = Color.yellow;
 
             for (int i = 0; i < _numberOfTNT; i++)
             {
-                Gizmos.DrawSphere(_camera.ViewportToWorldPoint(_spawnPoint) + i * new Vector3(0, _spawnPointOffsetMax.y, _spawnPointOffsetMax.z) + new Vector3(_spawnPointOffsetMax.x, 0, 0), 0.4f);
+                Gizmos.DrawSphere(_camera.ViewportToWorldPoint(_spawnPoint) + i * _spawnPointOffset + new Vector3(_offsetMaxOnX.x, 0, 0), 0.4f);
             }
         }
 #endif

@@ -8,7 +8,7 @@ using System.Reflection;
 namespace NostrumGames
 {
     [System.Serializable]
-    public struct Loot
+    public struct LootTime
     {
         [Tooltip("Min and Max")]
         public Vector2 TimeRange;
@@ -19,24 +19,24 @@ namespace NostrumGames
     }
 
     [System.Serializable]
-    public class LootGeneric
+    public class LootTimeTable
     {
         [SerializeField]
-        private List<Loot> _loots;
+        private List<LootTime> _loots;
         private int _sumWeights;
 
-        public LootGeneric(List<Loot> loots)
+        public LootTimeTable(List<LootTime> loots)
         {
-            this._loots = new List<Loot>();
+            this._loots = new List<LootTime>();
             _sumWeights = loots.Sum(info => info.Weight);
             AssignLootRange(loots);
         }
-        private void AssignLootRange(List<Loot> loots)
+        private void AssignLootRange(List<LootTime> loots)
         {
             var range = 0;
             foreach (var loot in loots)
             {
-                var item = new Loot();
+                var item = new LootTime();
 
                 var rangeEnd = range + loot.Weight;
 
@@ -65,7 +65,7 @@ namespace NostrumGames
         /// <summary>
         /// Start is Exclusive End is inclusive
         /// </summary>
-        private bool IsInRange(Loot loot, int randomNumber)
+        private bool IsInRange(LootTime loot, int randomNumber)
         {
             if (loot.LootRange.x < randomNumber && randomNumber <= loot.LootRange.y) return true;
             return false;

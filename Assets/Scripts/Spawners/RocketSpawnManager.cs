@@ -30,18 +30,16 @@ namespace NostrumGames
         public int MaximumNotSpawnedRocket = 10;
 
         [Header("Spawn Time Settings")]
-        public float TimeBeforeSpawn;
-        public List<Loot> SpawnTimes;
+        public float TimeBeforeFirstSpawn = 30;
+        public List<LootTime> SpawnTimes;
+
+        [Header("Pool settings")]
+        public int XTimesRockets;
 
         private float _time;
         private float _spawnTime;
 
-        private List<GameObject> _rockets;
-
-        private LootGeneric _lootGeneric;
-
-        [Header("Pool settings")]
-        public int XTimesRockets;
+        private LootTimeTable _lootGeneric;
 
 
         private PoolManager<Rocket> _poolManager;
@@ -51,8 +49,7 @@ namespace NostrumGames
         void Awake()
         {
             SetAsSingleton();
-            _rockets = new List<GameObject>();
-            _lootGeneric = new LootGeneric(SpawnTimes);
+            _lootGeneric = new LootTimeTable(SpawnTimes);
             _poolManager = new PoolManager<Rocket>(_rocketToSpawn, "RocketContainer", XTimesRockets * _numberOfRockets);
         }
         private void SetAsSingleton()
@@ -70,14 +67,14 @@ namespace NostrumGames
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.X)) _poolManager.SpawnFromPoolByChance(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets, ChanceToNotSpawn, MaximumNotSpawnedRocket);
-            if (Input.GetKeyDown(KeyCode.Y)) _poolManager.PutAllBackToPool();
-            if (Input.GetKeyDown(KeyCode.G)) _poolManager.SpawnFromPool(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets);
+            // if (Input.GetKeyDown(KeyCode.X)) _poolManager.SpawnFromPoolByChance(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets, ChanceToNotSpawn, MaximumNotSpawnedRocket);
+            // if (Input.GetKeyDown(KeyCode.Y)) _poolManager.PutAllBackToPool();
+            // if (Input.GetKeyDown(KeyCode.G)) _poolManager.SpawnFromPool(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets);
 
         }
         void FixedUpdate()
         {
-            if (Time.timeSinceLevelLoad < TimeBeforeSpawn) return;
+            if (Time.timeSinceLevelLoad < TimeBeforeFirstSpawn) return;
             if (!PiggySceneManager.AllowRocketSpawn) return;
 
             //Counts up
@@ -104,7 +101,7 @@ namespace NostrumGames
         void SpawnObject()
         {
             _time = 0;
-            _poolManager.SpawnFromPool(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets);
+            _poolManager.SpawnFromPoolByChance(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets, ChanceToNotSpawn, MaximumNotSpawnedRocket);
         }
 
         //Sets the random time between minTime and maxTime

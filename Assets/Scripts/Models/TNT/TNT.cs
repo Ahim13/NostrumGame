@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace NostrumGames
 {
-    public class TNT : MonoBehaviour
+    public class TNT : PoolMono
     {
 
         public ParticleSystem ExplosionParticle;

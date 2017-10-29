@@ -105,10 +105,56 @@ public class PoolManager<T> where T : PoolMono
         }
     }
 
+    public void SpawnFromPoolByChance(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int spawnRate, int chanceNotSpawn, int maxNotSpanwed, Vector3 minOffset, Vector3 maxOffset)
+    {
+        if (_listGameObjects.Where(rocket => !rocket.IsInUse).Count() >= spawnRate)
+        {
+            var skipped = 0;
+            var rand = Random.Range(0, 100) + 1;
+
+            var min = ((100 - rand) / spawnRate) + 1;
+            var max = (100 - rand);
+
+            for (int i = 0; i < spawnRate; i++)
+            {
+                if (rand > 100 && skipped == 0)
+                {
+                    skipped++;
+                    continue;
+                }
+
+                if (Random.Range(0, 100) < chanceNotSpawn && skipped < maxNotSpanwed)
+                {
+                    skipped++;
+                    continue;
+                }
+                else
+                {
+                    rand += Random.Range(min, max);
+                }
+
+                SpawnObject(camera, spawnPoint, spawnPointOffset, faceTo, i, minOffset, maxOffset);
+            }
+        }
+        else
+        {
+            Debug.Log("No more free item in pool");
+        }
+    }
+
     private void SpawnObject(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int index)
     {
         var rocket = GetAvailableRocket();
         var newPos = camera.ViewportToWorldPoint(spawnPoint) + index * spawnPointOffset;
+        var newRot = Quaternion.FromToRotation(rocket.gameObject.transform.up, faceTo);
+
+        rocket.gameObject.TakeFromPool(true, newPos, newRot);
+        rocket.IsInUse = true;
+    }
+    private void SpawnObject(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int index, Vector3 minOffset, Vector3 maxOffset)
+    {
+        var rocket = GetAvailableRocket();
+        var newPos = camera.ViewportToWorldPoint(spawnPoint) + index * spawnPointOffset + GetRandomOffsetOnlyX(minOffset, maxOffset);
         var newRot = Quaternion.FromToRotation(rocket.gameObject.transform.up, faceTo);
 
         rocket.gameObject.TakeFromPool(true, newPos, newRot);
@@ -126,6 +172,12 @@ public class PoolManager<T> where T : PoolMono
         {
             rocket.gameObject.PutBackToPool();
         });
+    }
+
+
+    private Vector3 GetRandomOffsetOnlyX(Vector3 min, Vector3 max)
+    {
+        return new Vector3(Random.Range(min.x, max.x), 0, 0);
     }
 
 
