@@ -1,1 +1,108 @@
-{"items":[{"key":"start_button","value":"Start"},{"key":"connecting_text","value":"Connecting to server..."},{"key":"name_field","value":"Enter text..."},{"key":"badname","value":"Name can not be emtpy"},{"key":"lang_button","value":"Language"}]}
+{
+    "items": [
+        {
+            "key": "start_button",
+            "value": "Start"
+        },
+        {
+            "key": "connecting_text",
+            "value": "Connecting to server..."
+        },
+        {
+            "key": "name_field",
+            "value": "Enter text..."
+        },
+        {
+            "key": "badname",
+            "value": "Name can not be emtpy"
+        },
+        {
+            "key": "lang_button",
+            "value": "Language"
+        },
+        {
+            "key": "refresh_button",
+            "value": "Refresh"
+        },
+        {
+            "key": "createroom_button",
+            "value": "Create Room"
+        },
+        {
+            "key": "join_button",
+            "value": "Join"
+        },
+        {
+            "key": "joinrandom_button",
+            "value": "Join random"
+        },
+        {
+            "key": "name_title",
+            "value": "Name"
+        },
+        {
+            "key": "private_title",
+            "value": "Private"
+        },
+        {
+            "key": "maxcurrent_title",
+            "value": "Max/Current Players"
+        },
+        {
+            "key": "roomname_title",
+            "value": "Room name"
+        },
+        {
+            "key": "maxplayers_title",
+            "value": "Max players"
+        },
+        {
+            "key": "create_button",
+            "value": "Create"
+        },
+        {
+            "key": "back_button",
+            "value": "Back"
+        },
+        {
+            "key": "leave_button",
+            "value": "Leave"
+        },
+        {
+            "key": "score_text",
+            "value": "Score:"
+        },
+        {
+            "key": "youaredead_text",
+            "value": "You are dead!"
+        },
+        {
+            "key": "randomitem_text",
+            "value": "Get Random Item"
+        },
+        {
+            "key": "use_text",
+            "value": "Use"
+        },
+        {
+            "key": "leaderboard_text",
+            "value": "Leaderboard"
+        },
+        {
+            "key": "restart_text",
+            "value": "Restart"
+        },
+        {
+            "key": "resume_text",
+            "value": "Resume"
+        },
+        {
+            "key": "kick_text",
+            "value": "Kick"
+        },
+        {
+            "key": "edit_text",
+            "value": "Edit"
+        }
+    ]
+}

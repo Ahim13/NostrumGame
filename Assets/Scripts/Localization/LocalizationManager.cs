@@ -16,6 +16,7 @@ public class LocalizationManager : MonoBehaviour
     void Awake()
     {
         SetAsSingleton();
+        LoadEnglishLocalization();
     }
 
     private void SetAsSingleton()
@@ -69,5 +70,10 @@ public class LocalizationManager : MonoBehaviour
     public bool GetIsReady()
     {
         return isReady;
+    }
+
+    public void LoadEnglishLocalization()
+    {
+        LocalizationManager.Instance.LoadLocalizedText("localizedText_en.json");
     }
 }

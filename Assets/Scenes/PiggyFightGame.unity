@@ -1521,6 +1521,7 @@ GameObject:
   - component: {fileID: 308599822}
   - component: {fileID: 308599824}
   - component: {fileID: 308599823}
+  - component: {fileID: 308599825}
   m_Layer: 5
   m_Name: TextMeshPro Text
   m_TagString: Untagged
@@ -1664,6 +1665,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 308599821}
+--- !u!114 &308599825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 308599821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: use_text
 --- !u!1001 &314819172
 Prefab:
   m_ObjectHideFlags: 0
@@ -1806,6 +1819,7 @@ GameObject:
   - component: {fileID: 330928597}
   - component: {fileID: 330928599}
   - component: {fileID: 330928598}
+  - component: {fileID: 330928600}
   m_Layer: 5
   m_Name: TextMeshPro Text
   m_TagString: Untagged
@@ -1949,6 +1963,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 330928596}
+--- !u!114 &330928600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 330928596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: randomitem_text
 --- !u!1 &379413826
 GameObject:
   m_ObjectHideFlags: 0
@@ -3301,6 +3327,7 @@ GameObject:
   - component: {fileID: 816618583}
   - component: {fileID: 816618582}
   - component: {fileID: 816618584}
+  - component: {fileID: 816618585}
   m_Layer: 5
   m_Name: DeathText
   m_TagString: Untagged
@@ -3456,6 +3483,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delay: 0.1
+--- !u!114 &816618585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 816618580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: youaredead_text
 --- !u!1 &821912260
 GameObject:
   m_ObjectHideFlags: 0
@@ -4784,6 +4823,7 @@ GameObject:
   - component: {fileID: 1217584343}
   - component: {fileID: 1217584345}
   - component: {fileID: 1217584344}
+  - component: {fileID: 1217584346}
   m_Layer: 5
   m_Name: TextMeshPro Text
   m_TagString: Untagged
@@ -4927,6 +4967,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1217584342}
+--- !u!114 &1217584346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1217584342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: resume_text
 --- !u!43 &1218208078
 Mesh:
   m_ObjectHideFlags: 0
@@ -5193,6 +5245,7 @@ GameObject:
   - component: {fileID: 1257535875}
   - component: {fileID: 1257535877}
   - component: {fileID: 1257535876}
+  - component: {fileID: 1257535878}
   m_Layer: 5
   m_Name: ScoreText
   m_TagString: Untagged
@@ -5337,6 +5390,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1257535874}
+--- !u!114 &1257535878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1257535874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: score_text
 --- !u!43 &1295399994
 Mesh:
   m_ObjectHideFlags: 0
@@ -7854,6 +7919,7 @@ GameObject:
   - component: {fileID: 1721191717}
   - component: {fileID: 1721191719}
   - component: {fileID: 1721191718}
+  - component: {fileID: 1721191720}
   m_Layer: 5
   m_Name: TextMeshPro Text
   m_TagString: Untagged
@@ -7997,6 +8063,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1721191716}
+--- !u!114 &1721191720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1721191716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: leave_button
 --- !u!1 &1735593319
 GameObject:
   m_ObjectHideFlags: 0

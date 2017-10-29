@@ -1,1 +1,108 @@
-{"items":[{"key":"start_button","value":"Indít"},{"key":"connecting_text","value":"Csatlakozás a szerverhez..."},{"key":"name_field","value":"Ide írd a neved..."},{"key":"badname","value":"Név nem lehet üres"},{"key":"lang_button","value":"Nyelv"}]}
+{
+    "items": [
+        {
+            "key": "start_button",
+            "value": "Indít"
+        },
+        {
+            "key": "connecting_text",
+            "value": "Csatlakozás a szerverhez..."
+        },
+        {
+            "key": "name_field",
+            "value": "Ide írd a neved..."
+        },
+        {
+            "key": "badname",
+            "value": "Név nem lehet üres"
+        },
+        {
+            "key": "lang_button",
+            "value": "Nyelv"
+        },
+        {
+            "key": "refresh_button",
+            "value": "Frissít"
+        },
+        {
+            "key": "createroom_button",
+            "value": "Szoba létrehozása"
+        },
+        {
+            "key": "join_button",
+            "value": "Csatalakoz"
+        },
+        {
+            "key": "joinrandom_button",
+            "value": "Csalatkoz random"
+        },
+        {
+            "key": "name_title",
+            "value": "Név"
+        },
+        {
+            "key": "private_title",
+            "value": "Privát"
+        },
+        {
+            "key": "maxcurrent_title",
+            "value": "Max/Jelenlegi játékosok"
+        },
+        {
+            "key": "roomname_title",
+            "value": "Szoba név"
+        },
+        {
+            "key": "maxplayers_title",
+            "value": "Max játékosok"
+        },
+        {
+            "key": "create_button",
+            "value": "Létrehoz"
+        },
+        {
+            "key": "back_button",
+            "value": "Vissza"
+        },
+        {
+            "key": "leave_button",
+            "value": "Elhagy"
+        },
+        {
+            "key": "score_text",
+            "value": "Pont:"
+        },
+        {
+            "key": "youaredead_text",
+            "value": "Meghaltál!"
+        },
+        {
+            "key": "randomitem_text",
+            "value": "Random erősítő"
+        },
+        {
+            "key": "use_text",
+            "value": "Használ"
+        },
+        {
+            "key": "leaderboard_text",
+            "value": "Ranglétra"
+        },
+        {
+            "key": "restart_text",
+            "value": "Újraindít"
+        },
+        {
+            "key": "resume_text",
+            "value": "Folytat"
+        },
+        {
+            "key": "kick_text",
+            "value": "Kirúg"
+        },
+        {
+            "key": "edit_text",
+            "value": "Szerkeszt"
+        }
+    ]
+}

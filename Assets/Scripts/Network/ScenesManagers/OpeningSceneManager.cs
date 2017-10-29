@@ -33,7 +33,6 @@ namespace NostrumGames
             ApplicationSettings.IsStarted = false;
 
             SetButtonSubscription();
-            LoadEnglishLocalization();
         }
         private void SetAsSingleton()
         {
@@ -90,12 +89,6 @@ namespace NostrumGames
                 .Subscribe(_ => _buttonStart.onClick.Invoke())
                 .AddTo(this);
         }
-
-        public void LoadEnglishLocalization()
-        {
-            LocalizationManager.Instance.LoadLocalizedText("localizedText_en.json");
-        }
-
 
     }
 }

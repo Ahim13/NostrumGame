@@ -179,7 +179,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Settings
+  m_text: Language
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 63bbf3303503ca8448d22f658b85bb01, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: c5c4392e68ecd0949859347a4254cc59, type: 2}
@@ -1147,7 +1147,7 @@ GameObject:
   - component: {fileID: 779944450}
   - component: {fileID: 779944449}
   m_Layer: 5
-  m_Name: Settings
+  m_Name: Language
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

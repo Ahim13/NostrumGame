@@ -246,7 +246,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -655,7 +655,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -809,7 +809,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -1327,6 +1327,7 @@ GameObject:
   - component: {fileID: 197624520}
   - component: {fileID: 197624522}
   - component: {fileID: 197624521}
+  - component: {fileID: 197624523}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1446,7 +1447,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -1470,6 +1471,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 197624519}
+--- !u!114 &197624523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 197624519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: leave_button
 --- !u!1 &350071855
 GameObject:
   m_ObjectHideFlags: 0
@@ -2148,7 +2161,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -2178,6 +2191,7 @@ GameObject:
   - component: {fileID: 669385460}
   - component: {fileID: 669385462}
   - component: {fileID: 669385461}
+  - component: {fileID: 669385463}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -2302,7 +2316,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -2322,6 +2336,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 669385459}
+--- !u!114 &669385463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 669385459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: createroom_button
 --- !u!1001 &679124288
 Prefab:
   m_ObjectHideFlags: 0
@@ -2670,6 +2696,57 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224583643855474014, guid: 3e8c0049270d8964ea1d47332a8e09af,
     type: 2}
   m_PrefabInternal: {fileID: 679124288}
+--- !u!1 &679124290 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1137630799388268, guid: 3e8c0049270d8964ea1d47332a8e09af,
+    type: 2}
+  m_PrefabInternal: {fileID: 679124288}
+--- !u!1 &679124291 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1342889354031402, guid: 3e8c0049270d8964ea1d47332a8e09af,
+    type: 2}
+  m_PrefabInternal: {fileID: 679124288}
+--- !u!1 &679124292 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1545492712080454, guid: 3e8c0049270d8964ea1d47332a8e09af,
+    type: 2}
+  m_PrefabInternal: {fileID: 679124288}
+--- !u!114 &679124293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 679124290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: maxcurrent_title
+--- !u!114 &679124294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 679124291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: private_title
+--- !u!114 &679124295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 679124292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: name_title
 --- !u!1 &720717586
 GameObject:
   m_ObjectHideFlags: 0
@@ -2680,6 +2757,7 @@ GameObject:
   - component: {fileID: 720717587}
   - component: {fileID: 720717589}
   - component: {fileID: 720717588}
+  - component: {fileID: 720717590}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2823,6 +2901,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 720717586}
+--- !u!114 &720717590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 720717586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: joinrandom_button
 --- !u!1 &732414106
 GameObject:
   m_ObjectHideFlags: 0
@@ -2948,6 +3038,7 @@ GameObject:
   - component: {fileID: 795829042}
   - component: {fileID: 795829044}
   - component: {fileID: 795829043}
+  - component: {fileID: 795829045}
   m_Layer: 5
   m_Name: Private
   m_TagString: Untagged
@@ -3074,7 +3165,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -3094,6 +3185,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 795829041}
+--- !u!114 &795829045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 795829041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: private_title
 --- !u!1 &814144357
 GameObject:
   m_ObjectHideFlags: 0
@@ -3539,6 +3642,7 @@ GameObject:
   - component: {fileID: 1054298905}
   - component: {fileID: 1054298907}
   - component: {fileID: 1054298906}
+  - component: {fileID: 1054298908}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -3682,6 +3786,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1054298904}
+--- !u!114 &1054298908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1054298904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: refresh_button
 --- !u!1 &1080779996
 GameObject:
   m_ObjectHideFlags: 0
@@ -4225,6 +4341,7 @@ GameObject:
   - component: {fileID: 1263906441}
   - component: {fileID: 1263906443}
   - component: {fileID: 1263906442}
+  - component: {fileID: 1263906444}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -4368,6 +4485,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1263906440}
+--- !u!114 &1263906444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1263906440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: createroom_button
 --- !u!1 &1291866857
 GameObject:
   m_ObjectHideFlags: 0
@@ -4500,6 +4629,7 @@ GameObject:
   - component: {fileID: 1378689953}
   - component: {fileID: 1378689955}
   - component: {fileID: 1378689954}
+  - component: {fileID: 1378689956}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -4623,7 +4753,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -4643,6 +4773,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1378689952}
+--- !u!114 &1378689956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1378689952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: create_button
 --- !u!1 &1401195644
 GameObject:
   m_ObjectHideFlags: 0
@@ -5186,7 +5328,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -5429,7 +5571,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -5459,6 +5601,7 @@ GameObject:
   - component: {fileID: 1593783411}
   - component: {fileID: 1593783413}
   - component: {fileID: 1593783412}
+  - component: {fileID: 1593783414}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -5578,7 +5721,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -5602,6 +5745,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1593783410}
+--- !u!114 &1593783414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1593783410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: start_button
 --- !u!1 &1685572056
 GameObject:
   m_ObjectHideFlags: 0
@@ -5878,6 +6033,7 @@ GameObject:
   - component: {fileID: 1835255644}
   - component: {fileID: 1835255646}
   - component: {fileID: 1835255645}
+  - component: {fileID: 1835255647}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -6001,7 +6157,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -6021,6 +6177,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1835255643}
+--- !u!114 &1835255647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1835255643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: back_button
 --- !u!1 &1840401170
 GameObject:
   m_ObjectHideFlags: 0
@@ -6169,6 +6337,7 @@ GameObject:
   - component: {fileID: 1878906133}
   - component: {fileID: 1878906135}
   - component: {fileID: 1878906134}
+  - component: {fileID: 1878906136}
   m_Layer: 5
   m_Name: RoomName
   m_TagString: Untagged
@@ -6294,7 +6463,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -6314,6 +6483,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1878906132}
+--- !u!114 &1878906136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1878906132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: roomname_title
 --- !u!1 &1958856430
 GameObject:
   m_ObjectHideFlags: 0
@@ -6598,6 +6779,7 @@ GameObject:
   - component: {fileID: 2029004525}
   - component: {fileID: 2029004527}
   - component: {fileID: 2029004526}
+  - component: {fileID: 2029004528}
   m_Layer: 5
   m_Name: MaxPlayers
   m_TagString: Untagged
@@ -6723,7 +6905,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -6743,6 +6925,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2029004524}
+--- !u!114 &2029004528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2029004524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: maxplayers_title
 --- !u!1 &2054013884
 GameObject:
   m_ObjectHideFlags: 0
@@ -6897,6 +7091,7 @@ GameObject:
   - component: {fileID: 2091375567}
   - component: {fileID: 2091375569}
   - component: {fileID: 2091375568}
+  - component: {fileID: 2091375570}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -7040,6 +7235,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2091375566}
+--- !u!114 &2091375570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2091375566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527fd6bd47e10f40ac85153f24b5ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: join_button
 --- !u!1 &2135514805
 GameObject:
   m_ObjectHideFlags: 0
