@@ -18,7 +18,7 @@ public class Pool<T>
     }
 }
 
-public class PoolManager<T> where T : MyPooling
+public class PoolManager<T> where T : PoolMono
 {
 
     private GameObject _gameObject;
@@ -59,20 +59,60 @@ public class PoolManager<T> where T : MyPooling
         {
             for (int i = 0; i < spawnRate; i++)
             {
-                var rocket = GetAvailableRocket();
-                var newPos = camera.ViewportToWorldPoint(spawnPoint) + i * spawnPointOffset;
-                var newRot = Quaternion.FromToRotation(rocket.gameObject.transform.up, faceTo);
-
-                rocket.gameObject.TakeFromPool(true, newPos, newRot);
-                rocket.IsInUse = true;
+                SpawnObject(camera, spawnPoint, spawnPointOffset, faceTo, i);
             }
         }
         else
         {
             Debug.Log("No more free item in pool");
         }
+    }
 
+    public void SpawnFromPoolByChance(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int spawnRate, int chanceNotSpawn, int maxNotSpanwed)
+    {
+        if (_listGameObjects.Where(rocket => !rocket.IsInUse).Count() >= spawnRate)
+        {
+            var skipped = 0;
+            var rand = Random.Range(0, 100) + 1;
 
+            var min = ((100 - rand) / spawnRate) + 1;
+            var max = (100 - rand);
+
+            for (int i = 0; i < spawnRate; i++)
+            {
+                if (rand > 100 && skipped == 0)
+                {
+                    skipped++;
+                    continue;
+                }
+
+                if (Random.Range(0, 100) < chanceNotSpawn && skipped < maxNotSpanwed)
+                {
+                    skipped++;
+                    continue;
+                }
+                else
+                {
+                    rand += Random.Range(min, max);
+                }
+
+                SpawnObject(camera, spawnPoint, spawnPointOffset, faceTo, i);
+            }
+        }
+        else
+        {
+            Debug.Log("No more free item in pool");
+        }
+    }
+
+    private void SpawnObject(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int index)
+    {
+        var rocket = GetAvailableRocket();
+        var newPos = camera.ViewportToWorldPoint(spawnPoint) + index * spawnPointOffset;
+        var newRot = Quaternion.FromToRotation(rocket.gameObject.transform.up, faceTo);
+
+        rocket.gameObject.TakeFromPool(true, newPos, newRot);
+        rocket.IsInUse = true;
     }
 
     private T GetAvailableRocket()
@@ -80,9 +120,12 @@ public class PoolManager<T> where T : MyPooling
         return _listGameObjects.Where(rocket => !rocket.IsInUse).First();
     }
 
-    private void PutAllBackToPool()
+    public void PutAllBackToPool()
     {
-
+        _listGameObjects.ForEach(rocket =>
+        {
+            rocket.gameObject.PutBackToPool();
+        });
     }
 
 

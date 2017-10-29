@@ -1797,7 +1797,7 @@ MonoBehaviour:
   _rocketToSpawn: {fileID: 1025991905063628, guid: 4ab9e6cf167675e4b9aa31075be2f342,
     type: 2}
   _numberOfRockets: 6
-  ChanceToNotSpawn: 50
+  ChanceToNotSpawn: 5
   MaximumNotSpawnedRocket: 10
   TimeBeforeSpawn: 30
   SpawnTimes:
@@ -1807,6 +1807,7 @@ MonoBehaviour:
   - TimeRange: {x: 15, y: 60}
     LootRange: {x: 0, y: 0}
     Weight: 65
+  XTimesRockets: 4
 --- !u!4 &329965831
 Transform:
   m_ObjectHideFlags: 0

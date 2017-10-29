@@ -24,6 +24,17 @@ namespace NostrumGames
         public static void PutBackToPool(this GameObject gameObject)
         {
             gameObject.ResetGameObject();
+            try
+            {
+                var pooledObject = gameObject.GetComponent<PoolMono>();
+                pooledObject.IsInUse = false;
+
+            }
+            catch (System.Exception e)
+            {
+
+                Debug.LogError("Not PoolMono object " + e.Message);
+            }
         }
 
     }

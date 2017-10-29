@@ -5,7 +5,7 @@ using UnityEngine;
 namespace NostrumGames
 {
 
-    public class Rocket : MyPooling
+    public class Rocket : PoolMono
     {
 
         public Vector2 DirectionToMove;
@@ -31,7 +31,6 @@ namespace NostrumGames
             if (Camera.main.WorldToViewportPoint(transform.position).x < DistanceOnXAllowedFromViewport)
             {
                 this.gameObject.PutBackToPool();
-                IsInUse = false;
             }
         }
 
@@ -40,10 +39,8 @@ namespace NostrumGames
             if (other.gameObject.tag == "Player")
             {
                 Debug.Log("Hit");
-                // this.enabled = false;
                 Instantiate(ExplosionParticle, transform.position, transform.rotation);
                 this.gameObject.PutBackToPool();
-                IsInUse = false;
             }
         }
 

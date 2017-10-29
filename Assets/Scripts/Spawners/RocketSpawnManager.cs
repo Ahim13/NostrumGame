@@ -54,7 +54,6 @@ namespace NostrumGames
             _rockets = new List<GameObject>();
             _lootGeneric = new LootGeneric(SpawnTimes);
             _poolManager = new PoolManager<Rocket>(_rocketToSpawn, "RocketContainer", XTimesRockets * _numberOfRockets);
-            //GenerateObjects();
         }
         private void SetAsSingleton()
         {
@@ -71,11 +70,9 @@ namespace NostrumGames
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.X)) SpawnRockets();
-            if (Input.GetKeyDown(KeyCode.Y)) _rockets.ForEach(rocket => rocket.PutBackToPool());
+            if (Input.GetKeyDown(KeyCode.X)) _poolManager.SpawnFromPoolByChance(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets, ChanceToNotSpawn, MaximumNotSpawnedRocket);
+            if (Input.GetKeyDown(KeyCode.Y)) _poolManager.PutAllBackToPool();
             if (Input.GetKeyDown(KeyCode.G)) _poolManager.SpawnFromPool(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets);
-
-            //_poolManager.ListPools.ForEach(pool => _poolManager.CheckPoolUsage(pool));
 
         }
         void FixedUpdate()
@@ -95,42 +92,11 @@ namespace NostrumGames
 
         }
 
-
         #endregion
 
         public void SpawnRockets()
         {
-            var skipped = 0;
-            for (int i = 0; i < _rockets.Count; i++)
-            {
-                if (Random.Range(0, 100) < ChanceToNotSpawn && skipped < MaximumNotSpawnedRocket)
-                {
-                    skipped++;
-                    continue;
-                }
-
-                var newPos = _camera.ViewportToWorldPoint(_spawnPoint) + i * _spawnPointOffset;
-                var newRot = Quaternion.FromToRotation(_rockets[i].transform.up, Vector3.left);
-                _rockets[i].TakeFromPool(true, newPos, newRot);
-            }
-
-            //if 0 was skipped that mean unfair/unplayable
-            if (skipped == 0)
-            {
-                _rockets[_rockets.Count / 2].PutBackToPool();
-                Debug.Log("Small chance happened");
-            }
-        }
-
-        private void GenerateObjects()
-        {
-            var rocketContainer = new GameObject("RocketContainer");
-            for (int i = 0; i < _numberOfRockets; i++)
-            {
-                var newRocket = Instantiate(_rocketToSpawn, Vector2.zero, Quaternion.identity, rocketContainer.transform);
-                newRocket.ResetGameObject();
-                _rockets.Add(newRocket);
-            }
+            _poolManager.SpawnFromPoolByChance(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets, ChanceToNotSpawn, MaximumNotSpawnedRocket);
         }
 
 
@@ -138,7 +104,7 @@ namespace NostrumGames
         void SpawnObject()
         {
             _time = 0;
-            SpawnRockets();
+            _poolManager.SpawnFromPool(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets);
         }
 
         //Sets the random time between minTime and maxTime
@@ -147,8 +113,6 @@ namespace NostrumGames
             var randRange = _lootGeneric.GetRandomRange();
             _spawnTime = Random.Range(randRange.x, randRange.y);
         }
-
-
 
 
 #if UNITY_EDITOR
