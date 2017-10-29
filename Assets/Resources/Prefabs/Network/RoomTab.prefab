@@ -144,8 +144,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: RoomName
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 63bbf3303503ca8448d22f658b85bb01, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: a381915e66a26c34abc9801018017791, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 60111b76dda5ab94cace4797d4bc9203, type: 2}
+  m_sharedMaterial: {fileID: 21276604369562418, guid: 60111b76dda5ab94cace4797d4bc9203,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -319,9 +320,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: e6847284790236e44818bc03e561152a, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -386,8 +387,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 4/3
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 63bbf3303503ca8448d22f658b85bb01, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: a381915e66a26c34abc9801018017791, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 60111b76dda5ab94cace4797d4bc9203, type: 2}
+  m_sharedMaterial: {fileID: 21276604369562418, guid: 60111b76dda5ab94cace4797d4bc9203,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -489,7 +491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28627452, g: 0.4784314, b: 0.7803922, a: 1}
+  m_Color: {r: 0.21176472, g: 0.16862746, b: 0.18431373, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
