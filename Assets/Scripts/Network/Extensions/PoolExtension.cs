@@ -14,25 +14,26 @@ namespace NostrumGames
             gameObject.transform.position = new Vector3(0, 0, 0);
             gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
         }
-        public static void TakeFromPool(this GameObject gameObject, bool activate, Vector3 newPos, Quaternion newRot)
+        public static void Spawn(this GameObject gameObject, Vector3 newPos, Quaternion newRot)
         {
-            gameObject.SetActive(activate);
+            gameObject.SetActive(true);
             gameObject.transform.position = newPos;
             gameObject.transform.rotation = newRot;
         }
 
-        public static void PutBackToPool(this GameObject gameObject)
+        public static void Despawn(this GameObject gameObject)
         {
-            gameObject.ResetGameObject();
+            gameObject.gameObject.ResetGameObject();
+
             try
             {
-                var pooledObject = gameObject.GetComponent<PoolMono>();
-                pooledObject.IsInUse = false;
+                var pooledObject = gameObject.GetComponent<PoolMember>();
+                pooledObject.PoolManager.ListGameObjects.Push(gameObject);
 
             }
             catch (System.Exception e)
             {
-
+                GameObject.Destroy(gameObject);
                 Debug.LogError("Not PoolMono object " + e.Message);
             }
         }

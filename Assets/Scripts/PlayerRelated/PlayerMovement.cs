@@ -42,13 +42,10 @@ namespace NostrumGames
         public ControllerType ControllType { get { return _controllerType; } }
 
         private Rigidbody2D _rigidbody2D;
-        private BoxCollider2D _boxCollider2D;
         private ControllerType _controllerType;
 
         [SerializeField]
         private float _upForce = 25f;
-        [SerializeField]
-        private float _VerticalVelocity = 10f;
         [SerializeField]
         private float _gravityScale = 10f;
         [SerializeField]
@@ -102,15 +99,6 @@ namespace NostrumGames
 
         }
 
-        //If its not our charackter then update its position given by the received NetworkedPlayerMovement values
-        void Update()
-        {
-
-            if (PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
-
-            UpdateNetworkedPostion();
-        }
-
         void FixedUpdate()
         {
 
@@ -139,7 +127,7 @@ namespace NostrumGames
 
         // }
         //Beginner type of prediction implementation to movement TODO: find a better one for specificly 2D plastformer
-        private void UpdateNetworkedPostion()
+        internal void UpdateNetworkedPostion()
         {
             float pingInSeconds = (float)PhotonNetwork.GetPing() * 0.001f;
             float timeSinceLastUpdate = (float)(PhotonNetwork.time - _networkedPlayerMovementInfo.LastNetworkDataReceived);
@@ -171,7 +159,6 @@ namespace NostrumGames
         private void InitVairables()
         {
             _rigidbody2D = this.GetComponent<Rigidbody2D>();
-            _boxCollider2D = this.GetComponent<BoxCollider2D>();
             _rigidbody2D.gravityScale = Global.DefaultGravity;
             _controllerType = ControllerType.Basic;
 
@@ -179,7 +166,6 @@ namespace NostrumGames
 
         public void InitBasicMovement()
         {
-            Debug.Log("Init");
             if (_moveUp != null) _moveUp.Dispose();
 
             if (_controllerType == ControllerType.ZeroGravity)
@@ -194,8 +180,6 @@ namespace NostrumGames
             }
             else
             {
-                Debug.Log("MoveUp");
-                Debug.Log(_controllerType);
                 _moveUp = PlayerInput.MoveUp
                     .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
                     .Subscribe(pressingSpace =>

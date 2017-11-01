@@ -42,7 +42,7 @@ namespace NostrumGames
         private LootTimeTable _lootGeneric;
 
 
-        private PoolManager<Rocket> _poolManager;
+        private PoolManager _poolManager;
 
         #region Unity Methods
 
@@ -50,7 +50,7 @@ namespace NostrumGames
         {
             SetAsSingleton();
             _lootGeneric = new LootTimeTable(SpawnTimes);
-            _poolManager = new PoolManager<Rocket>(_rocketToSpawn, "RocketContainer", XTimesRockets * _numberOfRockets);
+            _poolManager = new PoolManager(_rocketToSpawn, "RocketContainer", XTimesRockets * _numberOfRockets);
         }
         private void SetAsSingleton()
         {
@@ -64,14 +64,6 @@ namespace NostrumGames
             _time = 0;
         }
 
-
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.X)) _poolManager.SpawnFromPoolByChance(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets, ChanceToNotSpawn, MaximumNotSpawnedRocket);
-            if (Input.GetKeyDown(KeyCode.Y)) _poolManager.PutAllBackToPool();
-            // if (Input.GetKeyDown(KeyCode.G)) _poolManager.SpawnFromPool(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets);
-
-        }
         void FixedUpdate()
         {
             if (Time.timeSinceLevelLoad < TimeBeforeFirstSpawn) return;

@@ -8,22 +8,17 @@ using System.Linq;
 Pool<GameObject>
  */
 
-public class Pool<T>
+public class PoolMember : MonoBehaviour
 {
-    public List<T> ListOfObjects { get; private set; }
-
-    public Pool(List<T> list, bool inUse)
-    {
-        this.ListOfObjects = list;
-    }
+    public PoolManager PoolManager;
 }
 
-public class PoolManager<T> where T : PoolMono
+public class PoolManager
 {
 
     private GameObject _gameObject;
 
-    private List<T> _listGameObjects;
+    public Stack<GameObject> ListGameObjects;
 
     private int _numberOfPools;
     private int _numberOfObjectsInPool;
@@ -36,7 +31,7 @@ public class PoolManager<T> where T : PoolMono
         this._containerName = containerName;
         this._numberOfObjectsInPool = numberOfObjectsInPool;
 
-        _listGameObjects = new List<T>();
+        ListGameObjects = new Stack<GameObject>();
 
         GeneratePool();
     }
@@ -48,14 +43,15 @@ public class PoolManager<T> where T : PoolMono
         for (int j = 0; j < _numberOfObjectsInPool; j++)
         {
             var newItem = GameObject.Instantiate(_gameObject, Vector2.zero, Quaternion.identity, newContainer.transform);
+            newItem.AddComponent<PoolMember>().PoolManager = this;
             newItem.ResetGameObject();
-            _listGameObjects.Add(newItem.GetComponent<T>());
+            ListGameObjects.Push(newItem);
         }
 
     }
     public void SpawnFromPool(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int spawnRate)
     {
-        if (_listGameObjects.Where(rocket => !rocket.IsInUse).Count() >= spawnRate)
+        if (ListGameObjects.Count >= spawnRate)
         {
             for (int i = 0; i < spawnRate; i++)
             {
@@ -70,7 +66,7 @@ public class PoolManager<T> where T : PoolMono
 
     public void SpawnFromPoolByChance(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int spawnRate, int chanceNotSpawn, int maxNotSpanwed)
     {
-        if (_listGameObjects.Where(rocket => !rocket.IsInUse).Count() >= spawnRate)
+        if (ListGameObjects.Count >= spawnRate)
         {
             var skipped = 0;
             var rand = Random.Range(0, 100) + 1;
@@ -107,7 +103,7 @@ public class PoolManager<T> where T : PoolMono
 
     public void SpawnFromPoolByChance(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int spawnRate, int chanceNotSpawn, int maxNotSpanwed, Vector3 minOffset, Vector3 maxOffset)
     {
-        if (_listGameObjects.Where(rocket => !rocket.IsInUse).Count() >= spawnRate)
+        if (ListGameObjects.Count >= spawnRate)
         {
             var skipped = 0;
             var rand = Random.Range(0, 100) + 1;
@@ -144,34 +140,27 @@ public class PoolManager<T> where T : PoolMono
 
     private void SpawnObject(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int index)
     {
-        var rocket = GetAvailableRocket();
+        var rocket = ListGameObjects.Pop();
         var newPos = camera.ViewportToWorldPoint(spawnPoint) + index * spawnPointOffset;
         var newRot = Quaternion.FromToRotation(rocket.gameObject.transform.up, faceTo);
 
-        rocket.gameObject.TakeFromPool(true, newPos, newRot);
-        rocket.IsInUse = true;
+        rocket.gameObject.Spawn(newPos, newRot);
     }
     private void SpawnObject(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int index, Vector3 minOffset, Vector3 maxOffset)
     {
-        var rocket = GetAvailableRocket();
+        var rocket = ListGameObjects.Pop();
         var newPos = camera.ViewportToWorldPoint(spawnPoint) + index * spawnPointOffset + GetRandomOffsetOnlyX(minOffset, maxOffset);
         var newRot = Quaternion.FromToRotation(rocket.gameObject.transform.up, faceTo);
 
-        rocket.gameObject.TakeFromPool(true, newPos, newRot);
-        rocket.IsInUse = true;
-    }
-
-    private T GetAvailableRocket()
-    {
-        return _listGameObjects.Where(rocket => !rocket.IsInUse).First();
+        rocket.gameObject.Spawn(newPos, newRot);
     }
 
     public void PutAllBackToPool()
     {
-        _listGameObjects.ForEach(rocket =>
-        {
-            rocket.gameObject.PutBackToPool();
-        });
+        // _listGameObjects.GetEnumerator().ForEach(rocket =>
+        // {
+        //     rocket.gameObject.PutBackToPool();
+        // });
     }
 
 
@@ -179,6 +168,5 @@ public class PoolManager<T> where T : PoolMono
     {
         return new Vector3(Random.Range(min.x, max.x), 0, 0);
     }
-
 
 }

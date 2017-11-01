@@ -34,25 +34,19 @@ namespace NostrumGames
         public int XTimesTnTs;
 
 
-        private PoolManager<TNT> _poolManager;
+        private PoolManager _poolManager;
 
         #region Unity Methods
 
         void Awake()
         {
             SetAsSingleton();
-            _poolManager = new PoolManager<TNT>(_tntToSpawn, "TnTConstainer", XTimesTnTs * _numberOfTNT);
+            _poolManager = new PoolManager(_tntToSpawn, "TnTConstainer", XTimesTnTs * _numberOfTNT);
         }
         private void SetAsSingleton()
         {
             if (Instance == null) Instance = this;
             else if (Instance != this) Destroy(gameObject);
-        }
-
-        void Update()
-        {
-            // if (Input.GetKeyDown(KeyCode.T)) SpawnTnTs();
-            // if (Input.GetKeyDown(KeyCode.Z)) _poolManager.PutAllBackToPool();
         }
 
         #endregion

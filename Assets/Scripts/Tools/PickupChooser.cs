@@ -33,7 +33,7 @@ namespace NostrumGames
                 .Subscribe(col =>
                 {
                     var playerManager = col.GetComponent<PlayerManager>();
-                    if (playerManager.PickupList.Count == 0 && playerManager.IsLiving)
+                    if (playerManager.OwnedPickup == null && playerManager.IsLiving)
                     {
                         _collider = col;
                         _playerManager = _collider.GetComponent<PlayerManager>();
@@ -57,7 +57,7 @@ namespace NostrumGames
 
         private void ChoosePickupCompononent()
         {
-            _randomPickup = new Confuse();
+            // _randomPickup = new Confuse();
 
             PickupUIManager.Instance.RollImagesInGame(_randomPickup, this);
 
@@ -70,7 +70,7 @@ namespace NostrumGames
 
             component = _collider.gameObject.AddComponent(pickupType.GetType());
 
-            _playerManager.PickupList.Add(component);
+            _playerManager.OwnedPickup = component;
 
         }
     }

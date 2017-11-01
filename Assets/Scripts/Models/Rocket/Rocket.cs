@@ -5,7 +5,7 @@ using UnityEngine;
 namespace NostrumGames
 {
 
-    public class Rocket : PoolMono
+    public class Rocket : MonoBehaviour
     {
 
         public Vector2 DirectionToMove;
@@ -18,19 +18,15 @@ namespace NostrumGames
 
         #region Unity Methods
 
-        void Start()
-        {
-
-        }
-
 
         void Update()
         {
             transform.Translate(DirectionToMove * Time.deltaTime, Space.World);
 
+            if (Time.frameCount % 10 != 0) return;
             if (Camera.main.WorldToViewportPoint(transform.position).x < DistanceOnXAllowedFromViewport)
             {
-                this.gameObject.PutBackToPool();
+                this.gameObject.Despawn();
             }
         }
 
@@ -39,7 +35,7 @@ namespace NostrumGames
             if (other.gameObject.tag == "Player")
             {
                 Instantiate(ExplosionParticle, transform.position, transform.rotation);
-                this.gameObject.PutBackToPool();
+                this.gameObject.Despawn();
             }
         }
 

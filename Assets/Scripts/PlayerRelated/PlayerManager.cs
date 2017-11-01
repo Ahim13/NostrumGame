@@ -20,7 +20,7 @@ namespace NostrumGames
         public bool IsLiving { get; set; }
         public bool HasShield { get; set; }
 
-        public List<Component> PickupList { get; set; }
+        public Component OwnedPickup { get; set; }
 
 
         private PlayerTween _playerTween;
@@ -91,16 +91,27 @@ namespace NostrumGames
             _playerTween.TweenInit(_playerStartPointAtX, _timeToReachSpawnpoint);
 
         }
+
         void Update()
         {
             //if (Input.GetKeyDown(KeyCode.A)) ActivateEasyMovement();
-            if (Input.GetKeyDown(KeyCode.N)) ActivateConfuse();
+            MovementUpdate();
+        }
+
+        private void MovementUpdate()
+        {
+            //If its not our charackter then update its position given by the received NetworkedPlayerMovement values
+            if (PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
+
+            PlayerMovement.UpdateNetworkedPostion();
         }
 
 
+        #region Initialize
+
         private void InitTools()
         {
-            PickupList = new List<Component>();
+            OwnedPickup = null;
             _playerTween = new PlayerTween(transform, this.GetComponent<Renderer>(), MainCamera, PlayerMovement, this);
             _livesCounter = new LivesCounter(_lives, this);
         }
@@ -110,6 +121,7 @@ namespace NostrumGames
             MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
             HasShield = false;
         }
+        #endregion
         private void LoseShield()
         {
             if (GetComponent<SpriteOutline>()) _playerTween.OnLoseShield(GetComponent<SpriteOutline>());
@@ -129,7 +141,7 @@ namespace NostrumGames
             _livesCounter.Died();
             _playerTween.OnDeath(_delayAfterDeath);
             PickupUIManager.Instance.SetImagesToTransparent(); //TODO:nem hatékony
-            if (PickupList.Count > 0) RemovePickup();
+            RemovePickup();
         }
 
         public void RevivePlayer()
@@ -140,10 +152,10 @@ namespace NostrumGames
 
         public void RemovePickup()
         {
-            if (PickupList.Count > 0)
+            if (OwnedPickup != null)
             {
-                Destroy(PickupList[0]);
-                PickupList.RemoveAt(0);
+                Destroy(OwnedPickup);
+                OwnedPickup = null;
             }
         }
 
