@@ -57,7 +57,7 @@ namespace NostrumGames
         {
             var randomNumber = GetRandomNumberInt();
 
-            var selectedItem = _loots.Where(loot => (IsInRange(loot, randomNumber))).Single();
+            var selectedItem = _loots.Where(loot => (IsInRange(loot, randomNumber))).First();
 
             return selectedItem.TimeRange;
         }

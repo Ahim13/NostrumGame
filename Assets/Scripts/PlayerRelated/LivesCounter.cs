@@ -79,7 +79,7 @@ namespace NostrumGames
 
         private void NoMoreLives()
         {
-            _playerManager.PlayerMovement.SetGravityAndVelocity(Vector3.zero, 0f);
+            _playerManager.SetGravAndVelAfterDelay(Vector3.zero, 0f, 2);
 
             ShadowEffectManager.Instance.DeactivateShadow();
 

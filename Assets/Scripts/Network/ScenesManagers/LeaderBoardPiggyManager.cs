@@ -24,7 +24,7 @@ namespace NostrumGames
 
         void Awake()
         {
-
+            Time.timeScale = Global.PausedTimeScale;
         }
 
         void Start()

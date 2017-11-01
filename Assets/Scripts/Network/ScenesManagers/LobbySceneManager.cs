@@ -22,9 +22,6 @@ namespace NostrumGames
 
         public void StartButtonPressed(string sceneName)
         {
-            //Set time to zero to ensure character not moving
-            Time.timeScale = Global.PausedTimeScale;
-
             RoomManager.Instance.MakeRoomVisibleAndOpen(false);
             NetworkSceneManager.Instance.LoadScene(sceneName);
         }

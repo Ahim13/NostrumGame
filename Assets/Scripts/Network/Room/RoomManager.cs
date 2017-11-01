@@ -103,6 +103,8 @@ namespace NostrumGames
             LobbyUIManager.Instance.JoinedARoom();
             PlayerListingManager.Instance.AddPlayerTabsForExistingPlayers();
 
+            SetTimescale(Global.PausedTimeScale);
+
             //if we are Masterclient then init randomSeed //FIXME: add this to custom property
             RandomSeed.SetRandomSeed();
         }
@@ -110,6 +112,8 @@ namespace NostrumGames
         {
             Debug.Log("Left room");
             if (PlayerListingManager.Instance != null) PlayerListingManager.Instance.RemoveAllPlayerTab();
+
+            SetTimescale(Global.NormalTimeScale);
             //UIManager.Instance.SwapListViewToRoomView();
         }
 
@@ -150,5 +154,10 @@ namespace NostrumGames
             }
         }
         #endregion
+
+        private void SetTimescale(float timeScale)
+        {
+            Time.timeScale = timeScale;
+        }
     }
 }

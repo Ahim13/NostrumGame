@@ -63,7 +63,7 @@ namespace NostrumGames
         {
             var randomNumber = GetRandomNumberInt();
 
-            var selectedItem = _items.Where(item => (IsInRange(item, randomNumber))).Single();
+            var selectedItem = _items.Where(item => (IsInRange(item, randomNumber))).First();
 
             return selectedItem.Pickup;
         }

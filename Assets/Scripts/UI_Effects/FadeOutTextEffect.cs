@@ -16,7 +16,7 @@ public class FadeOutTextEffect : MonoBehaviour
 
     private void FadeOut()
     {
-        TargetText.DOFade(From, Duration).SetEase(EaseType).OnComplete(() => this.gameObject.SetActive(false)).From();
+        TargetText.DOFade(From, Duration).SetEase(EaseType).OnComplete(() => this.gameObject.SetActive(false)).From().SetUpdate(true);
     }
 
     void OnEnable()

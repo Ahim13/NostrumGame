@@ -432,7 +432,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 06ebf7e1e86b82f42aaca05d6a3eaabc, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -592,7 +592,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 06ebf7e1e86b82f42aaca05d6a3eaabc, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -1038,7 +1038,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 06ebf7e1e86b82f42aaca05d6a3eaabc, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -2423,7 +2423,7 @@ RectTransform:
   m_GameObject: {fileID: 1767514084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.009259259, y: 0.009259259, z: 0.009259259}
+  m_LocalScale: {x: 0.009259258, y: 0.009259258, z: 0.009259258}
   m_Children:
   - {fileID: 1592348412}
   - {fileID: 2000988861}
@@ -2479,8 +2479,8 @@ GameObject:
   - component: {fileID: 2000988861}
   - component: {fileID: 2000988864}
   - component: {fileID: 2000988863}
-  - component: {fileID: 2000988862}
   - component: {fileID: 2000988865}
+  - component: {fileID: 2000988862}
   m_Layer: 5
   m_Name: Leaderboardtext
   m_TagString: Untagged
@@ -2514,10 +2514,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2000988860}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cb249dd62c589d4bb3c8ae2f581ffc1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1526c267ddf162c41936adde425a2382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delay: 0.1
+  ReferencPoint: 350
+  Duration: 2
+  Ease: 30
+  OnX: 0
+  OnY: 1
 --- !u!114 &2000988863
 MonoBehaviour:
   m_ObjectHideFlags: 0

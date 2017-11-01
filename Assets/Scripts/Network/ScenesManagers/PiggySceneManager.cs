@@ -101,8 +101,6 @@ namespace NostrumGames
 
         private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
         {
-            //TODO: do it in final version
-            Time.timeScale = Global.PausedTimeScale;
 
             try
             {

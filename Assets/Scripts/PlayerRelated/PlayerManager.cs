@@ -94,7 +94,7 @@ namespace NostrumGames
         void Update()
         {
             //if (Input.GetKeyDown(KeyCode.A)) ActivateEasyMovement();
-            // if (Input.GetKeyDown(KeyCode.S)) Debug.Log(Shield.Value);
+            if (Input.GetKeyDown(KeyCode.N)) ActivateConfuse();
         }
 
 
@@ -158,6 +158,11 @@ namespace NostrumGames
             PlayerMovement.InitBasicMovement();
         }
 
+        public void SetGravAndVelAfterDelay(Vector3 velo, float gravity, float delay)
+        {
+            DOVirtual.DelayedCall(delay, () => PlayerMovement.SetGravityAndVelocity(Vector3.zero, 0f));
+        }
+
         #region Photon Serialize
 
 
@@ -204,6 +209,7 @@ namespace NostrumGames
         [PunRPC]
         private void ActivateConfuse()
         {
+
             PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.Reflected);
             PlayerMovement.InitBasicMovement();
             DOVirtual.DelayedCall(_confuseDuration, () =>

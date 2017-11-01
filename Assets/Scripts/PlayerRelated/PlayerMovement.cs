@@ -179,6 +179,7 @@ namespace NostrumGames
 
         public void InitBasicMovement()
         {
+            Debug.Log("Init");
             if (_moveUp != null) _moveUp.Dispose();
 
             if (_controllerType == ControllerType.ZeroGravity)
@@ -193,6 +194,8 @@ namespace NostrumGames
             }
             else
             {
+                Debug.Log("MoveUp");
+                Debug.Log(_controllerType);
                 _moveUp = PlayerInput.MoveUp
                     .Where(_ => PhotonViewManagerOnPlayer.IsPhotonViewMine())
                     .Subscribe(pressingSpace =>
@@ -270,8 +273,10 @@ namespace NostrumGames
 
         public void SetGravityAndVelocity(Vector3 velo, float gravity)
         {
+            Debug.Log("SetGravityand Velo");
             _rigidbody2D.velocity = velo;
             _rigidbody2D.gravityScale = gravity;
+            Debug.Break();
         }
 
         public void IsKinematic(bool kinematic)

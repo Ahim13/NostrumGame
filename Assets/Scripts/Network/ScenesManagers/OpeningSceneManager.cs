@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UniRx;
 using UniRx.Triggers;
 using TMPro;
+using System;
 
 namespace NostrumGames
 {
@@ -34,6 +35,8 @@ namespace NostrumGames
 
             SetButtonSubscription();
         }
+
+
         private void SetAsSingleton()
         {
             if (Instance == null) Instance = this;
@@ -89,6 +92,5 @@ namespace NostrumGames
                 .Subscribe(_ => _buttonStart.onClick.Invoke())
                 .AddTo(this);
         }
-
     }
 }

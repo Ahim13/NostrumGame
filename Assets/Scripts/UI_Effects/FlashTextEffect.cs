@@ -16,6 +16,6 @@ public class FlashTextEffect : MonoBehaviour
     void Start()
     {
         //TargetText.DOFade(To, Duration).SetLoops(-1, LoopType.Yoyo).SetEase(EaseType);
-        Textmesh.DOFade(To, Duration).SetLoops(-1, LoopType.Yoyo).SetEase(EaseType);
+        Textmesh.DOFade(To, Duration).SetLoops(-1, LoopType.Yoyo).SetEase(EaseType).SetUpdate(true);
     }
 }

@@ -7,7 +7,8 @@ namespace NostrumGames
     public enum PhotonEvents : byte
     {
         SeedSent,
-        GameOver
+        GameOver,
+        TimeSet
     }
 
     public class PhotonEventHandler : MonoBehaviour

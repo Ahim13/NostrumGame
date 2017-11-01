@@ -154,7 +154,8 @@ namespace NostrumGames
         public void UseItem()
         {
             //TODO: using item online
-            _randomPickup.ActivatePickup();
+            // _randomPickup.ActivatePickup();
+            _randomPickup.UsePickup();
 
             //after usage turn it off for some time
             _useItemGO.SetActive(false);
