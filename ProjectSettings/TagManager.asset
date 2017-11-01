@@ -26,9 +26,9 @@ TagManager:
   - SpriteLights
   - 
   - Player
-  - 
+  - OtherPlayer
   - Map
-  - 
+  - Obstacles
   - 
   - 
   - 

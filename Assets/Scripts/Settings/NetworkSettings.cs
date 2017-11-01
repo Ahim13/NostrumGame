@@ -21,8 +21,8 @@ namespace NostrumGames
             PhotonNetwork.logLevel = LogLevel;
             PhotonNetwork.EnableLobbyStatistics = true;
 
-            // PhotonNetwork.sendRate = SendRate;
-            // PhotonNetwork.sendRateOnSerialize = SendRateOnSerialize;
+            PhotonNetwork.sendRate = SendRate;
+            PhotonNetwork.sendRateOnSerialize = SendRateOnSerialize;
         }
     }
 }

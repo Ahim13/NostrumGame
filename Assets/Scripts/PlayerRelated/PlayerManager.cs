@@ -45,6 +45,12 @@ namespace NostrumGames
         [Header("Pickup Settings")]
         [SerializeField]
         private float _confuseDuration = 5;
+        [Header("OtherPlayers")]
+        [SerializeField]
+        private LayerMask _otherPlayersLayermask;
+        [SerializeField]
+        private string _tag;
+
 
 
         public static GameObject LocalPlayerGO { get; private set; }
@@ -52,7 +58,12 @@ namespace NostrumGames
 
         void Awake()
         {
-            if (!PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
+            if (!PhotonViewManagerOnPlayer.IsPhotonViewMine())
+            {
+                tag = _tag;
+                gameObject.layer = LayermaskHelper.LayermaskToLayer(_otherPlayersLayermask);
+                return;
+            }
 
             InitVariablesProperties();
             InitTools();

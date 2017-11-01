@@ -79,6 +79,8 @@ namespace NostrumGames
 
         private void NoMoreLives()
         {
+            _playerManager.PlayerMovement.SetGravityAndVelocity(Vector3.zero, 0f);
+
             ShadowEffectManager.Instance.DeactivateShadow();
 
             PhotonPlayerManager.Instance.LocalPlayer.SetScore((int)ScoreManager.Instance.Score);
@@ -88,7 +90,6 @@ namespace NostrumGames
             PiggySceneUIManager.Instance.SetPanelActivityByAlive(false);
 
         }
-
         private void SpecifyLives()
         {
             if (CurrentLives.Value > _maxLives) ShowText("+" + (CurrentLives.Value - _maxLives).ToString());

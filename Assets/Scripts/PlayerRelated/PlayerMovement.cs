@@ -77,7 +77,6 @@ namespace NostrumGames
             {
                 _networkedPlayerMovementInfo = new NetworkedPlayerMovementInfo();
                 _previousInfo = new NetworkedPlayerMovementInfo();
-                tag = "OtherPlayer";
                 return;
             }
 
@@ -106,8 +105,6 @@ namespace NostrumGames
         //If its not our charackter then update its position given by the received NetworkedPlayerMovement values
         void Update()
         {
-
-            //set animation
 
             if (PhotonViewManagerOnPlayer.IsPhotonViewMine()) return;
 
@@ -165,6 +162,7 @@ namespace NostrumGames
             {
                 newPosition = extrapolatedTargetPosition;
                 Debug.Log("<color=red>Too big</color>");
+                Debug.Log(transform.position + " new: " + newPosition);
             }
             transform.position = newPosition;
         }
@@ -268,6 +266,12 @@ namespace NostrumGames
             _rigidbody2D.velocity = Vector3.zero;
             _rigidbody2D.gravityScale = _gravityScale;
             // rigidbody2D.isKinematic = true;
+        }
+
+        public void SetGravityAndVelocity(Vector3 velo, float gravity)
+        {
+            _rigidbody2D.velocity = velo;
+            _rigidbody2D.gravityScale = gravity;
         }
 
         public void IsKinematic(bool kinematic)

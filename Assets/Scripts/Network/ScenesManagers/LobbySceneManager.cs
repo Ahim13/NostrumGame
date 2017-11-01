@@ -22,6 +22,9 @@ namespace NostrumGames
 
         public void StartButtonPressed(string sceneName)
         {
+            //Set time to zero to ensure character not moving
+            Time.timeScale = Global.PausedTimeScale;
+
             RoomManager.Instance.MakeRoomVisibleAndOpen(false);
             NetworkSceneManager.Instance.LoadScene(sceneName);
         }
@@ -33,17 +36,20 @@ namespace NostrumGames
 
         public void JoinButtonPressed()
         {
-            try
+            if (RoomListingManager.Instance.RoomTabs.Where(roomTab => roomTab.IsSelected).Any())
             {
-                var selectedRoomTab = RoomListingManager.Instance.RoomTabs.Where(roomTab => roomTab.IsSelected).Single();
-                selectedRoomTab.DoubleClickedOnTab();
+                try
+                {
+                    var selectedRoomTab = RoomListingManager.Instance.RoomTabs.Where(roomTab => roomTab.IsSelected).Single();
+                    selectedRoomTab.DoubleClickedOnTab();
 
-            }
-            catch (System.Exception e)
-            {
-                WarningManager.Instance.ShowWarning("No room selected");
+                }
+                catch (System.Exception e)
+                {
+                    WarningManager.Instance.ShowWarning("No room selected");
 
-                Debug.LogError(e.Message);
+                    Debug.LogError(e.Message);
+                }
             }
 
         }

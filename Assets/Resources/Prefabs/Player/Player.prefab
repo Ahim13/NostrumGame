@@ -542,6 +542,10 @@ MonoBehaviour:
   _delayAfterDeath: 1
   _timeToReachSpawnpoint: 1
   _confuseDuration: 5
+  _otherPlayersLayermask:
+    serializedVersion: 2
+    m_Bits: 4096
+  _tag: OtherPlayer
 --- !u!114 &114971588538631962
 MonoBehaviour:
   m_ObjectHideFlags: 1

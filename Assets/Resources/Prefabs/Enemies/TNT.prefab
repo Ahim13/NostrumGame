@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61815459070441442}
   - component: {fileID: 114377469332896716}
   - component: {fileID: 114953991395614900}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: TNT
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

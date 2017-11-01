@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114127923018936428}
   - component: {fileID: 95135427093531026}
   - component: {fileID: 60576433257960934}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Rocket
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 4221768726846502}
   - component: {fileID: 198747061144789852}
   - component: {fileID: 199851288351052098}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Smoke
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

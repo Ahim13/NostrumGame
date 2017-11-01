@@ -40,10 +40,18 @@ namespace NostrumGames
                 // Time.timeScale = 0;
 
                 //set score before loading
-                PhotonPlayerManager.Instance.LocalPlayer.SetScore((int)ScoreManager.Instance.Score);
+                // PhotonPlayerManager.Instance.LocalPlayer.SetScore((int)ScoreManager.Instance.Score);
 
-                NetworkSceneManager.Instance.LoadScene(Scenes.PiggyLeaderBoard);
+                // NetworkSceneManager.Instance.LoadScene(Scenes.PiggyLeaderBoard);
+                StartCoroutine(LoadLeaderboards());
             }
+        }
+
+        IEnumerator LoadLeaderboards()
+        {
+            PhotonPlayerManager.Instance.LocalPlayer.SetScore((int)ScoreManager.Instance.Score);
+            yield return null;
+            NetworkSceneManager.Instance.LoadScene(Scenes.PiggyLeaderBoard);
         }
     }
 }
