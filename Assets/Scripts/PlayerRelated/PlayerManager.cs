@@ -130,7 +130,8 @@ namespace NostrumGames
         public void DeleteOutlineComponent()
         {
             // Destroy(GetComponent<SpriteOutline>());
-            GetComponent<Shield>().LoseShield();
+            HasShield = false;
+            PhotonView.Get(this).RPC("LoseShieldOnline", PhotonTargets.All);
         }
 
         /// <summary>

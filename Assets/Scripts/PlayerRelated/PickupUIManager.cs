@@ -90,12 +90,6 @@ namespace NostrumGames
             _useItemGO.SetActive(true);
             _useItemGO.GetComponent<Button>().interactable = false;
 
-            //TODO: random chance generator in static class ....
-            // do
-            // {
-            //     _randomPickupIndex = Random.Range(0, _pickups.Count);
-            // }
-            // while (_pickups[_randomPickupIndex].PickupType != PickupTypes.Offensive && _pickups[_randomPickupIndex].PickupType != PickupTypes.Revive);
             do
             {
                 _randomPickup = LootManager.Instance.GetRandomPickupFromLootTable();

@@ -45,8 +45,7 @@ namespace NostrumGames
             //if (Input.GetKeyDown(KeyCode.P)) Time.timeScale = Time.timeScale == Global.NormalTimeScale ? Global.PausedTimeScale : Global.NormalTimeScale;
             if (Input.GetKeyDown(KeyCode.A))
             {
-                // Debug.Log(new Vector2(0.5f, 0).normalized);
-                Time.timeScale = 1;
+
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {

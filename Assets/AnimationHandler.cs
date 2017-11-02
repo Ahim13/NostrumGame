@@ -41,6 +41,15 @@ public class AnimationHandler : MonoBehaviour
         {
             _emission.rateOverTime = 0;
         }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Debug.Log(Random.Range(1, 50));
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            Random.InitState(2);
+        }
+        //Debug.Log(UnityEngine.Random.seed);
     }
 
     #endregion

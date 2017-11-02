@@ -35,19 +35,8 @@ namespace NostrumGames
             // ColorUtility.TryParseHtmlString("#33FF00FF", out myColor);
             // this.GetComponent<SpriteOutline>().color = myColor;
 
-            //var photonViewID = PhotonView.Get(this).viewID;
-
-
             _thisPhotonView.RPC("MakeVisibleOnline", PhotonTargets.All, ShieldSize);
         }
-
-        public void LoseShield()
-        {
-            SetPlayerHasShield(false);
-            _thisPhotonView.RPC("LoseShieldOnline", PhotonTargets.All);
-            Destroy(this);
-        }
-
     }
 }
 

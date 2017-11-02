@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace NostrumGames
 {
@@ -42,14 +43,15 @@ namespace NostrumGames
         {
             return _lootTable.GetRandomItem();
         }
-        public Pickups GetRandomPickupFromLootTableBut(Pickups excludedPickup)
+        public Pickups GetRandomPickupFromLootTableBut(Pickups[] excludedPickups)
         {
             Pickups randomItem;
             do
             {
                 randomItem = _lootTable.GetRandomItem();
             }
-            while (randomItem.GetType() == excludedPickup.GetType());
+            while (excludedPickups.Where(exluded => exluded.GetType() == randomItem.GetType()).Any());
+            // while (randomItem.GetType() == excludedPickup.GetType());
 
             return randomItem;
         }

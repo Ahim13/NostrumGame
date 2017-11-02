@@ -25,7 +25,7 @@ namespace NostrumGames
         void Start()
         {
             // _randomPickup = RandomEnumValue<PickupNames>();
-            _randomPickup = LootManager.Instance.GetRandomPickupFromLootTableBut(new Revive());
+            _randomPickup = LootManager.Instance.GetRandomPickupFromLootTableBut(new Pickups[] { new Revive() });
 
 
             this.OnTriggerEnter2DAsObservable()
@@ -58,6 +58,11 @@ namespace NostrumGames
         private void ChoosePickupCompononent()
         {
             _randomPickup = new Shield();
+            if (_playerManager != null)
+            {
+                if (_playerManager.HasShield) _randomPickup = LootManager.Instance.GetRandomPickupFromLootTableBut(new Pickups[] { new Revive(), new Shield() });
+            }
+
 
             PickupUIManager.Instance.RollImagesInGame(_randomPickup, this);
 
