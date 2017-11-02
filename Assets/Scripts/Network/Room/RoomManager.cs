@@ -30,7 +30,22 @@ namespace NostrumGames
 
         public void JoinRoom(RoomTab room)
         {
-            PhotonNetwork.JoinRoom(room.RoomName);
+            var selectedRoom = PhotonNetwork.GetRoomList().Where(roomInfo => roomInfo.Name.Equals(room.RoomName)).SingleOrDefault();
+            if (selectedRoom != null)
+            {
+                if ((bool)selectedRoom.CustomProperties[RoomProperty.IsSecret])
+                {
+                    LobbyUIManager.Instance.NeedPassword(selectedRoom);
+                    // if (LobbyUIManager.Instance.CheckPassword((string)selectedRoom.CustomProperties[RoomProperty.Password]))
+                    // {
+                    //     PhotonNetwork.JoinRoom(selectedRoom.Name);
+                    // }
+                }
+                else
+                {
+                    PhotonNetwork.JoinRoom(selectedRoom.Name);
+                }
+            }
         }
         public void JoinRandomRoom()
         {
@@ -119,12 +134,14 @@ namespace NostrumGames
 
         public override void OnPhotonJoinRoomFailed(object[] codeAndMsg)
         {
-            switch ((int)codeAndMsg[0])
+            int code = Convert.ToInt32(codeAndMsg[0]);
+            switch (code)
             {
                 case ErrorCode.GameFull:
-                    Debug.LogWarning("Cant Join, game is full");
+                    WarningManager.Instance.ShowWarning("Room is full!");
                     break;
                 case ErrorCode.GameClosed:
+                    WarningManager.Instance.ShowWarning("Room is closed!");
                     break;
                 case ErrorCode.GameDoesNotExist:
                     break;

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System;
 
 namespace NostrumGames
 {
@@ -15,6 +17,12 @@ namespace NostrumGames
 
         [Header("RoomView")]
         public Button RoomStartButton;
+        [Header("Password")]
+        public GameObject PasswordPanel;
+        public TextMeshProUGUI RoomPassword;
+
+
+        private RoomInfo _selectedRoomInfo;
 
         void Awake()
         {
@@ -38,10 +46,32 @@ namespace NostrumGames
 
         }
 
+        internal void NeedPassword(RoomInfo selectedRoomInfo)
+        {
+            PasswordPanel.SetActive(true);
+            _selectedRoomInfo = selectedRoomInfo;
+        }
+
         public void JoinedARoom()
         {
             if (!PhotonPlayerManager.Instance.IsLocalMaster) RoomStartButton.gameObject.SetActive(false);
         }
+
+        public void CheckPasswordAndJoin()
+        {
+            var roomPw = _selectedRoomInfo.CustomProperties[RoomProperty.Password].ToString();
+            var roomPassword = RoomPassword.text.TrimEnd();
+
+            if ((roomPw).Equals(roomPassword))
+            {
+                PhotonNetwork.JoinRoom(_selectedRoomInfo.Name);
+            }
+            else
+            {
+                WarningManager.Instance.ShowWarning("Wrong password!");
+            }
+        }
+
         public void SwapListViewToRoomView()
         {
             RoomListView.SetActive(!RoomListView.activeSelf);

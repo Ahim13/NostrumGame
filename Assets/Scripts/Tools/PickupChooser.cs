@@ -57,7 +57,7 @@ namespace NostrumGames
 
         private void ChoosePickupCompononent()
         {
-            // _randomPickup = new Confuse();
+            _randomPickup = new Shield();
 
             PickupUIManager.Instance.RollImagesInGame(_randomPickup, this);
 

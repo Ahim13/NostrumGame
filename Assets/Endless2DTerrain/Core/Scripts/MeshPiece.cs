@@ -87,7 +87,7 @@ namespace Endless2DTerrain
         public Vector3 TopLeftCorner
         {
             get
-            {
+            {//errorFIXME:
                 return RotatedPlaneVerticies[1];
             }
         }

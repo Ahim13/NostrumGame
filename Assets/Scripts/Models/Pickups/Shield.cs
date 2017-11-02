@@ -20,8 +20,7 @@ namespace NostrumGames
             SetPlayerHasShield(true);
             MakeShieldVisible();
 
-            //Destroy(this);
-            _activatePickup.Dispose();
+            Destroy(this);
         }
 
         private void SetPlayerHasShield(bool hasShield)

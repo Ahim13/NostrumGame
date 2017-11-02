@@ -103,6 +103,14 @@
         {
             "key": "edit_text",
             "value": "Edit"
+        },
+        {
+            "key": "ok_text",
+            "value": "OK"
+        },
+        {
+            "key": "cancel_text",
+            "value": "Cancel"
         }
     ]
 }
