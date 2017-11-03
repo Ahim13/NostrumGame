@@ -59,12 +59,6 @@ namespace NostrumGames
             // if (!TerrainPiece.ShouldInit) InitTargets();
         }
 
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-
         //TODO: Change it to pooling later
         private void MoveToNextTarget(ref Transform currentTarget, ref int currentTargetIndex, List<Transform> targetPoints)
         {

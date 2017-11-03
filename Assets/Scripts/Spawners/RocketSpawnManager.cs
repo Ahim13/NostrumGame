@@ -8,14 +8,8 @@ namespace NostrumGames
     {
         public static RocketSpawnManager Instance;
 
-
-        [SerializeField]
-        private Camera _camera;
-        [SerializeField]
-        private Vector3 _spawnPoint;
-        [SerializeField]
-        private Vector3 _spawnPointOffset;
-
+        public GameObject[] SpawnPoints;
+        public GameObject SpawnPointsContainer;
 
         [Header("Rocket Settings")]
         [SerializeField]
@@ -63,6 +57,14 @@ namespace NostrumGames
             SetRandomTime();
             _time = 0;
         }
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                SpawnRockets();
+            }
+
+        }
 
         void FixedUpdate()
         {
@@ -85,7 +87,9 @@ namespace NostrumGames
 
         public void SpawnRockets()
         {
-            _poolManager.SpawnFromPoolByChance(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets, ChanceToNotSpawn, MaximumNotSpawnedRocket);
+            var angle = TerrainDisplayer.Instance.TerrainManager.VertexGen.GetPreviousTerrainRuleAngle();
+            SpawnPointsContainer.transform.rotation = Quaternion.Euler(0, 0, angle);
+            _poolManager.SpawnFromPoolByChance(SpawnPoints, new Vector3(0, 0, 90 + angle), _numberOfRockets, ChanceToNotSpawn, MaximumNotSpawnedRocket);
         }
 
 
@@ -93,7 +97,7 @@ namespace NostrumGames
         void SpawnObject()
         {
             _time = 0;
-            _poolManager.SpawnFromPoolByChance(_camera, _spawnPoint, _spawnPointOffset, Vector3.left, _numberOfRockets, ChanceToNotSpawn, MaximumNotSpawnedRocket);
+            SpawnRockets();
         }
 
         //Sets the random time between minTime and maxTime
@@ -110,13 +114,9 @@ namespace NostrumGames
         {
             Gizmos.color = Color.blue;
 
-            UnityEditor.Handles.Label(_camera.ViewportToWorldPoint(_spawnPoint) + new Vector3(0, 1, 0), "SpawnPiont");
-            //Gizmos.DrawSphere(_camera.ViewportToWorldPoint(_spawnPoint), 0.5f);
+            UnityEditor.Handles.Label(SpawnPoints[0].transform.position + new Vector3(0, 1, 0), "SpawnPiont");
 
-            for (int i = 0; i < _numberOfRockets; i++)
-            {
-                Gizmos.DrawSphere(_camera.ViewportToWorldPoint(_spawnPoint) + i * _spawnPointOffset, 0.5f);
-            }
+            System.Array.ForEach(SpawnPoints, point => Gizmos.DrawSphere(point.transform.position, 0.5f));
         }
 #endif
     }

@@ -45,7 +45,7 @@ namespace NostrumGames
             //if (Input.GetKeyDown(KeyCode.P)) Time.timeScale = Time.timeScale == Global.NormalTimeScale ? Global.PausedTimeScale : Global.NormalTimeScale;
             if (Input.GetKeyDown(KeyCode.A))
             {
-
+                // Debug.Log(TerrainDisplayer.Instance.TerrainManager.VertexGen.GetPreviousTerrainRuleAngle());
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -75,9 +75,9 @@ namespace NostrumGames
         }
         private void CheckCurrentTerraintRule()
         {
-            var currentRule = TerrainDisplayer.Instance.TerrainManager.VertexGen.CurrentTerrainRule;
+            var currentRuleAnlge = TerrainDisplayer.Instance.TerrainManager.VertexGen.GetPreviousTerrainRuleAngle();
 
-            if (Mathf.Abs(currentRule.Angle) < AngleToAllowRocketSpawn) AllowRocketSpawn = true;
+            if (Mathf.Abs(currentRuleAnlge) < AngleToAllowRocketSpawn) AllowRocketSpawn = true;
             else AllowRocketSpawn = false;
         }
 

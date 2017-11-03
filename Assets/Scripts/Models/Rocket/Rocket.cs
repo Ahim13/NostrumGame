@@ -21,7 +21,7 @@ namespace NostrumGames
 
         void Update()
         {
-            transform.Translate(DirectionToMove * Time.deltaTime, Space.World);
+            transform.Translate(DirectionToMove * Time.deltaTime, Space.Self);
 
             if (Time.frameCount % 10 != 0) return;
             if (Camera.main.WorldToViewportPoint(transform.position).x < DistanceOnXAllowedFromViewport)

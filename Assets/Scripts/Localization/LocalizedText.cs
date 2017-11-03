@@ -14,9 +14,18 @@ public class LocalizedText : MonoBehaviour
 
     void Start()
     {
-        var text = GetComponent<TextMeshProUGUI>();
-        text.text = LocalizationManager.Instance.GetLocalizedValue(key);
-        _initialized = true;
+        try
+        {
+            var text = GetComponent<TextMeshProUGUI>();
+            text.text = LocalizationManager.Instance.GetLocalizedValue(key);
+            _initialized = true;
+        }
+        catch (System.Exception e)
+        {
+
+            Debug.LogWarning(e.Message + System.Environment.NewLine + e.Data);
+            this.enabled = false;
+        }
     }
 
     void OnEnable()

@@ -1663,32 +1663,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 198747061144789852, guid: 4ab9e6cf167675e4b9aa31075be2f342,
-        type: 2}
-      propertyPath: randomSeed
-      value: -1586808389
-      objectReference: {fileID: 0}
-    - target: {fileID: 198747061144789852, guid: 4ab9e6cf167675e4b9aa31075be2f342,
-        type: 2}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4221768726846502, guid: 4ab9e6cf167675e4b9aa31075be2f342, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4221768726846502, guid: 4ab9e6cf167675e4b9aa31075be2f342, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4221768726846502, guid: 4ab9e6cf167675e4b9aa31075be2f342, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1025991905063628, guid: 4ab9e6cf167675e4b9aa31075be2f342, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ab9e6cf167675e4b9aa31075be2f342, type: 2}
   m_IsPrefabParent: 0

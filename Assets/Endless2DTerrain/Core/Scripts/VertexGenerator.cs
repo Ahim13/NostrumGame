@@ -144,6 +144,33 @@ namespace Endless2DTerrain
             //Can't find it or the current terrain rule is null?
             return -1;
         }
+        public int GetPreviousTerrainRuleIndex()
+        {
+            if (CurrentTerrainRule != null)
+            {
+                for (int i = 0; i < TerrainRules.Count; i++)
+                {
+                    if (TerrainRules[i] == CurrentTerrainRule)
+                    {
+                        return i - 1;
+                    }
+                }
+            }
+
+            //Can't find it or the current terrain rule is null?
+            return -1;
+        }
+        public float GetPreviousTerrainRuleAngle()
+        {
+            if (CurrentTerrainRule != null)
+            {
+
+                return TerrainRules[GetPreviousTerrainRuleIndex()].Angle;
+            }
+
+            //Can't find it or the current terrain rule is null?
+            return -1;
+        }
 
         public List<Vector3> GenerateKeyVerticies(bool updateRepeatingPointLocation)
         {

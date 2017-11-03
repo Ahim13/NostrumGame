@@ -9,14 +9,9 @@ namespace NostrumGames
         public static TNTSpawner Instance;
 
 
-        [SerializeField]
-        private Camera _camera;
-        [SerializeField]
-        private Vector3 _spawnPoint;
-        [SerializeField]
-        private Vector3 _spawnPointOffset;
-        [SerializeField]
-        private Vector3 _offsetMaxOnX;
+        public GameObject[] SpawnPointsMin;
+        public GameObject[] SpawnPointsMax;
+        public GameObject SpawnPointsContainer;
 
 
         [Header("TNT Settings")]
@@ -48,12 +43,22 @@ namespace NostrumGames
             if (Instance == null) Instance = this;
             else if (Instance != this) Destroy(gameObject);
         }
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                SpawnTnTs();
+            }
+
+        }
 
         #endregion
 
         public void SpawnTnTs()
         {
-            _poolManager.SpawnFromPoolByChance(_camera, _spawnPoint, _spawnPointOffset, Vector3.up, _numberOfTNT, ChanceToNotSpawn, MaximumNotSpawnedTNT, _spawnPointOffset, _offsetMaxOnX);
+            var angle = TerrainDisplayer.Instance.TerrainManager.VertexGen.GetPreviousTerrainRuleAngle();
+            SpawnPointsContainer.transform.rotation = Quaternion.Euler(0, 0, angle);
+            _poolManager.SpawnFromPoolByChance(SpawnPointsMin, SpawnPointsMax, Vector3.up, _numberOfTNT, ChanceToNotSpawn, MaximumNotSpawnedTNT);
         }
 
         private Vector3 GetRandomOffsetOnlyX(Vector3 min, Vector3 max)
@@ -70,19 +75,12 @@ namespace NostrumGames
         {
             Gizmos.color = Color.red;
 
-            UnityEditor.Handles.Label(_camera.ViewportToWorldPoint(_spawnPoint) + new Vector3(0, 1, 0), "TNT SpawnPoint");
-            //Gizmos.DrawSphere(_camera.ViewportToWorldPoint(_spawnPoint), 0.5f);
+            UnityEditor.Handles.Label(SpawnPointsMin[0].transform.position + new Vector3(0, 1, 0), "TNT SpawnPoint");
 
-            for (int i = 0; i < _numberOfTNT; i++)
-            {
-                Gizmos.DrawSphere(_camera.ViewportToWorldPoint(_spawnPoint) + i * _spawnPointOffset, 0.4f);
-            }
+            System.Array.ForEach(SpawnPointsMin, point => Gizmos.DrawSphere(point.transform.position, 0.4f));
             Gizmos.color = Color.yellow;
 
-            for (int i = 0; i < _numberOfTNT; i++)
-            {
-                Gizmos.DrawSphere(_camera.ViewportToWorldPoint(_spawnPoint) + i * _spawnPointOffset + new Vector3(_offsetMaxOnX.x, 0, 0), 0.4f);
-            }
+            System.Array.ForEach(SpawnPointsMax, point => Gizmos.DrawSphere(point.transform.position, 0.4f));
         }
 #endif
     }

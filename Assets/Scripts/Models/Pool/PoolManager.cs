@@ -49,13 +49,13 @@ public class PoolManager
         }
 
     }
-    public void SpawnFromPool(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int spawnRate)
+    public void SpawnFromPool(GameObject[] spawnPoints, Vector3 faceTo, int spawnRate)
     {
         if (ListGameObjects.Count >= spawnRate)
         {
             for (int i = 0; i < spawnRate; i++)
             {
-                SpawnObject(camera, spawnPoint, spawnPointOffset, faceTo, i);
+                SpawnObject(spawnPoints[i].transform.position, faceTo);
             }
         }
         else
@@ -64,44 +64,7 @@ public class PoolManager
         }
     }
 
-    public void SpawnFromPoolByChance(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int spawnRate, int chanceNotSpawn, int maxNotSpanwed)
-    {
-        if (ListGameObjects.Count >= spawnRate)
-        {
-            var skipped = 0;
-            var rand = Random.Range(0, 100) + 1;
-
-            var min = ((100 - rand) / spawnRate) + 1;
-            var max = (100 - rand);
-
-            for (int i = 0; i < spawnRate; i++)
-            {
-                if (rand > 100 && skipped == 0)
-                {
-                    skipped++;
-                    continue;
-                }
-
-                if (Random.Range(0, 100) < chanceNotSpawn && skipped < maxNotSpanwed)
-                {
-                    skipped++;
-                    continue;
-                }
-                else
-                {
-                    rand += Random.Range(min, max);
-                }
-
-                SpawnObject(camera, spawnPoint, spawnPointOffset, faceTo, i);
-            }
-        }
-        else
-        {
-            Debug.Log("No more free item in pool");
-        }
-    }
-
-    public void SpawnFromPoolByChance(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int spawnRate, int chanceNotSpawn, int maxNotSpanwed, Vector3 minOffset, Vector3 maxOffset)
+    public void SpawnFromPoolByChance(GameObject[] spawnPoints, Vector3 faceTo, int spawnRate, int chanceNotSpawn, int maxNotSpanwed)
     {
         if (ListGameObjects.Count >= spawnRate)
         {
@@ -129,7 +92,7 @@ public class PoolManager
                     rand += Random.Range(min, max);
                 }
 
-                SpawnObject(camera, spawnPoint, spawnPointOffset, faceTo, i, minOffset, maxOffset);
+                SpawnObject(spawnPoints[i].transform.position, faceTo);
             }
         }
         else
@@ -138,18 +101,55 @@ public class PoolManager
         }
     }
 
-    private void SpawnObject(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int index)
+    public void SpawnFromPoolByChance(GameObject[] spawnPointsMin, GameObject[] spawnPointsMax, Vector3 faceTo, int spawnRate, int chanceNotSpawn, int maxNotSpanwed)
+    {
+        if (ListGameObjects.Count >= spawnRate)
+        {
+            var skipped = 0;
+            var rand = Random.Range(0, 100) + 1;
+
+            var min = ((100 - rand) / spawnRate) + 1;
+            var max = (100 - rand);
+
+            for (int i = 0; i < spawnRate; i++)
+            {
+                if (rand > 100 && skipped == 0)
+                {
+                    skipped++;
+                    continue;
+                }
+
+                if (Random.Range(0, 100) < chanceNotSpawn && skipped < maxNotSpanwed)
+                {
+                    skipped++;
+                    continue;
+                }
+                else
+                {
+                    rand += Random.Range(min, max);
+                }
+                SpawnObject(faceTo, spawnPointsMin[i].transform.position, spawnPointsMax[i].transform.position);
+            }
+        }
+        else
+        {
+            Debug.Log("No more free item in pool");
+        }
+    }
+
+    private void SpawnObject(Vector3 spawnPoint, Vector3 euler)
     {
         var rocket = ListGameObjects.Pop();
-        var newPos = camera.ViewportToWorldPoint(spawnPoint) + index * spawnPointOffset;
-        var newRot = Quaternion.FromToRotation(rocket.gameObject.transform.up, faceTo);
+        var newPos = spawnPoint;
+        var newRot = Quaternion.Euler(euler);
+
 
         rocket.gameObject.Spawn(newPos, newRot);
     }
-    private void SpawnObject(Camera camera, Vector3 spawnPoint, Vector3 spawnPointOffset, Vector3 faceTo, int index, Vector3 minOffset, Vector3 maxOffset)
+    private void SpawnObject(Vector3 faceTo, Vector3 minOffset, Vector3 maxOffset)
     {
         var rocket = ListGameObjects.Pop();
-        var newPos = camera.ViewportToWorldPoint(spawnPoint) + index * spawnPointOffset + GetRandomOffsetOnlyX(minOffset, maxOffset);
+        var newPos = GetRandomPositionOnX(minOffset, maxOffset);
         var newRot = Quaternion.FromToRotation(rocket.gameObject.transform.up, faceTo);
 
         rocket.gameObject.Spawn(newPos, newRot);
@@ -164,9 +164,9 @@ public class PoolManager
     }
 
 
-    private Vector3 GetRandomOffsetOnlyX(Vector3 min, Vector3 max)
+    private Vector3 GetRandomPositionOnX(Vector3 min, Vector3 max)
     {
-        return new Vector3(Random.Range(min.x, max.x), 0, 0);
+        return new Vector3(Random.Range(min.x, max.x), min.y, min.z);
     }
 
 }
