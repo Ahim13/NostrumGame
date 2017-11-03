@@ -2058,9 +2058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca2fe28dabb4b044b10c19d2c7ee29b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 1300655483}
-  _spawnPoint: {x: 1.15, y: 0.9, z: 24}
-  _spawnPointOffset: {x: 0, y: -2.2, z: 0}
   SpawnPoints:
   - {fileID: 466450806}
   - {fileID: 529198447}
@@ -4221,10 +4218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9466ad06388b5f4f89c822ee0cd4a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 1300655483}
-  _spawnPoint: {x: 1, y: 0.85, z: 24}
-  _spawnPointOffset: {x: 0, y: -1.75, z: 0}
-  _offsetMaxOnX: {x: 15, y: 0, z: 0}
   SpawnPointsMin:
   - {fileID: 1737603573}
   - {fileID: 1627996177}
@@ -5583,8 +5576,6 @@ MonoBehaviour:
   - PickupName: 7
     PickupSprite: {fileID: 21300000, guid: 2369d575156bf7f4588a75fd4ff80455, type: 3}
     Weight: 15
-  _lootTable:
-    _items: []
 --- !u!4 &1213212865
 Transform:
   m_ObjectHideFlags: 0

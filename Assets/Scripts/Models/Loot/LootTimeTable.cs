@@ -24,11 +24,13 @@ namespace NostrumGames
         [SerializeField]
         private List<LootTime> _loots;
         private int _sumWeights;
+        private System.Random _random;
 
         public LootTimeTable(List<LootTime> loots)
         {
             this._loots = new List<LootTime>();
             _sumWeights = loots.Sum(info => info.Weight);
+            _random = new System.Random(RandomSeed.MapSeed);
             AssignLootRange(loots);
         }
         private void AssignLootRange(List<LootTime> loots)
@@ -73,7 +75,7 @@ namespace NostrumGames
 
         private int GetRandomNumberInt()
         {
-            return Random.Range(1, _sumWeights + 1);
+            return _random.Next(1, _sumWeights + 1);
         }
 
 
