@@ -8,7 +8,11 @@ namespace NostrumGames
 {
     public class TerrainRuleGenerator
     {
-        public TerrainRuleGenerator() { }
+        private System.Random _sysRandom;
+        public TerrainRuleGenerator()
+        {
+            _sysRandom = new System.Random(RandomSeed.MapSeed);
+        }
 
         public TerrainRule GenerateRule(TerrainRule.TerrainLength length, float minHeight, float maxHeight, float minSpace, float maxSpace, float calculatedSpace, float ruleLength, float meshLength, float angle)
         {
@@ -21,13 +25,13 @@ namespace NostrumGames
         {
             TerrainRule newRule = new TerrainRule();
 
-            var ruleLength = Random.Range(50, 300);
-            var meshLength = Random.Range(40, 60);
-            int randomAngle = Random.Range(-35, 36);
+            var ruleLength = _sysRandom.Next(50, 300);
+            var meshLength = _sysRandom.Next(40, 60);
+            int randomAngle = _sysRandom.Next(-35, 36);
             int nullAngle = 0;
 
             // what percentage chance to create randomAngled rule
-            int angle = Random.Range(1, 101) <= 65 ? nullAngle : randomAngle;
+            int angle = _sysRandom.Next(1, 101) <= 65 ? nullAngle : randomAngle;
 
             SetTerrainRule(newRule, length, minHeight, maxHeight, minSpace, maxSpace, calculatedSpace, ruleLength, meshLength, angle);
             return newRule;

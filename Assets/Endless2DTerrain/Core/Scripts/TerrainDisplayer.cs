@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Endless2DTerrain;
+using NostrumGames;
 
 public class TerrainDisplayer : MonoBehaviour
 {
@@ -120,6 +121,7 @@ public class TerrainDisplayer : MonoBehaviour
             s.ClonedTerrainOffset = ClonedTerrainOffset;
             s.ClonedTerrainRotation = ClonedTerrainRotation;
             s.CameraPathOffset = CameraPathOffset;
+            s.SysRandom = new System.Random(RandomSeed.MapSeed);
 
 
             TerrainManager = new TerrainManager(s);

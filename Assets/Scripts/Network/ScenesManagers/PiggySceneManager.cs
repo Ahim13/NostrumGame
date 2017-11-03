@@ -45,7 +45,7 @@ namespace NostrumGames
             //if (Input.GetKeyDown(KeyCode.P)) Time.timeScale = Time.timeScale == Global.NormalTimeScale ? Global.PausedTimeScale : Global.NormalTimeScale;
             if (Input.GetKeyDown(KeyCode.A))
             {
-                // Debug.Log(TerrainDisplayer.Instance.TerrainManager.VertexGen.GetPreviousTerrainRuleAngle());
+                // Debug.LogError(RandomSeed.MapSeed);
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {

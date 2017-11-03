@@ -347,7 +347,7 @@ namespace Endless2DTerrain
 
         public float GetKeyVertexRandomHeight()
         {
-            return Random.Range(CurrentTerrainRule.MinimumKeyVertexHeight, CurrentTerrainRule.MaximumKeyVertexHeight);
+            return settings.SysRandom.NextFloat(CurrentTerrainRule.MinimumKeyVertexHeight, CurrentTerrainRule.MaximumKeyVertexHeight);
         }
 
         public float GetKeyVertexStepSize()
@@ -360,7 +360,7 @@ namespace Endless2DTerrain
             }
             else
             {
-                stepSize = Random.Range(CurrentTerrainRule.MinimumKeyVertexSpacing, CurrentTerrainRule.MaximumKeyVertexSpacing);
+                stepSize = settings.SysRandom.NextFloat(CurrentTerrainRule.MinimumKeyVertexSpacing, CurrentTerrainRule.MaximumKeyVertexSpacing);
             }
             return stepSize;
         }

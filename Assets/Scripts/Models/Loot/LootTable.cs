@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
 using System.Reflection;
+using System;
 
 namespace NostrumGames
 {
@@ -19,10 +19,11 @@ namespace NostrumGames
     {
         private List<PickupInfo> _pickupInfos;
 
-        [SerializeField]
         private List<Item> _items;
 
         private int _sumWeights;
+
+        private Random _random;
 
         public LootTable(List<PickupInfo> pickupInfos)
         {
@@ -31,6 +32,8 @@ namespace NostrumGames
             _items = new List<Item>();
 
             _sumWeights = this._pickupInfos.Sum(info => info.Weight);
+
+            _random = new Random();
 
             CreateItemsAndAssignItemRange();
 
@@ -79,7 +82,8 @@ namespace NostrumGames
 
         public int GetRandomNumberInt()
         {
-            return Random.Range(1, _sumWeights + 1);
+            return _random.Next(1, _sumWeights + 1);
+
         }
 
 

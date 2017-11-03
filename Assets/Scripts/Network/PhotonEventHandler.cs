@@ -26,9 +26,12 @@ namespace NostrumGames
                 PhotonPlayer sender = PhotonPlayer.Find(senderID);
                 if (sender.IsMasterClient)
                 {
+                    int[] seeds = (int[])content;
 
-                    int state = (int)content;
-                    RandomSeed.SetSeed(state);
+                    int newSeed = seeds[0];
+                    int newMapSeed = seeds[1];
+                    RandomSeed.SetSeed(newSeed);
+                    RandomSeed.SetMapSeed(newMapSeed);
                     Debug.Log("Seed arrived and set to Masters seed");
                 }
             }

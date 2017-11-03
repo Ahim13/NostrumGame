@@ -121,7 +121,11 @@ namespace NostrumGames
             SetTimescale(Global.PausedTimeScale);
 
             //if we are Masterclient then init randomSeed //FIXME: add this to custom property
-            RandomSeed.SetRandomSeed();
+            if (PhotonNetwork.isMasterClient)
+            {
+                RandomSeed.InitRandomSeed();
+            }
+
         }
         public override void OnLeftRoom()
         {
