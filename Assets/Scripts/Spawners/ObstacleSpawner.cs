@@ -40,7 +40,8 @@ namespace NostrumGames
         {
             var angle = TerrainDisplayer.Instance.TerrainManager.VertexGen.GetPreviousTerrainRuleAngle();
             SpawnPointsContainer.transform.rotation = Quaternion.Euler(0, 0, angle);
-            _poolManager.SpawnFromPoolOnRandomSpawnPoint(SpawnPoints, Vector3.up);
+            var randomRotation = new Vector3(0, 0, Random.Range(0, 360));
+            _poolManager.SpawnFromPoolOnRandomSpawnPoint(SpawnPoints, randomRotation);
         }
 
 

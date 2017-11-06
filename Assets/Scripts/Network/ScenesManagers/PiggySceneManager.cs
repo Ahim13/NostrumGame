@@ -57,7 +57,7 @@ namespace NostrumGames
             //if (Input.GetKeyDown(KeyCode.P)) Time.timeScale = Time.timeScale == Global.NormalTimeScale ? Global.PausedTimeScale : Global.NormalTimeScale;
             if (Input.GetKeyDown(KeyCode.A))
             {
-                // Debug.LogError(RandomSeed.MapSeed);
+                ObstacleSpawner.Instance.SpawnObstcle();
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {

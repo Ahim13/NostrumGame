@@ -139,11 +139,11 @@ public class PoolManager
             Debug.Log("No more free item in pool");
         }
     }
-    public void SpawnFromPoolOnRandomSpawnPoint(GameObject[] spawnPoints, Vector3 faceTo)
+    public void SpawnFromPoolOnRandomSpawnPoint(GameObject[] spawnPoints, Vector3 euler)
     {
         if (ListGameObjects.Count != 0)
         {
-            SpawnObject(spawnPoints[_random.Next(0, spawnPoints.Length)].transform.position, faceTo);
+            SpawnObject(spawnPoints[_random.Next(0, spawnPoints.Length)].transform.position, euler);
         }
         else
         {
