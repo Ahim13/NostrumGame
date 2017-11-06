@@ -26,9 +26,18 @@ namespace NostrumGames
         private int _currentRuleIndex = -1;
         private bool _shouldPause = false;
 
+        [Header("Obstcale settings")]
+        public List<LootTime> SpawnTimes;
+
+        private LootTimeTable _lootGeneric;
+        private float _time;
+        private float _spawnTime;
+        private System.Random _random;
+
         void Awake()
         {
             SetAsSingleton();
+            _random = new System.Random(RandomSeed.MapSeed);
 
             SceneManager.sceneLoaded += OnSceneFinishedLoading;
 
@@ -36,8 +45,11 @@ namespace NostrumGames
 
             AllowRocketSpawn = false;
 
-            // //TODO: do it in final version
-            // Time.timeScale = Global.PausedTimeScale;
+            _lootGeneric = new LootTimeTable(SpawnTimes);
+
+            SetRandomTime();
+            _time = 0;
+
         }
 
         void Update()
@@ -55,6 +67,32 @@ namespace NostrumGames
 
             CheckCurrentTerraintRuleIndex();
             CheckCurrentTerraintRule();
+            SpawnObstacle();
+        }
+
+        private void SpawnObstacle()
+        {
+            //Counts up
+            _time += Time.deltaTime;
+
+            //Check if its the right time to spawn the object
+            if (_time >= _spawnTime)
+            {
+                SpawnObject();
+                SetRandomTime();
+            }
+        }
+        void SpawnObject()
+        {
+            _time = 0;
+            ObstacleSpawner.Instance.SpawnObstcle();
+        }
+
+        //Sets the random time between minTime and maxTime
+        void SetRandomTime()
+        {
+            var randRange = _lootGeneric.GetRandomRange();
+            _spawnTime = _random.NextFloat(randRange.x, randRange.y);
         }
 
         public void Paused(bool paused)

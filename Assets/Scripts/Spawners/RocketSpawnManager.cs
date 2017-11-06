@@ -110,7 +110,7 @@ namespace NostrumGames
 
 #if UNITY_EDITOR
         //Show where the rockets will spawn
-        void OnDrawGizmos()
+        void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.blue;
 

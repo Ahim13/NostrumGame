@@ -593,6 +593,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   _tag: OtherPlayer
+  ConfuseIcon: {fileID: 1346354606529594}
 --- !u!114 &114971588538631962
 MonoBehaviour:
   m_ObjectHideFlags: 1

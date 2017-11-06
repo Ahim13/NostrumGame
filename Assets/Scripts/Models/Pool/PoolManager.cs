@@ -25,11 +25,14 @@ public class PoolManager
 
     private string _containerName;
 
+    private System.Random _random;
+
     public PoolManager(GameObject gameObject, string containerName, int numberOfObjectsInPool)
     {
         this._gameObject = gameObject;
         this._containerName = containerName;
         this._numberOfObjectsInPool = numberOfObjectsInPool;
+        this._random = new System.Random(RandomSeed.MapSeed);
 
         ListGameObjects = new Stack<GameObject>();
 
@@ -130,6 +133,17 @@ public class PoolManager
                 }
                 SpawnObject(faceTo, spawnPointsMin[i].transform.position, spawnPointsMax[i].transform.position);
             }
+        }
+        else
+        {
+            Debug.Log("No more free item in pool");
+        }
+    }
+    public void SpawnFromPoolOnRandomSpawnPoint(GameObject[] spawnPoints, Vector3 faceTo)
+    {
+        if (ListGameObjects.Count != 0)
+        {
+            SpawnObject(spawnPoints[_random.Next(0, spawnPoints.Length)].transform.position, faceTo);
         }
         else
         {
