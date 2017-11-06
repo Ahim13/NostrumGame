@@ -57,7 +57,7 @@ namespace NostrumGames
 
         private void ChoosePickupCompononent()
         {
-            //_randomPickup = new Shield();
+            // _randomPickup = new EasyMove();
             if (_playerManager != null)
             {
                 if (_playerManager.HasShield) _randomPickup = LootManager.Instance.GetRandomPickupFromLootTableBut(new Pickups[] { new Revive(), new Shield() });

@@ -283,6 +283,7 @@ namespace NostrumGames
             {
                 case ControllerType.Basic:
                     _rigidbody2D.gravityScale = Global.DefaultGravity;
+                    PlayerManager.ConfuseIcon.SetActive(false);
                     break;
                 case ControllerType.Reflected:
                     _rigidbody2D.gravityScale = Global.DefaultGravity * -1;

@@ -50,6 +50,8 @@ namespace NostrumGames
         private LayerMask _otherPlayersLayermask;
         [SerializeField]
         private string _tag;
+        [Header("Effect Icons")]
+        public GameObject ConfuseIcon;
 
 
 
@@ -201,6 +203,7 @@ namespace NostrumGames
         [PunRPC]
         private void MakeVisibleOnline(int shieldSize)
         {
+            EffectUIManager.Instance.ShowEffectDescription("Shiled granted", 1);
             this.gameObject.AddComponent<SpriteOutline>().outlineSize = shieldSize;
             Color myColor = new Color();
             ColorUtility.TryParseHtmlString("#33FF00FF", out myColor);
@@ -217,14 +220,17 @@ namespace NostrumGames
         [PunRPC]
         private void ActivateDarken()
         {
+            EffectUIManager.Instance.ShowEffectDescription("Darkness has come", 1);
             ShadowEffectManager.Instance.ActivateShadow();
+
         }
         [PunRPC]
         private void ActivateConfuse()
         {
-
+            EffectUIManager.Instance.ShowEffectDescription("Confused", 1);
             PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.Reflected);
             PlayerMovement.InitBasicMovement();
+            ConfuseIcon.SetActive(true);
             DOVirtual.DelayedCall(_confuseDuration, () =>
                         {
                             if (PlayerMovement.ControllType == ControllerType.Basic) return;  //if player died dont init movement again, not necessary.
@@ -235,20 +241,24 @@ namespace NostrumGames
         [PunRPC]
         private void ActivateRocketLaucher()
         {
+            EffectUIManager.Instance.ShowEffectDescription("Rockets launched", 1);
             RocketSpawnManager.Instance.SpawnRockets();
         }
         [PunRPC]
         private void ActivateTnTLaucher()
         {
+            EffectUIManager.Instance.ShowEffectDescription("TnT-s planted", 1);
             TNTSpawner.Instance.SpawnTnTs();
         }
 
         public void ActivateGainLife()
         {
+            EffectUIManager.Instance.ShowEffectDescription("Life added", 1);
             _livesCounter.AddLife();
         }
         public void ActivateEasyMovement()
         {
+            EffectUIManager.Instance.ShowEffectDescription("Easy controll", _confuseDuration);
             PlayerMovement.ChangeControllerTypeAndGravity(ControllerType.ZeroGravity);
             PlayerMovement.InitBasicMovement();
             DOVirtual.DelayedCall(_confuseDuration, () =>
@@ -258,7 +268,6 @@ namespace NostrumGames
                             PlayerMovement.InitBasicMovement();
                         });
         }
-
 
 
         #endregion
