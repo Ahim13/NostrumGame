@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine.SceneManagement;
+using Endless2DTerrain;
 
 namespace NostrumGames
 {
-    public class CameraManager : Singleton<CameraManager>
+    public class CameraManager : MonoBehaviour
     {
-        protected CameraManager() { }
+        public static CameraManager Instance;
 
         public float TerrainAngle { get; set; }
 
@@ -18,7 +20,7 @@ namespace NostrumGames
 
         [SerializeField]
         private Vector2 _cameraSpeed;
-        private Vector2 _playerSpeed;
+        // private Vector2 _playerSpeed;
         [SerializeField]
         private Transform _player;
 
@@ -33,20 +35,29 @@ namespace NostrumGames
 
         void Awake()
         {
-            _playerSpeed = new Vector2(PlayerManager.Instance.SpeedOnXAxis, 0);
+            SetAsSingleton();
+            // _playerSpeed = new Vector2(Global.PlayersSpeed, 0);
             _isInitialized = false;
         }
+        private void SetAsSingleton()
+        {
+            if (Instance == null) Instance = this;
+            else if (Instance != this) Destroy(gameObject);
+        }
+
 
         void Start()
         {
             this.FixedUpdateAsObservable()
                 .Subscribe(_ =>
                 {
+                    if (!TerrainPiece.ShouldInit) InitTargets();
                     if (_isInitialized) MoveToNextTarget(ref _currentTarget, ref _currentTargetIndex, TargetPoints);
                 })
                 .AddTo(this);
-        }
 
+            // if (!TerrainPiece.ShouldInit) InitTargets();
+        }
 
         //TODO: Change it to pooling later
         private void MoveToNextTarget(ref Transform currentTarget, ref int currentTargetIndex, List<Transform> targetPoints)
@@ -95,7 +106,12 @@ namespace NostrumGames
 
         private Vector2 GetProperSpeed(bool useManual)
         {
-            return useManual ? _cameraSpeed : _playerSpeed;
+            return useManual ? _cameraSpeed : GetPlayerSpeed();
+        }
+
+        private Vector2 GetPlayerSpeed()
+        {
+            return new Vector2(Global.PlayersSpeed, 0);
         }
 
         public void AddToTargetPoints(Transform newTarget)
@@ -109,6 +125,8 @@ namespace NostrumGames
 
         public void InitTargets()
         {
+            if (_isInitialized) return;
+
             _currentTargetIndex = _startingIndex;
             _currentTarget = TargetPoints[_currentTargetIndex];
             _isInitialized = true;

@@ -10,16 +10,10 @@ namespace NostrumGames
     public class PickupChooser : MonoBehaviour
     {
 
-        //TODO: Add every PICKUP
-        private enum Pickups
-        {
-            GiveBlur,
-            Darken,
-            Shield,
-
-        }
-
         private Pickups _randomPickup;
+
+        private Collider2D _collider;
+        private PlayerManager _playerManager;
 
 
         static T RandomEnumValue<T>()
@@ -30,15 +24,26 @@ namespace NostrumGames
 
         void Start()
         {
-            _randomPickup = RandomEnumValue<Pickups>();
+            // _randomPickup = RandomEnumValue<PickupNames>();
+            _randomPickup = LootManager.Instance.GetRandomPickupFromLootTableBut(new Pickups[] { new Revive() });
 
 
             this.OnTriggerEnter2DAsObservable()
                 .Where(col => col.tag == "Player")
                 .Subscribe(col =>
                 {
-                    if (PlayerManager.Instance.PickupList.Count == 0) AddPickupCompononent(col);
-                    else DestroyBox();
+                    var playerManager = col.GetComponent<PlayerManager>();
+                    if (playerManager.OwnedPickup == null && playerManager.IsLiving)
+                    {
+                        _collider = col;
+                        _playerManager = _collider.GetComponent<PlayerManager>();
+                        ChoosePickupCompononent();
+                    }
+                    else
+                    {
+                        Debug.Log("DestroyTheBox");
+                        DestroyBox();
+                    }
 
                 })
                 .AddTo(this);
@@ -50,27 +55,28 @@ namespace NostrumGames
             Destroy(this.gameObject);
         }
 
-        private void AddPickupCompononent(Collider2D col)
+        private void ChoosePickupCompononent()
         {
-            Component component = null;
-            _randomPickup = Pickups.Shield;
-            switch (_randomPickup)
+            // _randomPickup = new EasyMove();
+            if (_playerManager != null)
             {
-                case Pickups.Darken:
-                    component = col.gameObject.AddComponent<Darken>();
-                    break;
-                case Pickups.GiveBlur:
-                    component = col.gameObject.AddComponent<Confuse>();
-                    break;
-                case Pickups.Shield:
-                    component = col.gameObject.AddComponent<Shield>();
-                    break;
-                default:
-                    break;
+                if (_playerManager.HasShield) _randomPickup = LootManager.Instance.GetRandomPickupFromLootTableBut(new Pickups[] { new Revive(), new Shield() });
             }
 
-            PlayerManager.Instance.PickupList.Add(component);
-            Destroy(this.gameObject);
+
+            PickupUIManager.Instance.RollImagesInGame(_randomPickup, this);
+
+            DestroyBox();
+        }
+
+        public void AddPickupComponent(Pickups pickupType)
+        {
+            Component component = null;
+
+            component = _collider.gameObject.AddComponent(pickupType.GetType());
+
+            _playerManager.OwnedPickup = component;
+
         }
     }
 }

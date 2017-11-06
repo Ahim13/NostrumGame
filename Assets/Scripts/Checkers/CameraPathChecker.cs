@@ -21,9 +21,5 @@ namespace NostrumGames
 
 
         }
-        void Start()
-        {
-
-        }
     }
 }

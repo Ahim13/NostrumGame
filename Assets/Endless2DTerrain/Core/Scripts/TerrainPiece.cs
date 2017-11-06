@@ -28,8 +28,8 @@ namespace Endless2DTerrain
         //The multiple meshes the terrain is made of
         public List<MeshPiece> MeshPieces { get; set; }
 
-        private static bool _shouldInit = true;
-        private static int _initCounter = 3;
+        public static bool ShouldInit = true;
+        public static int InitCounter = 3;
 
         private const string managerName = "Terrain Manager";
 
@@ -90,28 +90,6 @@ namespace Endless2DTerrain
             //Now create the mesh
             mp.Create(origin, TerrainAngle);
 
-            if (Application.isPlaying)
-            {
-                if (_initCounter < 3)
-                {
-                    var cameraPathPoint = new GameObject("CameraPathPoint");
-                    cameraPathPoint.tag = "Path";
-                    cameraPathPoint.transform.SetParent(GameObject.Find("PathPoints").transform);
-                    cameraPathPoint.AddComponent<PathPoint>().Angle = TerrainAngle;
-                    cameraPathPoint.transform.position = mp.TopLeftCorner;
-                    cameraPathPoint.transform.position += new Vector3(0, _settings.CameraPathOffset, -25);
-                    CameraManager.Instance.AddToTargetPoints(cameraPathPoint.transform);
-                }
-
-                _initCounter -= 1;
-
-                if (_initCounter == 0 && _shouldInit)
-                {
-                    CameraManager.Instance.InitTargets();
-                    _shouldInit = false;
-                }
-            }
-
             //The first mesh could be null if we are below the minimum verticies we need to create a plane
             if (mp.MeshObject != null)
             {
@@ -150,6 +128,29 @@ namespace Endless2DTerrain
                 ParentMeshesToTerrainObject();
 
                 if (Application.isPlaying) CloneTerrainObject();
+
+                if (Application.isPlaying)
+                {
+
+                    if (InitCounter < 3)
+                    {
+                        var cameraPathPoint = new GameObject("CameraPathPoint");
+                        cameraPathPoint.tag = "Path";
+                        cameraPathPoint.transform.SetParent(GameObject.Find("PathPoints").transform);
+                        cameraPathPoint.AddComponent<PathPoint>().Angle = TerrainAngle;
+                        cameraPathPoint.transform.position = mp.TopLeftCorner;
+                        cameraPathPoint.transform.position += new Vector3(0, _settings.CameraPathOffset, -25);
+                        CameraManager.Instance.AddToTargetPoints(cameraPathPoint.transform);
+                    }
+
+                    InitCounter -= 1;
+
+                    if (InitCounter == 0 && ShouldInit)
+                    {
+                        //CameraManager.Instance.InitTargets();
+                        ShouldInit = false;
+                    }
+                }
 
             }
         }

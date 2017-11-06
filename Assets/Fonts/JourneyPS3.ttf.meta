@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: af79abfdd3f651f4b950f5d06ee56ce2
+timeCreated: 1509301309
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: JourneyPS3
+  fontNames:
+  - JourneyPS3
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

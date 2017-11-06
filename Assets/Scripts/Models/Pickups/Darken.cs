@@ -12,15 +12,12 @@ namespace NostrumGames
 
         public override PickupTypes PickupType { get { return PickupTypes.Offensive; } }
 
-
-        protected override void ActivatePickup()
+        public override void ActivatePickup()
         {
-            _activatePickup = MyInputs.Instance.ActivatePickup
-                .Subscribe(_ =>
-                {
-                    ShadowEffectManager.Instance.ActivateShadow();
-                })
-                .AddTo(this);
+            _thisPhotonView.RPC("ActivateDarken", PhotonTargets.Others);
+            Debug.Log("Darken");
+
+            Destroy(this);
         }
     }
 }

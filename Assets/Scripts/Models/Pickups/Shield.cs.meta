@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: 11b7f7cac759389459b30440aa1150f3
-timeCreated: 1499718426
+timeCreated: 1508090907
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - PickupSprite: {fileID: 21300000, guid: 03db1a73f7e7c9f4bb5d1580261ddeb3, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -2,9 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using Endless2DTerrain;
+using NostrumGames;
 
 public class TerrainDisplayer : MonoBehaviour
 {
+
+    public static TerrainDisplayer Instance;
 
     //Length of preview in design view
     public float PreviewLength;
@@ -61,7 +64,17 @@ public class TerrainDisplayer : MonoBehaviour
 
     void Awake()
     {
+        SetAsSingleton();
         Setup();
+
+        TerrainPiece.InitCounter = 3;
+        TerrainPiece.ShouldInit = true;
+    }
+
+    private void SetAsSingleton()
+    {
+        if (Instance == null) Instance = this;
+        else if (Instance != this) Destroy(gameObject);
     }
 
     public void Setup()
@@ -108,6 +121,7 @@ public class TerrainDisplayer : MonoBehaviour
             s.ClonedTerrainOffset = ClonedTerrainOffset;
             s.ClonedTerrainRotation = ClonedTerrainRotation;
             s.CameraPathOffset = CameraPathOffset;
+            s.SysRandom = new System.Random(RandomSeed.MapSeed);
 
 
             TerrainManager = new TerrainManager(s);

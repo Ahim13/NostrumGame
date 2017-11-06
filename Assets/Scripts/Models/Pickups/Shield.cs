@@ -14,30 +14,28 @@ namespace NostrumGames
 
         public override PickupTypes PickupType { get { return PickupTypes.Defensive; } }
 
-        protected override void ActivatePickup()
+        public override void ActivatePickup()
         {
-            _activatePickup = MyInputs.Instance.ActivatePickup
-                .Subscribe(_ =>
-                {
-                    MakeShieldVisible();
-                    SetPlayerHasShield();
+            Debug.Log("Shield");
+            SetPlayerHasShield(true);
+            MakeShieldVisible();
 
-                    Destroy(this);
-                    _activatePickup.Dispose();
-                });
+            Destroy(this);
         }
 
-        private void SetPlayerHasShield()
+        private void SetPlayerHasShield(bool hasShield)
         {
-            PlayerManager.Instance.HasShield = true;
+            _playerManager.HasShield = hasShield;
         }
 
         private void MakeShieldVisible()
         {
-            this.gameObject.AddComponent<SpriteOutline>().outlineSize = ShieldSize;
-            Color myColor = new Color();
-            ColorUtility.TryParseHtmlString("#33FF00FF", out myColor);
-            this.GetComponent<SpriteOutline>().color = myColor;
+            // this.gameObject.AddComponent<SpriteOutline>().outlineSize = ShieldSize;
+            // Color myColor = new Color();
+            // ColorUtility.TryParseHtmlString("#33FF00FF", out myColor);
+            // this.GetComponent<SpriteOutline>().color = myColor;
+
+            _thisPhotonView.RPC("MakeVisibleOnline", PhotonTargets.All, ShieldSize);
         }
     }
 }

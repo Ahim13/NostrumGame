@@ -9,7 +9,7 @@ namespace Endless2DTerrain
     [Serializable]
     public class TerrainRule
     {
-   
+
         public enum TerrainStyle
         {
             Repeated = 0,
@@ -18,8 +18,8 @@ namespace Endless2DTerrain
 
         public enum TerrainLength
         {
-            Infinite = 0,        
-            Fixed = 1      
+            Infinite = 0,
+            Fixed = 1
         }
 
         //Determine what pattern we want to use to generate the terrain
@@ -38,7 +38,7 @@ namespace Endless2DTerrain
 
         //How far apart do we space our calculated verticies?
         public float CalculatedVertexSpacing;
-   
+
         //Only applies if this is a fixed rule type.  How long to run the rule
         public float RuleLength;
 

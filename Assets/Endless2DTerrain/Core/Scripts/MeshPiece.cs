@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using NostrumGames;
 
 
 namespace Endless2DTerrain
@@ -86,7 +87,7 @@ namespace Endless2DTerrain
         public Vector3 TopLeftCorner
         {
             get
-            {
+            {//errorFIXME:
                 return RotatedPlaneVerticies[1];
             }
         }
@@ -397,6 +398,7 @@ namespace Endless2DTerrain
         {
             MeshObject = new GameObject("MeshPiece");
             MeshObject.tag = "Map";
+            MeshObject.layer = Global.MapMask;
             if (PlaneType == Plane.Detail) MeshObject.name = "Detail";
             if (PlaneType == Plane.Bottom) MeshObject.name = "Bottom";
             if (PlaneType == Plane.Front) MeshObject.name = "Front";
