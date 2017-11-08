@@ -12,6 +12,7 @@ namespace NostrumGames
 
         public override void ActivatePickup()
         {
+            AudioManager.Instance.PlaySound(Global.RocketLaunch);
             _thisPhotonView.RPC("ActivateRocketLaucher", PhotonTargets.Others);
             Destroy(this);
         }

@@ -52,7 +52,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12beb9963959cda4e9b90ab3b947bb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsInUse: 0
-  ExplosionParticle: {fileID: 0}
+  ExplosionParticle: {fileID: 198651112631398744, guid: 2b1a096b50c860e4dbdb712d37630cba,
+    type: 2}
   DistanceOnXAllowedFromViewport: -0.5
 --- !u!212 &212213536247507746
 SpriteRenderer:

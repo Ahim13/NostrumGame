@@ -50,6 +50,8 @@ namespace NostrumGames
             SetRandomTime();
             _time = 0;
 
+            ChangeMusic();
+
         }
 
         void Update()
@@ -173,6 +175,12 @@ namespace NostrumGames
         {
             RoomManager.Instance.LeaveRoom();
             SceneManager.LoadScene("Lobby");
+        }
+
+        private void ChangeMusic()
+        {
+            AudioManager.Instance.StopSound(Global.MenuMusic);
+            AudioManager.Instance.PlaySound(Global.GameMusic);
         }
 
     }

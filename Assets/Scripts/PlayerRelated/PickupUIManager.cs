@@ -118,6 +118,8 @@ namespace NostrumGames
             var lerpedDelay = 0.0f;
             var delayFrom = 0.0f;
 
+            AudioManager.Instance.PlaySound(Global.SlotMachine);
+
             while (countDown >= 0)
             {
 
@@ -140,6 +142,8 @@ namespace NostrumGames
             }
 
             pickupImage.sprite = _pickups.Where(pickup => pickup.GetType() == chosenPickup.GetType()).Single().PickupSprite;
+            AudioManager.Instance.StopSound(Global.SlotMachine);
+            AudioManager.Instance.PlaySound(Global.PrizeWinning);
 
             if (onDeadUI) _useItemGO.GetComponent<Button>().interactable = true;
             else pickupChooser.AddPickupComponent(chosenPickup);

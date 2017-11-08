@@ -132,6 +132,9 @@ namespace NostrumGames
             Debug.Log("Left room");
             if (PlayerListingManager.Instance != null) PlayerListingManager.Instance.RemoveAllPlayerTab();
 
+            AudioManager.Instance.StopSound(Global.GameMusic);
+            AudioManager.Instance.PlaySound(Global.MenuMusic);
+
             SetTimescale(Global.NormalTimeScale);
             //UIManager.Instance.SwapListViewToRoomView();
         }

@@ -16,6 +16,7 @@ namespace NostrumGames
     {
         public static OpeningSceneManager Instance;
 
+        [Header("UI Elements")]
         [SerializeField]
         private TMP_InputField _playerNameInput;
         [SerializeField]
@@ -24,6 +25,10 @@ namespace NostrumGames
         private TextMeshProUGUI _connectingText;
         [SerializeField]
         private TextMeshProUGUI _badNameWarningText;
+        [SerializeField]
+        private GameObject _panel;
+        [SerializeField]
+        private GameObject _langaugePanel;
 
         public string LobbySceneName;
         void Awake()
@@ -33,7 +38,13 @@ namespace NostrumGames
             _connectingText.gameObject.SetActive(true);
             ApplicationSettings.IsStarted = false;
 
+
+
             SetButtonSubscription();
+        }
+        void Start()
+        {
+            PlayMenuMusic();
         }
 
 
@@ -56,6 +67,7 @@ namespace NostrumGames
         {
             if (NameValidation())
             {
+                AudioManager.Instance.PlaySound(Global.Gong);
                 ApplicationSettings.IsStarted = true;
                 LobbyManager.Instance.ConnectToLobby();
                 OpeningSceneManager.Instance.SetLocalPlayerName();
@@ -91,6 +103,23 @@ namespace NostrumGames
                 .Where(_ => (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
                 .Subscribe(_ => _buttonStart.onClick.Invoke())
                 .AddTo(this);
+        }
+
+        public void SwitchlanguageAndMainPanel()
+        {
+            _panel.SetActive(!_panel.activeSelf);
+            _langaugePanel.SetActive(!_panel.activeSelf);
+        }
+
+        public void PlayMenuMusic()
+        {
+            AudioManager.Instance.PlaySound(Global.MenuMusic);
+        }
+
+        public void SoundOnOff(bool on)
+        {
+            if (on) AudioManager.Instance.MuteSounds();
+            else AudioManager.Instance.UnMuteSounds();
         }
     }
 }

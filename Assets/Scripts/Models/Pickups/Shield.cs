@@ -30,10 +30,6 @@ namespace NostrumGames
 
         private void MakeShieldVisible()
         {
-            // this.gameObject.AddComponent<SpriteOutline>().outlineSize = ShieldSize;
-            // Color myColor = new Color();
-            // ColorUtility.TryParseHtmlString("#33FF00FF", out myColor);
-            // this.GetComponent<SpriteOutline>().color = myColor;
 
             _thisPhotonView.RPC("MakeVisibleOnline", PhotonTargets.All, ShieldSize);
         }

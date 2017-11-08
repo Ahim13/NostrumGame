@@ -12,12 +12,18 @@ namespace NostrumGames
     {
         public static PhotonPlayerManager Instance;
 
+
         public PhotonPlayer LocalPlayer { get { return PhotonNetwork.player; } }
         public PhotonPlayer[] PlayerList { get { return PhotonNetwork.playerList; } }
         public bool IsLocalMaster { get { return PhotonNetwork.isMasterClient; } }
 
         private static int PlayersInGame = 0;
         private PhotonView _photonView;
+
+
+        public double StartTime = Double.PositiveInfinity;
+        public double StartDelay = 2;
+        private bool _started = false;
 
         public static void Reset()
         {
@@ -60,6 +66,12 @@ namespace NostrumGames
             PlayerSettings.Instance.SetPlayerProperties(customPropHash);
         }
 
+        void Update()
+        {
+            if (_started) return;
+            if (PhotonNetwork.time >= StartTime) RPC_StartCountBack();
+        }
+
         #region RPC Calls
 
         [PunRPC]
@@ -72,13 +84,19 @@ namespace NostrumGames
             {
                 PhotonNetwork.room.SaveNumberOfPlayersToRoomSettings(PlayersInGame);
 
+                byte eventCode = (byte)PhotonEvents.StartTime;
+                bool reliable = true;
+                RaiseEventOptions options = new RaiseEventOptions();
+                options.Receivers = ReceiverGroup.All;
 
-                _photonView.RPC("RPC_StartCountBack", PhotonTargets.AllViaServer);
+                PhotonNetwork.RaiseEvent(eventCode, PhotonNetwork.time + StartDelay, reliable, options);
+                //_photonView.RPC("RPC_StartCountBack", PhotonTargets.AllViaServer);
             }
         }
         [PunRPC]
         private void RPC_StartCountBack()
         {
+            _started = true;
             PiggySceneManager.Instance.StartCountBack();
         }
 

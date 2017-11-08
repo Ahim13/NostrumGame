@@ -52,12 +52,13 @@ namespace NostrumGames
 
         private void DestroyBox()
         {
+            AudioManager.Instance.PlaySound(Global.CrateBreak);
             Destroy(this.gameObject);
         }
 
         private void ChoosePickupCompononent()
         {
-            // _randomPickup = new EasyMove();
+            // _randomPickup = new Confuse();
             if (_playerManager != null)
             {
                 if (_playerManager.HasShield) _randomPickup = LootManager.Instance.GetRandomPickupFromLootTableBut(new Pickups[] { new Revive(), new Shield() });

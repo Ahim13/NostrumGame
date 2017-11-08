@@ -8,7 +8,7 @@ namespace NostrumGames
     {
         SeedSent,
         GameOver,
-        TimeSet
+        StartTime
     }
 
     public class PhotonEventHandler : MonoBehaviour
@@ -17,6 +17,7 @@ namespace NostrumGames
         {
             PhotonNetwork.OnEventCall += this.OnSeedArrived;
             PhotonNetwork.OnEventCall += this.OnGameOver;
+            PhotonNetwork.OnEventCall += this.OnStartTime;
         }
 
         private void OnSeedArrived(byte eventCode, object content, int senderID)
@@ -48,6 +49,15 @@ namespace NostrumGames
 
                 // NetworkSceneManager.Instance.LoadScene(Scenes.PiggyLeaderBoard);
                 StartCoroutine(LoadLeaderboards());
+            }
+        }
+        private void OnStartTime(byte eventCode, object content, int senderID)
+        {
+            if (eventCode == (byte)PhotonEvents.StartTime)
+            {
+                var photonTime = PhotonNetwork.time;
+                var masterTime = (double)content;
+                PhotonPlayerManager.Instance.StartTime = masterTime;
             }
         }
 
