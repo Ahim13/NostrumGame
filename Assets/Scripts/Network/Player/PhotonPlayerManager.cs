@@ -23,7 +23,7 @@ namespace NostrumGames
 
         public double StartTime = Double.PositiveInfinity;
         public double StartDelay = 2;
-        private bool _started = false;
+        public static bool Started = false;
 
         public static void Reset()
         {
@@ -68,7 +68,7 @@ namespace NostrumGames
 
         void Update()
         {
-            if (_started) return;
+            if (Started) return;
             if (PhotonNetwork.time >= StartTime) RPC_StartCountBack();
         }
 
@@ -96,7 +96,7 @@ namespace NostrumGames
         [PunRPC]
         private void RPC_StartCountBack()
         {
-            _started = true;
+            Started = true;
             PiggySceneManager.Instance.StartCountBack();
         }
 

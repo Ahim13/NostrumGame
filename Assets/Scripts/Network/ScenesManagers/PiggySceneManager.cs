@@ -37,6 +37,7 @@ namespace NostrumGames
         void Awake()
         {
             SetAsSingleton();
+            PhotonPlayerManager.Started = false;
             _random = new System.Random(RandomSeed.MapSeed);
 
             SceneManager.sceneLoaded += OnSceneFinishedLoading;

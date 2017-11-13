@@ -24,6 +24,14 @@ namespace NostrumGames
             }
         }
 
+        void Update()
+        {
+            if (Time.frameCount % 10 != 0) return;
+            if (Camera.main.WorldToViewportPoint(transform.position).x < DistanceOnXAllowedFromViewport)
+            {
+                this.gameObject.Despawn();
+            }
+        }
         #endregion
     }
 }

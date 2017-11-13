@@ -1101,7 +1101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartTime: Infinity
-  StartDelay: 1
+  StartDelay: 5
+  Time: 0
 --- !u!114 &717358552
 MonoBehaviour:
   m_ObjectHideFlags: 0
